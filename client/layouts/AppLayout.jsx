@@ -4,8 +4,8 @@ import { Toaster } from "react-hot-toast";
 
 function AppLayout() {
   return (
-    <div>
-      <Navbar />
+    <div className="">
+      <Navbar/>
       <Toaster />
       <Outlet />
     </div>

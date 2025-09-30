@@ -1,18 +1,11 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useRef, useState } from "react";
-import AuthModal from "../modal/AuthModal";
+import { useRef } from "react";
 
 const Navbar = () => {
   const authref = useRef();
-  const [loginStt, setLoginStt] = useState(false);
 
   return (
     <>
-      <AuthModal
-        reference={authref}
-        authSttFn={setLoginStt}
-        authStt={loginStt}
-      />
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm py-3 fixed-top w-100">
         <div className="container-fluid">
           <a className="navbar-brand d-flex align-items-center" href="/">
@@ -44,36 +37,25 @@ const Navbar = () => {
             <ul className="navbar-nav align-items-lg-center">
               <li className="nav-item mx-2">
                 <button
+                  className="btn btn-light px-3"
+                  onClick={() => {
+                    setLoginStt(true);
+                    authref.current.showModal();
+                  }}
+                >
+                  Purchase
+                </button>
+              </li>
+              <li className="nav-item mx-2">
+                <button
                   className="btn btn-outline-light px-3"
                   onClick={() => {
                     setLoginStt(true);
                     authref.current.showModal();
                   }}
                 >
-                  Login
+                  Logout
                 </button>
-              </li>
-              <li className="nav-item mx-2">
-                <button
-                  onClick={() => {
-                    setLoginStt(false);
-                    authref.current.showModal();
-                  }}
-                  className="btn btn-warning text-dark px-3 fw-semibold"
-                >
-                  Sign Up
-                </button>
-              </li>
-              <li className="nav-item mx-2">
-                <a
-                  className="nav-link position-relative text-light fw-semibold"
-                  href="/cart"
-                >
-                  🛒 Cart
-                  <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                    3
-                  </span>
-                </a>
               </li>
             </ul>
           </div>
