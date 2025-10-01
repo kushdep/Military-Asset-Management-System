@@ -1,13 +1,22 @@
 import { useActionState } from "react";
 import toast from "react-hot-toast";
 import axios from 'axios'
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { authActions } from "../store/auth-slice";
 
 function LoginPage() {
   const [formState, formFn, isPending] = useActionState(action, {
     email: null,
     errors:[]
   });
+    const { isAuthenticated, token,role } = useSelector((state) => state.authData);
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
+  console.log(isAuthenticated)
+  console.log(token)
+  console.log(role)
    async function action(currentState, formData) {
     try {
       const email = formData.get("email");
@@ -23,7 +32,8 @@ function LoginPage() {
         console.log(response);
         if (response.status === 200) {
           toast.success("Logged In");
-        //   navigate("/rent-locs");
+          dispatch(authActions.loginSuccess({ token: response.data.token,role:response.data.role }))
+          navigate("/dashboard");
         }
       } catch (error) {
         let err = [];

@@ -1,10 +1,14 @@
 import mongoose from "mongoose"
 
 const baseSchema = new mongoose.Schema({
-    BaseNo: {
+    baseId: {
         type: Number,
         required: true,
         unique: true
+    },
+    baseName: {
+        type: String,
+        required: true,
     },
     inventory: {
         Vehicle: [{
@@ -29,6 +33,14 @@ const baseSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Transfer'
         }]
+    },
+    baseComm:{
+        type:String,
+        required:true
+    },
+    lgstcOff:{
+        type:String,
+        required:true
     },
     sldrs: [{
         sId: {

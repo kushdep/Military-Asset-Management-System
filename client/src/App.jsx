@@ -1,24 +1,32 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import AppLayout from "../layouts/AppLayout";
-import Dashboard from "../pages/Dashboard";
-import LoginPage from "../components/LoginPage";
-import PurchasePage from "../pages/PurchasePage";
+import {
+  RouterProvider,
+  createBrowserRouter,
+} from "react-router-dom";
+import AppLayout from "./layouts/AppLayout";
+import Dashboard from "./pages/Dashboard";
+import LoginPage from "./pages/LoginPage";
+import PurchasePage from "./pages/PurchasePage";
+import LoginRoute from "./auth-routes/LoginRoute";
+import DashRoute from "./auth-routes/DashRoute";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    children: [
-      { path: "login", element: <LoginPage /> },
-    ],
+    element: <LoginRoute />,
   },
+  { path: "login", element: <LoginPage /> },
   {
     path: "/dashboard",
-    element: <AppLayout />,
+    element: (
+      <DashRoute>
+        <AppLayout />
+      </DashRoute>
+    ),
     children: [
       { path: "", element: <Dashboard /> },
       { path: "purchase", element: <PurchasePage /> },
     ],
-  }
+  },
 ]);
 function App() {
   return <RouterProvider router={router} />;

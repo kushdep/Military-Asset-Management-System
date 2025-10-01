@@ -14,11 +14,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    base: {
-        type: String,
-        required: true,
-    },
-    userType: {
+    role: {
         type: String,
         required: true,
         enum:['AD','LGOF','COM']
