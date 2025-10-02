@@ -6,11 +6,11 @@ const baseSlice = createSlice({
     initialState: {
         baseIds: [],
         actvId: {},
-        invtry: [],
+        invtry: {},
         purchsData: [],
         sldrsData: [],
         TINdata: [],
-        TOUTdata: []
+        TOUTdata: [],
     },
     reducers: {
         addIds(state, action) {
@@ -84,6 +84,7 @@ const baseSlice = createSlice({
                 console.error("Error in addIds() " + error)
             }
         },
+
     }
 })
 
@@ -114,19 +115,12 @@ export const getBaseData = (token, id) => {
                 dispatch(baseActions.resetBaseData({ id }))
                 return
             }
-            console.log("1")
             dispatch(baseActions.setActId({ id: baseData.baseId, name: baseData.baseName }))
-            console.log("2")
             dispatch(baseActions.addInvtData({ invtry: baseData.inventory }))
-            console.log("3")
             dispatch(baseActions.addTINData({ TINdata: baseData.tsfrAst.IN }))
-            console.log("4")
             dispatch(baseActions.addTOUTData({ TOUTdata: baseData.tsfrAst.OUT }))
-            console.log("5")
             dispatch(baseActions.addSldrData({ sldrsData: baseData.sldrs }))
-            console.log("6")
             dispatch(baseActions.addPurcData({ purchsData: baseData.purchase }))
-            console.log("7")
         } catch (error) {
             console.error("Error while Getting Data")
         }

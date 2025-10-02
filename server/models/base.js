@@ -37,17 +37,17 @@ const baseSchema = new mongoose.Schema({
             ref: 'Transfer'
         }]
     },
-    purchase:[{
+    purchase: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Purchase'
     }],
-    baseComm:{
-        type:String,
-        required:true
+    baseComm: {
+        type: String,
+        required: true
     },
-    lgstcOff:{
-        type:String,
-        required:true
+    lgstcOff: {
+        type: String,
+        required: true
     },
     sldrs: [{
         sId: {
@@ -68,11 +68,23 @@ const baseSchema = new mongoose.Schema({
             required: true,
             enum: ['M', 'F']
         },
-        asndAst: [
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'Asset'
-            }
+        asndAst: [{
+            sldrId: {
+                type: String,
+                required: true
+            },
+            asndDate: {
+                type: Date,
+                required: true
+            },
+            asgnAst: [{
+                astId: {
+                    type: mongoose.Schema.Types.ObjectId,
+                    required: true
+                },
+                qty: { type: Number, required: true }
+            }]
+        }
         ]
     }]
 }, { timestamps: true })

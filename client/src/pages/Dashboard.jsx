@@ -38,7 +38,7 @@ function Dashboard() {
                     if (e.target.value > 0) {
                       console.log("calling");
                       dispatch(getBaseData(token, e.target.value));
-                      navigate(`/dashboard/${e.target.value}/purchase`);
+                      navigate(`/dashboard/${e.target.value}/assign`);
                     }
                   }}
                 >

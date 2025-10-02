@@ -1,5 +1,4 @@
 import mongoose from "mongoose"
-import "./asset.js"
 import "./base.js"
 import "./transfer.js"
 
@@ -20,6 +19,10 @@ const assetSchema = new mongoose.Schema({
     },
     qty: {
         type: Number,
+        required: true,
+    },
+    metric:{
+        type: String,
         required: true,
     },
     ownedBy: {

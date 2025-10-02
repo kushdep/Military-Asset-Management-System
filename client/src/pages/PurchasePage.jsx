@@ -112,6 +112,7 @@ function PurchasePage() {
                   <th scope="col">Price</th>
                   <th scope="col">Total</th>
                   <th scope="col">Purchase Date</th>
+                  <th scope="col">Purchase Time</th>
                 </tr>
               </thead>
               <tbody className="table-group-divider border">
@@ -140,6 +141,9 @@ function PurchasePage() {
                         }
                       }
                     }
+                    const createdTime = new Date(purchs.createdAt).toISOString() 
+                    const purDate=createdTime.slice(0,10)
+                    const timeStamp=createdTime.slice(11,createdTime.length)
                     return (
                       <tr key={p._id}>
                         <th scope="row">{sno++}</th>
@@ -148,9 +152,8 @@ function PurchasePage() {
                         <td>{p.pcngDtls.qty}</td>
                         <td>{p.asset.price}</td>
                         <td>{p.pcngDtls.ttlAmt}</td>
-                        <td>
-                          {new Date(purchs.createdAt).toLocaleDateString()}
-                        </td>
+                        <td>{purDate}</td>
+                        <td>{timeStamp}</td>
                       </tr>
                     );
                   })

@@ -5,6 +5,7 @@ import LoginPage from "./pages/LoginPage";
 import PurchasePage from "./pages/PurchasePage";
 import LoginRoute from "./auth-routes/LoginRoute";
 import DashRoute from "./auth-routes/DashRoute";
+import AssignAsset from "./pages/AssignAsset";
 
 const router = createBrowserRouter([
   {
@@ -26,7 +27,8 @@ const router = createBrowserRouter([
         children: [
           { path: "", element: <Dashboard /> },
           { path: "purchase", element: <PurchasePage /> },
-          { path: "assign", element: <PurchasePage /> },
+          { path: "assign", element: <AssignAsset/> },
+          { path: "expenditure", element: <AssignAsset/> },
         ],
       },
     ],
