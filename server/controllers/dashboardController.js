@@ -28,6 +28,57 @@ export const getALLBaseData = async (req, res) => {
 }
 
 
+export const asgnBaseAst = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const {sldrId,asgnAstIds} = req.body;
+    console.log(sldrId)
+    console.log(asgnAstIds)
+
+    const astIds = asgnAstIds.map((e)=>e.astId)
+    console.log(astIds)
+
+    const baseDoc = await Base.findOne({ baseId: id });
+    if (!baseDoc) {
+      return res.status(400).send({
+        success: false,
+        message: 'Base Not Found'
+      });
+    }
+    
+    if(baseDoc.asgnAst.length!==0){
+        
+    }else{
+        console.log("inside else")
+        baseDoc.asgnAst.push({sldrId,asgnAstIds})
+    }
+    
+    const updBase = await baseDoc.save()
+    if (!updBase) {
+      return res.status(400).send({
+        success: false,
+        message: 'Unable to update'
+      });
+    }
+
+
+
+    return res.status(200).send({
+      success: true,
+      data: baseDoc,
+      message: 'Base Details Updated'
+    });
+
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send({
+      success: false,
+      message: error.message
+    });
+  }
+};
+
+
 export const getIdvlBaseData = async (req, res) => {
     try {
         const { id } = req.params

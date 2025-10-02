@@ -68,25 +68,25 @@ const baseSchema = new mongoose.Schema({
             required: true,
             enum: ['M', 'F']
         },
-        asndAst: [{
-            sldrId: {
-                type: String,
+    }],
+    asgnAst: [{
+        sldrId: {
+            type: String,
+            required: true
+        },
+        asgnAstIds: [{
+            astId: {
+                type: mongoose.Schema.Types.ObjectId,
                 required: true
             },
+            qty: { type: Number, required: true },
             asndDate: {
                 type: Date,
                 required: true
             },
-            asgnAst: [{
-                astId: {
-                    type: mongoose.Schema.Types.ObjectId,
-                    required: true
-                },
-                qty: { type: Number, required: true }
-            }]
-        }
-        ]
-    }]
+        }]
+    }
+    ]
 }, { timestamps: true })
 
 const Base = mongoose.model('Base', baseSchema)

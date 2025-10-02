@@ -2,18 +2,58 @@ import { useState } from "react";
 import { createPortal } from "react-dom";
 import { useSelector } from "react-redux";
 import { itemType } from "../../config";
+import toast from "react-hot-toast";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 
 function AssignmentModal({ reference, sldr }) {
   const { invtry } = useSelector((state) => state.baseData);
-
   const [actvAsst, setactvAsst] = useState({ code: "VCL", name: "Vehicle" });
   const [asgnAst, setAsgnAst] = useState({
     Vehicle: [],
     Ammunition: [],
     Weapons: [],
   });
+  console.log(sldr)
+    const {id} = useParams()
   const [selectedQty, setSelectedQty] = useState({});
 
+  async function AddAsgnData() {
+    const asgnAstData = Object.values(asgnAst).flatMap((arr) =>
+      arr.map((item) => ({ astId: item.id, qty: item.qty,asndDate: new Date()}))
+    );
+
+    const body = {
+      sldrId: sldr.id,
+      asgnAstIds:asgnAstData,
+    };
+    console.log(body);
+    const token = localStorage.getItem('token')
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_SERVER_URL}/dashboard/${id}/assign-asset`,
+        body,
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if(response.status === 200) {
+        toast.success('Asset Assigned Successfully')
+      }
+      if(response.status === 400) {
+        toast.error('Something went wrong')
+        return 
+      }
+    } catch (error) {
+       if (error.response.status === 500) {
+        toast.error("Something went wrong");
+      }
+      return 
+    }
+    reference.current.close();
+  }
   console.log(asgnAst);
 
   return createPortal(
@@ -50,16 +90,16 @@ function AssignmentModal({ reference, sldr }) {
 
         <div className="row">
           <div className="col">
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-              }}
-            >
-              <div className="modal-dialog-scrollable">
-                <div className="container border mb-3 rounded-4 shadow-sm">
-                  <div className="row d-flex justify-content-center">
-                    <div className="col p-3">
-                      {invtry[actvAsst.name]?.map((iv) => (
+            <div className="modal-dialog-scrollable">
+              <div className="container border mb-3 rounded-4 shadow-sm">
+                <div className="row d-flex justify-content-center">
+                  <div className="col p-3">
+                    {invtry[actvAsst.name]?.map((iv) => {
+                      const exstng = asgnAst[actvAsst.name].some(
+                        (i) => i.id === iv._id
+                      );
+                      console.log(exstng);
+                      return (
                         <div
                           key={iv._id}
                           className="border rounded-3 p-3 mb-3 d-flex align-items-center justify-content-between"
@@ -86,13 +126,14 @@ function AssignmentModal({ reference, sldr }) {
                               }
                             >
                               <option value="">Select</option>
-                              {Array.from({ length: iv.qty }, (_, i) => i + 1).map(
-                                (n) => (
-                                  <option key={n} value={n}>
-                                    {n}
-                                  </option>
-                                )
-                              )}
+                              {Array.from(
+                                { length: iv.qty },
+                                (_, i) => i + 1
+                              ).map((n) => (
+                                <option key={n} value={n}>
+                                  {n}
+                                </option>
+                              ))}
                             </select>
                             <label>Qty</label>
                           </div>
@@ -103,7 +144,9 @@ function AssignmentModal({ reference, sldr }) {
                               className="btn btn-success"
                               onClick={() => {
                                 if (!selectedQty[iv._id]) {
-                                  alert("Please select a quantity before adding.");
+                                  toast.error(
+                                    "Please select a quantity before adding."
+                                  );
                                   return;
                                 }
 
@@ -120,45 +163,48 @@ function AssignmentModal({ reference, sldr }) {
                                 }));
                               }}
                             >
-                              Add
+                              {exstng ? "Save" : "Add"}
                             </button>
 
-                            <button
-                              type="button"
-                              className="btn btn-secondary"
-                              onClick={() => {
-                                setAsgnAst((prev) => ({
-                                  ...prev,
-                                  [actvAsst.name]: prev[actvAsst.name].filter(
-                                    (item) => item.id !== iv._id
-                                  ),
-                                }));
-                                setSelectedQty((prev) => {
-                                  const updated = { ...prev };
-                                  delete updated[iv._id];
-                                  return updated;
-                                });
-                              }}
-                            >
-                              Cancel
-                            </button>
+                            {exstng && (
+                              <button
+                                type="button"
+                                className="btn btn-secondary"
+                                onClick={() => {
+                                  setAsgnAst((prev) => ({
+                                    ...prev,
+                                    [actvAsst.name]: prev[actvAsst.name].filter(
+                                      (item) => item.id !== iv._id
+                                    ),
+                                  }));
+                                  setSelectedQty((prev) => {
+                                    const updated = { ...prev };
+                                    delete updated[iv._id];
+                                    return updated;
+                                  });
+                                }}
+                              >
+                                Cancel
+                              </button>
+                            )}
                           </div>
                         </div>
-                      ))}
-                    </div>
+                      );
+                    })}
+                  </div>
 
-                    <div className="text-center">
-                      <button
-                        type="submit"
-                        className="btn w-50 fw-semibold btn-primary rounded-pill shadow-sm mb-3"
-                      >
-                        Assign
-                      </button>
-                    </div>
+                  <div className="text-center">
+                    <button
+                      className="btn w-50 fw-semibold btn-primary rounded-pill shadow-sm mb-3"
+                      onClick={AddAsgnData}
+                      disabled={asgnAst[actvAsst.name].length === 0}
+                    >
+                      Assign
+                    </button>
                   </div>
                 </div>
               </div>
-            </form>
+            </div>
           </div>
         </div>
       </div>
