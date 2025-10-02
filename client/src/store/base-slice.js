@@ -5,15 +5,12 @@ const baseSlice = createSlice({
     name: 'base',
     initialState: {
         baseIds: [],
-        baseData: [],
-        filter: {
-            guestCap: null,
-            priceRange: {
-                ind: null,
-                range: ''
-            }
-        },
-
+        actvId: {},
+        invtry: [],
+        purchsData: [],
+        sldrsData: [],
+        TINdata: [],
+        TOUTdata: []
     },
     reducers: {
         addIds(state, action) {
@@ -24,8 +21,117 @@ const baseSlice = createSlice({
                 console.error("Error in addIds() " + error)
             }
         },
+        setActId(state, action) {
+            try {
+                const { id = null, name = '' } = action.payload
+                state.actvId = { id, name }
+            } catch (error) {
+                console.error("Error in addIds() " + error)
+            }
+        },
+        addInvtData(state, action) {
+            try {
+                const { invtry = [] } = action.payload
+                state.invtry = invtry
+            } catch (error) {
+                console.error("Error in addIds() " + error)
+            }
+        },
+        addTINData(state, action) {
+            try {
+                const { TINdata = [] } = action.payload
+                state.TINdata = TINdata
+            } catch (error) {
+                console.error("Error in addIds() " + error)
+            }
+        },
+        addTOUTData(state, action) {
+            try {
+                const { TOUTdata = [] } = action.payload
+                state.TOUTdata = TOUTdata
+            } catch (error) {
+                console.error("Error in addIds() " + error)
+            }
+        },
+        addSldrData(state, action) {
+            try {
+                const { sldrsData = [] } = action.payload
+                state.sldrsData = sldrsData
+            } catch (error) {
+                console.error("Error in addIds() " + error)
+            }
+        },
+        addPurcData(state, action) {
+            try {
+                console.log(action.payload)
+                const { purchsData = [] } = action.payload
+                state.purchsData = purchsData
+                console.log(state.purchsData)
+            } catch (error) {
+                console.error("Error in addIds() " + error)
+            }
+        },
+        resetBaseData(state, action) {
+            try {
+                const { id = null } = action.payload
+                state.actvId = id
+                state.TINdata = []
+                state.TOUTdata = []
+                state.invtry = [],
+                    state.purchsData = []
+                state.sldrsData = []
+            } catch (error) {
+                console.error("Error in addIds() " + error)
+            }
+        },
     }
 })
+
+export const getBaseData = (token, id) => {
+    return async (dispatch, getState) => {
+        const getData = async () => {
+            const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/dashboard/${id}`, {
+                headers: {
+                    authorization: `Bearer ${token}`
+                }
+            });
+            console.log(response)
+            if (response.status === 400) {
+                return {};
+            }
+            if (response.status === 500) {
+                return {}
+            };
+            if (response.status === 200) {
+                const resData = response.data.data
+                return resData
+            }
+        }
+        try {
+            const baseData = await getData()
+            console.log(baseData)
+            if (Object.keys(baseData).length === 0) {
+                dispatch(baseActions.resetBaseData({ id }))
+                return
+            }
+            console.log("1")
+            dispatch(baseActions.setActId({ id: baseData.baseId, name: baseData.baseName }))
+            console.log("2")
+            dispatch(baseActions.addInvtData({ invtry: baseData.inventory }))
+            console.log("3")
+            dispatch(baseActions.addTINData({ TINdata: baseData.tsfrAst.IN }))
+            console.log("4")
+            dispatch(baseActions.addTOUTData({ TOUTdata: baseData.tsfrAst.OUT }))
+            console.log("5")
+            dispatch(baseActions.addSldrData({ sldrsData: baseData.sldrs }))
+            console.log("6")
+            dispatch(baseActions.addPurcData({ purchsData: baseData.purchase }))
+            console.log("7")
+        } catch (error) {
+            console.error("Error while Getting Data")
+        }
+    }
+}
 
 export const getBaseIds = (token) => {
     return async (dispatch, getState) => {
@@ -35,7 +141,10 @@ export const getBaseIds = (token) => {
                     authorization: `Bearer ${token}`
                 }
             });
-            if (response.status === 204) {
+            if (response.status === 400) {
+                return [];
+            }
+            if (response.status === 403) {
                 return [];
             }
             if (response.status === 500) {
@@ -55,6 +164,7 @@ export const getBaseIds = (token) => {
         }
     }
 }
+
 
 
 

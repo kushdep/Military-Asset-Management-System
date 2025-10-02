@@ -1,7 +1,4 @@
-import {
-  RouterProvider,
-  createBrowserRouter,
-} from "react-router-dom";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import AppLayout from "./layouts/AppLayout";
 import Dashboard from "./pages/Dashboard";
 import LoginPage from "./pages/LoginPage";
@@ -24,7 +21,14 @@ const router = createBrowserRouter([
     ),
     children: [
       { path: "", element: <Dashboard /> },
-      { path: "purchase", element: <PurchasePage /> },
+      {
+        path: ":id",
+        children: [
+          { path: "", element: <Dashboard /> },
+          { path: "purchase", element: <PurchasePage /> },
+          { path: "assign", element: <PurchasePage /> },
+        ],
+      },
     ],
   },
 ]);

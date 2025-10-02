@@ -1,4 +1,7 @@
 import mongoose from "mongoose"
+import "./purchase.js"
+import "./asset.js"
+import "./transfer.js"
 
 const baseSchema = new mongoose.Schema({
     baseId: {
@@ -34,6 +37,10 @@ const baseSchema = new mongoose.Schema({
             ref: 'Transfer'
         }]
     },
+    purchase:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Purchase'
+    }],
     baseComm:{
         type:String,
         required:true

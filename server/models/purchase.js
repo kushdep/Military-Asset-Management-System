@@ -1,4 +1,7 @@
 import mongoose from "mongoose"
+import "./base.js"
+import "./asset.js"
+import "./transfer.js"
 
 const purchaseSchema = new mongoose.Schema({
     Sno: {

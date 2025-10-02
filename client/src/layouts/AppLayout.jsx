@@ -11,7 +11,7 @@ function AppLayout() {
           <Navbar />
         </div>
       </div>
-      <main className="row">
+      <main className="row mx-2 rounded-5 vh-100 shadow-lg mb-3">
         <div className="col">
         <Outlet />
         </div>

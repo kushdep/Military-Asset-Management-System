@@ -1,11 +1,10 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../store/auth-slice";
 import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
-  const {  baseData } = useSelector((state) => state.baseData);
+  const {  actvId,purchsData } = useSelector((state) => state.baseData);
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -44,9 +43,9 @@ const Navbar = () => {
                 <button
                   className="btn btn-light px-3"
                   onClick={() => {
-                    navigate('/dashboard/purchase')
+                    navigate(`/dashboard/${actvId}/purchase`)
                   }}
-                  disabled={baseData.length===0}
+                  disabled={purchsData.length===0}
                 >
                   Purchase  
                 </button>

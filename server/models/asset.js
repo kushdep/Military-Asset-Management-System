@@ -1,4 +1,8 @@
 import mongoose from "mongoose"
+import "./asset.js"
+import "./base.js"
+import "./transfer.js"
+
 
 const assetSchema = new mongoose.Schema({
     type:{

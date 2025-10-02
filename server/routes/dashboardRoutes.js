@@ -1,5 +1,5 @@
 import express from 'express'
-import { getALLBaseData as getALLBaseIds, getIndBaseData as getIdvlBaseData } from '../controllers/dashboardController.js';
+import { getALLBaseData as getALLBaseIds, getIdvlBaseData } from '../controllers/dashboardController.js';
 
 const router = express.Router()
 
