@@ -13,26 +13,27 @@ const assetSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    price: {
-        type: Number,
-        required: true,
-    },
     qty: {
         type: Number,
         required: true,
     },
-    metric:{
-        type: String,
-        required: true,
-    },
+    
     ownedBy: {
         type: mongoose.Schema.Types.ObjectId,
         required: true
     },
-    purchaseId: {
+    purchaseId: [{
         type: mongoose.Schema.Types.ObjectId,
         required: true
-    },
+    }],
+    assignId:[{
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
+    }],
+    tfrId:[{
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
+    }]
 }, { timestamps: true })
 
 const Asset = mongoose.model('Asset', assetSchema)

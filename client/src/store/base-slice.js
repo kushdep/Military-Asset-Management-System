@@ -26,7 +26,7 @@ const baseSlice = createSlice({
                 const { id = null, name = '' } = action.payload
                 state.actvId = { id, name }
             } catch (error) {
-                console.error("Error in addIds() " + error)
+                console.error("Error in setActId() " + error)
             }
         },
         addInvtData(state, action) {

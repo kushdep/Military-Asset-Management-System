@@ -3,35 +3,33 @@ import mongoose, { Schema, Types } from "mongoose";
 const transferSchema = new Schema({
     trnsfrType: {
         type: String,
-        enum:['IN','OUT'],
+        enum: ['IN', 'OUT'],
         required: true
     },
-    to:{
+    to: {
         type: Types.ObjectId,
-        required:true
+        required: true
     },
-    by:{
+    by: {
         type: Types.ObjectId,
-        required:true
+        required: true
     },
-    astDtl:{
-        name:{
-            type: String,
+    astDtl: [{
+        assetId: {
+            type: Types.ObjectId,
             required: true
         },
-        type:{
-            type: String,
-            required: true
+        qty: {
+            value: {
+                type: Number,
+                required: true
+            },
+            metric: {
+                type: String,
+                required: true
+            }
         },
-        qty:{
-            type: Number,
-            required: true
-        },
-        ttlAmt:{
-            type: Number,
-            required: true
-        }
-    },
+    }]
 }, { timestamps: true })
 
 const Transfer = mongoose.model('Transfer', transferSchema)

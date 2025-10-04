@@ -10,7 +10,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm py-3 sticky-top w-100 rounded-pill">
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm py-3 sticky-top w-100 rounded-pill mt-1">
         <div className="container-fluid">
           <a className="navbar-brand d-flex align-items-center" href="/">
             <img

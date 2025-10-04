@@ -32,7 +32,7 @@ function LoginPage() {
         console.log(response);
         if (response.status === 200) {
           toast.success("Logged In");
-          dispatch(authActions.loginSuccess({ token: response.data.token,role:response.data.role }))
+          dispatch(authActions.loginSuccess({ token: response.data.token,role:response.data.role,name:response.data.name }))
           navigate("/dashboard");
         }
       } catch (error) {

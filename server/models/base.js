@@ -15,16 +15,64 @@ const baseSchema = new mongoose.Schema({
     },
     inventory: {
         Vehicle: [{
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Asset'
+            asset: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Asset'
+            },
+            qty: {
+                value: {
+                    type: Number,
+                    required: true
+                },
+                metric: {
+                    type: String,
+                    required: true
+                }
+            },
+            OpeningBalQty:{
+                type: Number,
+                required: true
+            }
         }],
         Weapons: [{
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Asset'
+            asset: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Asset'
+            },
+              qty: {
+                value: {
+                    type: Number,
+                    required: true
+                },
+                metric: {
+                    type: String,
+                    required: true
+                }
+            },
+            OpeningBalQty:{
+                type: Number,
+                required: true
+            }
         }],
         Ammunition: [{
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Asset'
+            asset: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Asset'
+            },
+             qty: {
+                value: {
+                    type: Number,
+                    required: true
+                },
+                metric: {
+                    type: String,
+                    required: true
+                }
+            },
+            OpeningBalQty:{
+                type: Number,
+                required: true
+            }
         }],
     },
     tsfrAst: {
@@ -70,23 +118,9 @@ const baseSchema = new mongoose.Schema({
         },
     }],
     asgnAst: [{
-        sldrId: {
-            type: String,
-            required: true
-        },
-        asgnAstIds: [{
-            astId: {
-                type: mongoose.Schema.Types.ObjectId,
-                required: true
-            },
-            qty: { type: Number, required: true },
-            asndDate: {
-                type: Date,
-                required: true
-            },
-        }]
-    }
-    ]
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Assign'
+    }], 
 }, { timestamps: true })
 
 const Base = mongoose.model('Base', baseSchema)

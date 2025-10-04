@@ -20,16 +20,6 @@ const purchaseSchema = new mongoose.Schema({
                 ref: 'Asset',
                 required: true
             },
-            pcngDtls:{
-                qty:{
-                    type: Number,
-                    required: true
-                },
-                ttlAmt:{
-                    type: Number,
-                    required: true
-                }
-            }
         }
     ]
 }, { timestamps: true })

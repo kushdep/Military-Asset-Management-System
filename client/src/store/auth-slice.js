@@ -12,9 +12,10 @@ const authSlice = createSlice({
   },
   reducers: {
     loginSuccess(state, action) {
-      const { token, role } = action.payload;
+      const { token, role, name } = action.payload;
       localStorage.setItem("token", token);
       localStorage.setItem("role", role);
+      localStorage.setItem("name", name);
 
       state.token = token;
       state.role = role;

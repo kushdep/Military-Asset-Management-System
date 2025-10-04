@@ -4,31 +4,37 @@ import "./asset.js"
 import "./transfer.js"
 
 const assignSchema = new mongoose.Schema({
-    Sno: {
+    SId: {
         type: Number,
         required: true,
         unique: true
-    },
-    base: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true
     },
     items: [
         {
             asset: {
                 type: mongoose.Schema.Types.ObjectId,
-                ref: 'Asset',
                 required: true
             },
-            pcngDtls:{
-                qty:{
+            toalQty:{
+
+            },
+
+            status:{
+                type:String,
+                enum:['Asgnd','Expd']
+            },
+            expnd:{
+                qty: {
+                value:{
                     type: Number,
                     required: true
                 },
-                ttlAmt:{
-                    type: Number,
-                    required: true
+                metric:{
+                    type:String,
+                    required:true
                 }
+            },
+                expndDate:Date
             }
         }
     ]
