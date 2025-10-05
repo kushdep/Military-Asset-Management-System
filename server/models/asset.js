@@ -13,26 +13,18 @@ const assetSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    qty: {
-        type: Number,
-        required: true,
-    },
-    
     ownedBy: {
         type: mongoose.Schema.Types.ObjectId,
         required: true
     },
     purchaseId: [{
         type: mongoose.Schema.Types.ObjectId,
-        required: true
     }],
     assignId:[{
         type: mongoose.Schema.Types.ObjectId,
-        required: true
     }],
     tfrId:[{
         type: mongoose.Schema.Types.ObjectId,
-        required: true
     }]
 }, { timestamps: true })
 

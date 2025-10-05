@@ -30,7 +30,7 @@ function Dashboard() {
             {Object.keys(actvId).length === 0 && (
               <div className="form-floating">
                 <select
-                  className="form-select"
+                  className="form-select mt-2"
                   id="floatingSelect"
                   aria-label="Floating label select example"
                   disabled={baseIds.length === 0}
@@ -38,7 +38,7 @@ function Dashboard() {
                     if (e.target.value > 0) {
                       console.log("calling");
                       dispatch(getBaseData(token, e.target.value));
-                      navigate(`/dashboard/${e.target.value}/assign`);
+                      navigate(`/dashboard/${e.target.value}/purchase`);
                     }
                   }}
                 >

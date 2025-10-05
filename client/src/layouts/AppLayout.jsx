@@ -4,14 +4,14 @@ import { Toaster } from "react-hot-toast";
 
 function AppLayout() {
   return (
-    <div className="container-fluid vh-100 d-flex flex-column">
+    <div className="container-fluid d-flex flex-column">
       <Toaster />
       <div className="row">
         <div className="col">
           <Navbar />
         </div>
       </div>
-      <main className="row mx-2 rounded-5 vh-100 shadow-lg mb-3">
+      <main className="row mx-2 rounded-5 mt-3 vh-100 shadow-lg mb-3">
         <div className="col">
         <Outlet />
         </div>

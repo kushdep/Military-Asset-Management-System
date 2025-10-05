@@ -45,7 +45,7 @@ const Navbar = () => {
                   onClick={() => {
                     navigate(`/dashboard/${actvId}/purchase`)
                   }}
-                  disabled={purchsData.length===0}
+                  disabled={purchsData===null}
                 >
                   Purchase  
                 </button>

@@ -5,7 +5,7 @@ import "./transfer.js"
 
 const baseSchema = new mongoose.Schema({
     baseId: {
-        type: Number,
+        type: String,
         required: true,
         unique: true
     },
@@ -29,7 +29,7 @@ const baseSchema = new mongoose.Schema({
                     required: true
                 }
             },
-            OpeningBalQty:{
+            OpeningBalQty: {
                 type: Number,
                 required: true
             }
@@ -39,7 +39,7 @@ const baseSchema = new mongoose.Schema({
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'Asset'
             },
-              qty: {
+            qty: {
                 value: {
                     type: Number,
                     required: true
@@ -49,7 +49,7 @@ const baseSchema = new mongoose.Schema({
                     required: true
                 }
             },
-            OpeningBalQty:{
+            OpeningBalQty: {
                 type: Number,
                 required: true
             }
@@ -59,7 +59,7 @@ const baseSchema = new mongoose.Schema({
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'Asset'
             },
-             qty: {
+            qty: {
                 value: {
                     type: Number,
                     required: true
@@ -69,7 +69,7 @@ const baseSchema = new mongoose.Schema({
                     required: true
                 }
             },
-            OpeningBalQty:{
+            OpeningBalQty: {
                 type: Number,
                 required: true
             }
@@ -116,11 +116,14 @@ const baseSchema = new mongoose.Schema({
             required: true,
             enum: ['M', 'F']
         },
+        asgnAst: [{
+            type: mongoose.Schema.Types.ObjectId,
+        }],
     }],
     asgnAst: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Assign'
-    }], 
+    }],
 }, { timestamps: true })
 
 const Base = mongoose.model('Base', baseSchema)

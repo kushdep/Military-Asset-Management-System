@@ -86,7 +86,7 @@ export const getIdvlBaseData = async (req, res) => {
         const { role, email } = req.user
         console.log(role)
         console.log(email)
-        const baseDoc = await Base.findOne({ baseId: id }).populate([{ path: 'purchase', populate: { path: 'items.asset' } }, { path: 'inventory.Vehicle' }, { path: 'inventory.Weapons' }, { path: 'inventory.Ammunition' }])
+        const baseDoc = await Base.findOne({ baseId: id }).populate([{ path: 'purchase', populate: { path: 'items.asset' } }, { path: 'inventory.Vehicle.asset' }, { path: 'inventory.Weapons.asset' }, { path: 'inventory.Ammunition.asset' }])
         console.log(baseDoc)
         if (baseDoc === null) {
             return res.status(400).send({

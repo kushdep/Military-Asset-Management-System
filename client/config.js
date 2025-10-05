@@ -1,5 +1,5 @@
 export const itemType = [
-    {code:'VCL',name:'Vehicle'},
-    {code:'WEA',name:'Weapons'},
-    {code:'AMU',name:'Ammunition'},
+    {code:'VCL',name:'Vehicle', metrics:['psc']},
+    {code:'WEA',name:'Weapons', metrics:['psc']},
+    {code:'AMU',name:'Ammunition', metrics:['boxes','cartons']},
 ]

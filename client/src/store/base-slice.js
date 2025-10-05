@@ -7,7 +7,10 @@ const baseSlice = createSlice({
         baseIds: [],
         actvId: {},
         invtry: {},
-        purchsData: [],
+        purchsData: {
+            data:null,
+            newPurch:[]
+        },
         sldrsData: [],
         TINdata: [],
         TOUTdata: [],
