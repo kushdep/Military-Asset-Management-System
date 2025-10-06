@@ -9,8 +9,9 @@ import { purchaseActions } from "../store/purchase-slice";
 
 function AddNewPurchase() {
   const { invtry } = useSelector((state) => state.baseData);
-  const { assetType, handleAssetType } = useFilter();
+  const { showAdAs,addNewPur } = useSelector((state) => state.purchaseData);
   const { token } = useSelector((state) => state.authData);
+  const { assetType, handleAssetType } = useFilter();
   const { id } = useParams();
   const addNewRef = useRef();
   const dispatch = useDispatch()
@@ -22,9 +23,6 @@ function AddNewPurchase() {
   }, []);
 
   const metricInd = itemType.findIndex((e) => e.code === assetType.code);
-  console.log(id);
-  console.log(assetType);
-  console.log(invtry);
 
   return (
     <div className="container-fluid border-start border-black">
@@ -61,18 +59,34 @@ function AddNewPurchase() {
                 >
                 + New
               </button>
-              <button className="btn fw-bold text-success text-decoration-underline"
+              {
+                showAdAs &&
+                <button className="btn fw-bold text-success text-decoration-underline"
                 onClick={()=>{
                     dispatch(purchaseActions.setAddModalState(true))
                     addNewRef.current.showModal()}}
               >
                 See Added Assets
               </button>
+                }
             </div>
           </div>
           <div className="row mt-2">
             <div className="col">
               {invtry[assetType.name]?.map((iv) => {
+                const {oldAst} = addNewPur
+                
+                let exstng = true
+                if(oldAst.length!==0){
+                    let ind = oldAst.findIndex(e=>e._id===iv._id)
+                    if(ind>-1){
+                        if(oldAst[ind].qty.value<1 ||oldAst[ind].qry.metric==='' ){
+                            return
+                        }else{
+                            exstng=false
+                        }
+                    }
+                }
                 return (
                   <div
                     key={iv._id}
@@ -86,10 +100,9 @@ function AddNewPurchase() {
                     </small>
 
                     <div className="form-floating ms-3 d-flex flex-row gap-2">
-                      <input type="number" className="w-50 rounded-3" />
+                      <input type="number" className="rounded-3 w-25" />
                       <div
-                        className="form-floating ms-3"
-                        style={{ width: "120px" }}
+                        className="form-floating"
                       >
                         <select className="form-select">
                           {itemType[metricInd].metrics.map((i) => {
@@ -100,9 +113,26 @@ function AddNewPurchase() {
                             );
                           })}
                         </select>
-                        <label>Qty</label>
+                        <label className="p-2">metric</label>
                       </div>
-                      <button className="btn btn-primary">Add</button>
+                      <button className="btn btn-primary" onClick={()=>{
+                        if(exstng){
+
+                        }else{
+                            // const updAst = {
+                            //     _id:iv._id,
+                            //     name:iv.asset.name,
+                            //     qty:{
+                            //         value:,
+                            //         metric:
+                            //     },
+                            //     type:assetType
+                            // }
+
+                        }
+
+                      }}>
+                        {exstng?'Add':'Edit'}</button>
                     </div>
                   </div>
                 );
