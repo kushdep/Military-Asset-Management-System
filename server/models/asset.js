@@ -4,26 +4,29 @@ import "./transfer.js"
 
 
 const assetSchema = new mongoose.Schema({
-    type:{
-        type:String,
-        enum:['VCL','AMU','WEA'],
-        required:true
+    type: {
+        type: String,
+        enum: ['VCL', 'AMU', 'WEA'],
+        required: true
     },
-    name:{
-        type:String,
-        required:true
+    name: {
+        type: String,
+        required: true
     },
     ownedBy: {
         type: mongoose.Schema.Types.ObjectId,
         required: true
     },
     purchaseId: [{
+        Sno: {
+            type: Number,
+            required: true
+        }
+    }],
+    assignId: [{
         type: mongoose.Schema.Types.ObjectId,
     }],
-    assignId:[{
-        type: mongoose.Schema.Types.ObjectId,
-    }],
-    tfrId:[{
+    tfrId: [{
         type: mongoose.Schema.Types.ObjectId,
     }]
 }, { timestamps: true })

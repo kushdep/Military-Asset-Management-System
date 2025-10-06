@@ -1,137 +1,132 @@
 import { useDispatch } from "react-redux";
 import { itemType } from "../../config";
-import { useActionState } from "react";
 import { purchaseActions } from "../store/purchase-slice";
+import { useState } from "react";
 
-const AddNewAsset = ({ addBloc, errMsg = null }) => {
+const AddNewAsset = ({ index, addBloc=null, errMsg = null }) => {
   const metric = itemType.flatMap((ele) => ele.metrics.map((m) => m));
+  const [isEdit, setIsEdit] = useState(Object.values(addBloc).some(e=>e==='')?false:true);
   const dispatch = useDispatch();
-  const [formStt, formAcn] = useActionState(action, {
-    name: "",
-    qty: null,
-    metric: "NS",
-    type: "NS",
-    err: "",
-  });
-
-  function action(prevState, formStt) {
-    const assetName = formStt.get("asset");
-    const assetType = formStt.get("assetType");
-    const qty = formStt.get("assetQty");
-    const assetMetric = formStt.get("assetMetric");
-
-    let message = "";
-
-    if (assetName === "") {
-      message += " name";
-    }
-    if (qty === null) {
-      message += " Qty";
-    }
-    if (assetMetric === "NS") {
-      message += " metric";
-    }
-    if (assetType === "NS") {
-      message += " type";
-    }
-
-    if (message !== "") {
-      return {
-        name: assetName,
-        qty,
-        type: assetType,
-        metric: assetMetric,
-        err: message,
-      };
-    }
-
-    let newAstVal = {
-      name: assetName,
-      qty,
-      type: assetType,
-      metric: assetMetric,
-    };
-    dispatch(purchaseActions.addNewPurchase({ newAstval }));
-    return {
-      name: assetName,
-      qty,
-      type: assetType,
-      metric: assetMetric,
-    };
-  }
 
   return (
-    <div className="container-fluid border p-2 rounded-3 mt-2">
-      <form action={formAcn}>
-        <div className="row">
-          <div className="col-9">
-            {formStt.err !== "" && (
-              <p className="text-danger fs-6">Invalid {formStt.err}</p>
-            )}
-            <div className="d-flex flex-row gap-2">
-              <div className="form-floating">
-                <input
-                  type="text"
-                  className="form-control"
-                  id="assetName"
-                  placeholder="Asset Name"
-                  name="asset"
-                  // value={addBloc.name || ''}
-                />
-                <label htmlFor="assetName">Asset Name</label>
-              </div>
-              <div className="form-floating">
-                <select
-                  className="form-select"
-                  id="assetType"
-                  name="assetType"
-                  // value={addBloc.type || ''}
-                >
-                  <option value="NS">Select Type</option>
-                  {itemType.map((t) => (
-                    <option value={t}>{t.name}</option>
-                  ))}
-                </select>
-                <label htmlFor="assetType">Type</label>
-              </div>
+    <div
+      className={`container-fluid ${
+        isEdit ? "bg-light" : ""
+      } border p-2 rounded-3 mt-2`}
+    >
+      <div className="row">
+        <div className="col-9">
+          {errMsg !== null && (
+            <p className="text-danger fs-6">Invalid {errMsg}</p>
+          )}
+          <div className="d-flex flex-row gap-2">
+            <div className="form-floating">
+              <input
+                type="text"
+                className="form-control"
+                id="assetName"
+                placeholder="Asset Name"
+                disabled={isEdit}
+                name="assetName"
+                onChange={(e) => {
+                  dispatch(
+                    purchaseActions.addnewPurcDtl({
+                      index,
+                      name: e.target.value,
+                    })
+                  );
+                }}
+                value={addBloc.name}
+              />
+              <label htmlFor="assetName">Asset Name</label>
             </div>
-            <div className="d-flex flex-row gap-2 mt-2">
-              <div className="form-floating">
-                <input
-                  type="number"
-                  className="form-control"
-                  name="assetQty"
-                  id="assetQty"
-                  placeholder="Quantity"
-                  // value={addBloc.qty || ''}
-                />
-                <label htmlFor="assetQty">Quantity</label>
-              </div>
-
-              <div className="form-floating">
-                <select
-                  className="form-select"
-                  id="assetMetric"
-                  name="assetMetric"
-                  // value={addBloc.metric || ''}
-                >
-                  <option value="NS">Select metric</option>
-                  {metric.map((e) => {
-                    return <option value={e}>{e}</option>;
-                  })}
-                </select>
-                <label htmlFor="assetMetric">Metric</label>
-              </div>
+            <div className="form-floating">
+              <select
+                className="form-select"
+                id="assetType"
+                name="assetType"
+                disabled={isEdit}
+                onChange={(e) => {
+                  dispatch(
+                    purchaseActions.addnewPurcDtl({
+                      index,
+                      type: e.target.value,
+                    })
+                  );
+                }}
+                value={addBloc.type}
+              >
+                <option value="NS">Select Type</option>
+                {itemType.map((t) => (
+                  <option value={t.code}>{t.name}</option>
+                ))}
+              </select>
+              <label htmlFor="assetType">Type</label>
             </div>
           </div>
-          <div className="col-3 d-flex flex-column gap-1 justify-content-center">
-            <button className="btn btn-dark" disabled={errMsg !== null}>
-              Add
-            </button>
-            {<button className="btn btn-danger">Remove</button>}
+          <div className="d-flex flex-row gap-2 mt-2">
+            <div className="form-floating">
+              <input
+                type="number"
+                className="form-control"
+                name="assetQty"
+                id="assetQty"
+                placeholder="Quantity"
+                disabled={isEdit}
+                onChange={(e) => {
+                  dispatch(
+                    purchaseActions.addnewPurcDtl({
+                      index,
+                      qty: e.target.value,
+                    })
+                  );
+                }}
+                value={addBloc.qty}
+              />
+              <label htmlFor="assetQty">Quantity</label>
+            </div>
+
+            <div className="form-floating">
+              <select
+                className="form-select"
+                id="assetMetric"
+                name="assetMetric"
+                disabled={isEdit}
+                onChange={(e) => {
+                  dispatch(
+                    purchaseActions.addnewPurcDtl({
+                      index,
+                      metric: e.target.value,
+                    })
+                  );
+                }}
+                value={addBloc.metric}
+              >
+                <option value="NS">Select metric</option>
+                {metric.map((e) => {
+                  return <option value={e}>{e}</option>;
+                })}
+              </select>
+              <label htmlFor="assetMetric">Metric</label>
+            </div>
           </div>
         </div>
-      </form>
+        <div className="col-3 d-flex flex-column gap-1 justify-content-center">
+          <button className="btn btn-dark" onClick={() => setIsEdit(!isEdit)}>
+            {isEdit ? "Edit" : "Add"}
+          </button>
+          {
+            <button
+              className="btn btn-danger"
+              onClick={() => {
+                dispatch(purchaseActions.delNewPurchase({ index }));
+              }}
+            >
+              Remove
+            </button>
+          }
+        </div>
+      </div>
     </div>
   );
 };

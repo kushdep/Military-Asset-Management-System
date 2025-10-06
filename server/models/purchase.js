@@ -15,13 +15,19 @@ const purchaseSchema = new mongoose.Schema({
     },
     items: [
         {
-            asset: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'Asset',
-                required: true
-            },
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Asset',
+            required: true
         }
-    ]
+    ],
+    addedBy: {
+        type: String,
+        required: true,
+    },
+    role: {
+        type: String,
+        required: true,
+    }
 }, { timestamps: true })
 
 const Purchase = mongoose.model('Purchase', purchaseSchema)
