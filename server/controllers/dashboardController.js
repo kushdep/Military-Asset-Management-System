@@ -110,30 +110,53 @@ export const addNewPurchaseData = async (req, res) => {
         if (ele.type === 'VCL') {
           oldAstIdsArr.Vehicle.push({
             id: ele._id,
-            qty: ele.qty
+            qty: ele.qty,
+            metric: ele.metric
           })
         }
         else if (ele.type === 'WEA') {
           oldAstIdsArr.Weapons.push({
             id: ele._id,
-            qty: ele.qty
+            qty: ele.qty,
+            metric: ele.metric
           })
         }
         else if (ele.type === 'AMU') {
           oldAstIdsArr.Ammunition.push({
             id: ele._id,
             qty: ele.qty,
+            metric: ele.metric
           })
         }
       })
     }
+
+
     let itemIds = [
-      ...newPurIdsArr.Vehicle.map(e => e.asset.toString()),
-      ...newPurIdsArr.Ammunition.map(e => e.asset.toString()),
-      ...newPurIdsArr.Weapons.map(e => e.asset.toString()),
-      ...oldAstIdsArr.Vehicle.map(e => e.id),
-      ...oldAstIdsArr.Weapons.map(e => e.id),
-      ...oldAstIdsArr.Ammunition.map(e => e.id)
+      ...newPurIdsArr.Vehicle.map(e => ({
+        asset: e.asset.toString(),
+        qty: `${e.qty.value} ${e.qty.metric}`
+      })),
+      ...newPurIdsArr.Ammunition.map(e => ({
+        asset: e.asset.toString(),
+        qty: `${e.qty.value} ${e.qty.metric}`
+      })),
+      ...newPurIdsArr.Weapons.map(e => ({
+        asset: e.asset.toString(),
+        qty: `${e.qty.value} ${e.qty.metric}`
+      })),
+      ...oldAstIdsArr.Vehicle.map(e => ({
+        asset: e.id.toString(),
+        qty: `${e.qty} ${e.metric}`
+      })),
+      ...oldAstIdsArr.Weapons.map(e => ({
+        asset: e.id.toString(),
+        qty: `${e.qty} ${e.metric}`
+      })),
+      ...oldAstIdsArr.Ammunition.map(e => ({
+        asset: e.id.toString(),
+        qty: `${e.qty} ${e.metric}`
+      }))
     ];
 
     let newPurchase = {
@@ -143,6 +166,7 @@ export const addNewPurchaseData = async (req, res) => {
       addedBy: username,
       role: role
     }
+    console.log(newPurchase)
 
     const purchDoc = await Purchase.create(newPurchase)
     if (!purchDoc) {

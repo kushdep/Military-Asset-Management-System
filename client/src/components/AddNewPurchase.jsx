@@ -7,12 +7,13 @@ import { useParams } from "react-router-dom";
 import AddPurchaseModal from "../Modals/AddPurchaseModal";
 import { purchaseActions } from "../store/purchase-slice";
 import toast from "react-hot-toast";
+import AssetTypeBtnGroup from "./AssetTypeBtnGroup";
 
 function AddNewPurchase() {
   const { invtry } = useSelector((state) => state.baseData);
-  const { showAdAs, addNewPur } = useSelector((state) => state.purchaseData);
+  const {  addNewPur } = useSelector((state) => state.purchaseData);
   const { token } = useSelector((state) => state.authData);
-  const { assetType, handleAssetType } = useFilter();
+  const { assetType, handleAssetType } = useFilter({code:'VCL',name:'Vehicle'});
   const { id } = useParams();
   const addNewRef = useRef();
   const dispatch = useDispatch();
@@ -63,20 +64,7 @@ function AddNewPurchase() {
           <div className="container p-0 w-50">
             <div className="row mb-2">
               <div className="col btn-group gap-1" role="group">
-                {itemType.map((item, ind) => (
-                  <button
-                    key={ind}
-                    type="button"
-                    className={`btn fw-bold ${
-                      assetType.code === item.code
-                        ? `btn-primary`
-                        : `btn-outline-primary`
-                    }`}
-                    onClick={() => handleAssetType(item)}
-                  >
-                    {item.name}
-                  </button>
-                ))}
+                <AssetTypeBtnGroup fun={handleAssetType} val={assetType.code}/>
               </div>
             </div>
           </div>

@@ -1,7 +1,8 @@
 import { useState } from "react"
 
-function useFilter() {
-    const [assetType, setAssetType] = useState({code:'VCL',name:'Vehicle'})
+function useFilter(assetTypeInit) {
+    console.log(assetTypeInit)
+    const [assetType, setAssetType] = useState({ code: assetTypeInit.code, name: assetTypeInit.name })
     const [dateRange, setDateRange] = useState({ from: '', to: '' })
     const [fltrErr, setFltrErr] = useState([])
 
@@ -14,7 +15,7 @@ function useFilter() {
         });
     }
 
-    function handleDateRange(dateFrom,dateTo) {
+    function handleDateRange(dateFrom, dateTo) {
         const to = new Date(dateTo).getTime();
         const from = new Date(dateFrom).getTime();
         if (from > to) {
@@ -27,16 +28,14 @@ function useFilter() {
         setDateRange((prev) => {
             return {
                 ...prev,
-                date: {
-                    fromDate: dateFrom,
-                    toDate: dateTo,
-                },
+                from: dateFrom,
+                to: dateTo,
             };
         });
     }
 
     function handleFiltertErr(err) {
-        setFltrErr((prev)=>[...prev,err])
+        setFltrErr((prev) => [...prev, err])
     }
 
     return {

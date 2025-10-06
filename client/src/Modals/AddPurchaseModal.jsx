@@ -1,7 +1,7 @@
 import { createPortal } from "react-dom";
 import AddNewAsset from "../components/AddNewAsset";
 import { useDispatch, useSelector } from "react-redux";
-import purchaseSlice, { purchaseActions } from "../store/purchase-slice";
+import { purchaseActions } from "../store/purchase-slice";
 import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import axios from "axios";

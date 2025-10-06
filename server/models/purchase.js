@@ -15,9 +15,14 @@ const purchaseSchema = new mongoose.Schema({
     },
     items: [
         {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Asset',
-            required: true
+            asset:{
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Asset',
+                required: true
+            },
+            qty:{
+                type:String,
+            }
         }
     ],
     addedBy: {

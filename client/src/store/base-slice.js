@@ -7,10 +7,7 @@ const baseSlice = createSlice({
         baseIds: [],
         actvId: {},
         invtry: {},
-        purchsData: {
-            data:null,
-            newPurch:[]
-        },
+        purchaseHistory: null,
         sldrsData: [],
         TINdata: [],
         TOUTdata: [],
@@ -67,11 +64,12 @@ const baseSlice = createSlice({
         addPurcData(state, action) {
             try {
                 console.log(action.payload)
-                const { purchsData = [] } = action.payload
-                state.purchsData = purchsData
-                console.log(state.purchsData)
+                const { purchsData } = action.payload
+                console.log(purchsData)
+                state.purchaseHistory = purchsData
+                console.log(state.purchaseHistory)
             } catch (error) {
-                console.error("Error in addIds() " + error)
+                console.error("Error in addPurcData() " + error)
             }
         },
         resetBaseData(state, action) {

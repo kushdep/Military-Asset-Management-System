@@ -1,37 +1,16 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { itemType } from "../../config";
-import toast from "react-hot-toast";
 import { getBaseData } from "../store/base-slice";
-import { useParams } from "react-router-dom";
-import purchaseSlice, { purchaseActions } from "../store/purchase-slice";
+import { purchaseActions } from "../store/purchase-slice";
 import AddNewPurchase from "../components/AddNewPurchase";
-import PurchaseHistory from "../components/PurchaseHistory";
+import PurchaseHistoryTable from "../components/PurchaseHistory";
+import { useParams } from "react-router-dom";
 
 function PurchasePage() {
-  const { invtry } = useSelector((state) => state.baseData);
   const { data, pageState } = useSelector((state) => state.purchaseData);
   const { token } = useSelector((state) => state.authData);
-
-  let sno = 1;
-  const [filter, setFilter] = useState({
-    type: "",
-    date: { fromDate: "", toDate: "" },
-  });
-
-  const fromInp = useRef();
-  const toInp = useRef();
-  const dispatch = useDispatch();
-  const { id } = useParams();
-
-  function setTypeFilter(typeVal) {
-    setFilter((prev) => {
-      if (typeVal === "NF") {
-        return { ...prev, type: "" };
-      }
-      return { ...prev, type: typeVal };
-    });
-  }
+  const {id} = useParams()
+  const dispatch = useDispatch()
 
   useEffect(() => {
     if (data === null) {
@@ -41,28 +20,7 @@ function PurchasePage() {
       //call for particular base dashboard
     }
   }, []);
-
-  function setDateFilter() {
-    const to = new Date(toInp.current.value).getTime();
-    const from = new Date(fromInp.current.value).getTime();
-    if (from > to) {
-      toast.error("Choose valid dates");
-      toInp.current.value = "";
-      fromInp.current.value = "";
-      return;
-    }
-
-    setFilter((prev) => {
-      return {
-        ...prev,
-        date: {
-          fromDate: fromInp.current.value,
-          toDate: toInp.current.value,
-        },
-      };
-    });
-  }
-  console.log(filter);
+    
   return (
     <>
       <div className="container-fluid h-100">
@@ -88,7 +46,7 @@ function PurchasePage() {
           <div className="col">
             {
               pageState==='add'?
-                <AddNewPurchase/>:<PurchaseHistory/>
+                <AddNewPurchase/>:<PurchaseHistoryTable/>
             }
           </div>
         </div>
