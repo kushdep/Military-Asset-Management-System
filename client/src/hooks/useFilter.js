@@ -9,9 +9,9 @@ function useFilter(assetTypeInit) {
     function handleAssetType(typeVal) {
         setAssetType((prev) => {
             if (typeVal === "NF") {
-                return "";
+                return {code:"NF",name:""};
             }
-            return typeVal;
+            return {code:typeVal.code,name:typeVal.name};
         });
     }
 

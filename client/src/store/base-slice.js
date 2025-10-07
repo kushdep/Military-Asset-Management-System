@@ -8,7 +8,7 @@ const baseSlice = createSlice({
         actvId: {},
         invtry: {},
         purchaseHistory: null,
-        sldrsData: [],
+        sldrsData: null,
         TINdata: [],
         TOUTdata: [],
     },
@@ -55,8 +55,10 @@ const baseSlice = createSlice({
         },
         addSldrData(state, action) {
             try {
-                const { sldrsData = [] } = action.payload
+                const { sldrsData = null } = action.payload
+                console.log(sldrsData)
                 state.sldrsData = sldrsData
+                console.log(state.sldrsData)
             } catch (error) {
                 console.error("Error in addIds() " + error)
             }
@@ -120,6 +122,7 @@ export const getBaseData = (token, id) => {
             dispatch(baseActions.addInvtData({ invtry: baseData.inventory }))
             dispatch(baseActions.addTINData({ TINdata: baseData.tsfrAst.IN }))
             dispatch(baseActions.addTOUTData({ TOUTdata: baseData.tsfrAst.OUT }))
+            console.log(baseData.sldrs)
             dispatch(baseActions.addSldrData({ sldrsData: baseData.sldrs }))
             dispatch(baseActions.addPurcData({ purchsData: baseData.purchase }))
         } catch (error) {

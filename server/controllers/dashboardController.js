@@ -1,4 +1,5 @@
 import Asset from "../models/asset.js"
+import Assign from "../models/assign.js"
 import Base from "../models/base.js"
 import Purchase from "../models/purchase.js"
 
@@ -226,27 +227,92 @@ export const addNewPurchaseData = async (req, res) => {
 export const asgnBaseAst = async (req, res) => {
   try {
     const { id } = req.params;
-    const { sldrId, asgnAstIds } = req.body;
-    console.log(sldrId)
-    console.log(asgnAstIds)
-
-    const astIds = asgnAstIds.map((e) => e.astId)
-    console.log(astIds)
+    const { sldrId, asgnAst } = req.body;
 
     const baseDoc = await Base.findOne({ baseId: id });
     if (!baseDoc) {
-      return res.status(400).send({
+      return res.status(500).sendf({
         success: false,
         message: 'Base Not Found'
       });
     }
 
-    if (baseDoc.asgnAst.length !== 0) {
-
-    } else {
-      console.log("inside else")
-      baseDoc.asgnAst.push({ sldrId, asgnAstIds })
+    console.log(asgnAst)
+    console.log(baseDoc)
+    if (asgnAst?.Vehicle.length > 0 && baseDoc?.inventory?.Vehicle.length == 0 ||
+      asgnAst?.Ammunition.length > 0 && baseDoc?.inventory?.Ammunition.length == 0 ||
+      asgnAst?.Weapons.length > 0 && baseDoc?.inventory?.Weapons.length == 0){
+      return res.status(400).send({
+        success: false,
+        message: 'Assignment Not possible'
+      });
     }
+
+    let items = []
+
+    const aRR =Object.entries(asgnAst)
+    for(let [key, arr] of aRR) {
+      console.log(arr)
+      if (arr.length > 0) {
+        console.log("2")
+        arr.forEach((v) => {
+          const invList = baseDoc.inventory[key];
+          const ind = invList.findIndex((e) => e.asset.toString() === v.id.toString());
+          if (ind > -1) {
+            console.log("3")
+            const item = invList[ind];
+            if (item.qty.metric !== v.metric ||
+              item.qty.value < Number(v.qty)) {
+                return res.status(400).send({
+                  success: false,
+                  message: "Unable to update",
+                });
+              }
+              console.log("4")
+              invList[ind].qty.value -= Number(v.qty)
+              items = {
+                category: key,
+                asset: v.id,
+                totalQty: {
+                  value: v.qty,
+                  metric: v.metric
+                }
+              }
+            } else {
+            console.log("1")
+            return res.status(400).send({
+              success: false,
+              message: "Unable to update",
+            });
+          }
+        });
+      }
+    }
+
+
+    let newAssign = {
+      sId: sldrId,
+      baseId: id,
+      items
+    }
+
+    const newAssignDoc = await Assign.create(newAssign)
+
+    const updAstval = await Promise.all(
+      items.map(ele =>
+        Asset.findByIdAndUpdate(
+          ele.asset,
+          { $push: { assignId: newAssignDoc._id } }
+        )
+      )
+    )
+    if (!updAstval) {
+      return res.status(400).send({
+        success: false,
+        message: 'Base Not Found'
+      });
+    }
+    baseDoc.asgnAst.push(newAssignDoc._id)
 
     const updBase = await baseDoc.save()
     if (!updBase) {
@@ -255,8 +321,6 @@ export const asgnBaseAst = async (req, res) => {
         message: 'Unable to update'
       });
     }
-
-
 
     return res.status(200).send({
       success: true,

@@ -7,16 +7,11 @@ import toast from "react-hot-toast";
 
 function PurchaseHistoryTable() {
   const { purchaseHistory } = useSelector((state) => state.baseData);
-  const {
-    dateRange,
-    handleDateRange,
-    assetType,
-    handleAssetType,
-    fltrErr,
-  } = useFilter({
-    code: "NF",
-    name: "",
-  });
+  const { dateRange, handleDateRange, assetType, handleAssetType } =
+    useFilter({
+      code: "NF",
+      name: "",
+    });
   let sno = 1;
   const dispatch = useDispatch();
   const fromInp = useRef();
@@ -27,9 +22,6 @@ function PurchaseHistoryTable() {
       dispatch(getBaseData());
     }
   }, [purchaseHistory]);
-  console.log(purchaseHistory);
-  console.log(dateRange)
-  console.log(assetType)
 
   return (
     <div className="container">
@@ -39,7 +31,9 @@ function PurchaseHistoryTable() {
             <select
               className="form-select"
               id="floatingSelectGrid"
-              onChange={(e) => handleAssetType(e.target.value)}
+              onChange={(e) =>
+                handleAssetType({ code: e.target.value, name: e.target.value })
+              }
             >
               <option value="NF" selected>
                 No Type Filter
@@ -68,17 +62,16 @@ function PurchaseHistoryTable() {
           <div className="col-md-2 d-flex align-items-end">
             <button
               className="btn btn-success w-100"
-              onClick={() =>{
-                if(new Date(fromInp.current?.value)>new Date(toInp.current?.value)){
-                  toast.error('Wrong Dates')
-                  return 
+              onClick={() => {
+                if (
+                  new Date(fromInp.current?.value) >
+                  new Date(toInp.current?.value)
+                ) {
+                  toast.error("Wrong Dates");
+                  return;
                 }
-                handleDateRange(fromInp.current?.value, toInp.current?.value)
-              }
-              }
-              disabled={
-                fromInp.current?.value === "" && toInp.current?.value === ""
-              }
+                handleDateRange(fromInp.current?.value, toInp.current?.value);
+              }}
             >
               Filter
             </button>
@@ -104,26 +97,29 @@ function PurchaseHistoryTable() {
                 purchaseHistory.map((purchs) =>
                   purchs.items.map((i) => {
                     if (assetType.code !== "NF") {
-                      if (assetType !== i.asset.type) {
-                        return;
-                      }
-                    }
-                    if (
-                      dateRange.from !== "" &&
-                      dateRange.to !== ""
-                    ) {
-                      const purDate = new Date(purchs.createdAt).getTime();
-                      const fromFilDate = new Date(dateRange.from).getTime();
-                      const toFilDate = new Date(dateRange.to).getTime();
-                      if (!(purDate >= fromFilDate && purDate <= toFilDate)) {
+                      if (assetType.code !== i.asset.type) {
                         return;
                       }
                     }
                     const createdTime = new Date(
                       purchs.createdAt
                     ).toISOString();
-                    const purDate = createdTime.slice(0, 10);
                     const timeStamp = createdTime.slice(11);
+                    const purDate = createdTime.slice(0, 10);
+                    if (dateRange.from !== "" && dateRange.to !== "") {
+                      const purchaseDate = new Date(purDate).getTime();
+                      const fromFilDate = new Date(dateRange.from).getTime();
+                      const toFilDate = new Date(dateRange.to).getTime();
+                      if (
+                        !(
+                          purchaseDate >= fromFilDate &&
+                          purchaseDate <= toFilDate
+                        )
+                      ) {
+                        console.log("return ");
+                        return;
+                      }
+                    }
                     return (
                       <tr key={i.asset._id}>
                         <th scope="row">{sno++}</th>

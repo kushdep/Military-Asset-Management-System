@@ -116,9 +116,6 @@ const baseSchema = new mongoose.Schema({
             required: true,
             enum: ['M', 'F']
         },
-        asgnAst: [{
-            type: mongoose.Schema.Types.ObjectId,
-        }],
     }],
     asgnAst: [{
         type: mongoose.Schema.Types.ObjectId,

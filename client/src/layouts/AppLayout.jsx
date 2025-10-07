@@ -5,7 +5,7 @@ import { Toaster } from "react-hot-toast";
 function AppLayout() {
   return (
     <div className="container-fluid d-flex flex-column">
-      <Toaster />
+      <Toaster  position="top-right" toastOptions={{style: {zIndex: 99999,}}}/>
       <div className="row">
         <div className="col">
           <Navbar />
@@ -13,7 +13,7 @@ function AppLayout() {
       </div>
       <main className="row mx-2 rounded-5 mt-3 vh-100 shadow-lg mb-3">
         <div className="col">
-        <Outlet />
+          <Outlet />
         </div>
       </main>
     </div>

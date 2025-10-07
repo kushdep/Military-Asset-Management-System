@@ -4,41 +4,46 @@ import "./asset.js"
 import "./transfer.js"
 
 const assignSchema = new mongoose.Schema({
-    SId: {
-        type: Number,
-        required: true,
-        unique: true
-    },
+  SId: {
+    type: Number,
+    required: true,
+    unique: true
+  },
+  baseId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Base',
+    required: true
+  },
+  items: {
     items: [
-        {
-            asset: {
-                type: mongoose.Schema.Types.ObjectId,
-                required: true
+      {
+        category: {
+          type: String,
+          enum: ["Vehicle", "Weapons", "Ammunition"], 
+          required: true,
+        },
+        asset: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Asset",
+          required: true,
+        },
+        totalQty: {
+          value: { type: Number, required: true },
+          metric: { type: String, required: true },
+        },
+        expnd: [
+          {
+            qty: {
+              value: { type: Number, required: true },
+              metric: { type: String, required: true },
             },
-            toalQty:{
+            expndDate: { type: Date },
+          },
+        ],
+      },
+    ],
+  }
+}, { timestamps: true });
 
-            },
-
-            status:{
-                type:String,
-                enum:['Asgnd','Expd']
-            },
-            expnd:{
-                qty: {
-                value:{
-                    type: Number,
-                    required: true
-                },
-                metric:{
-                    type:String,
-                    required:true
-                }
-            },
-                expndDate:Date
-            }
-        }
-    ]
-}, { timestamps: true })
-
-const Purchase = mongoose.model('Purchase', assignSchema)
-export default Purchase
+const Assign = mongoose.model('Assign', assignSchema);
+export default Assign;
