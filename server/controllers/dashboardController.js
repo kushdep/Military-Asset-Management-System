@@ -228,10 +228,12 @@ export const asgnBaseAst = async (req, res) => {
   try {
     const { id } = req.params;
     const { sldrId, asgnAst } = req.body;
+    console.log(sldrId)
+    console.log(asgnAst)
 
     const baseDoc = await Base.findOne({ baseId: id });
     if (!baseDoc) {
-      return res.status(500).sendf({
+      return res.status(500).send({
         success: false,
         message: 'Base Not Found'
       });
@@ -241,7 +243,7 @@ export const asgnBaseAst = async (req, res) => {
     console.log(baseDoc)
     if (asgnAst?.Vehicle.length > 0 && baseDoc?.inventory?.Vehicle.length == 0 ||
       asgnAst?.Ammunition.length > 0 && baseDoc?.inventory?.Ammunition.length == 0 ||
-      asgnAst?.Weapons.length > 0 && baseDoc?.inventory?.Weapons.length == 0){
+      asgnAst?.Weapons.length > 0 && baseDoc?.inventory?.Weapons.length == 0) {
       return res.status(400).send({
         success: false,
         message: 'Assignment Not possible'
@@ -250,51 +252,49 @@ export const asgnBaseAst = async (req, res) => {
 
     let items = []
 
-    const aRR =Object.entries(asgnAst)
-    for(let [key, arr] of aRR) {
+    Object.entries(asgnAst).forEach(([key, arr]) => {
       console.log(arr)
       if (arr.length > 0) {
         console.log("2")
         arr.forEach((v) => {
           const invList = baseDoc.inventory[key];
-          const ind = invList.findIndex((e) => e.asset.toString() === v.id.toString());
+          console.log(invList)
+          const ind = invList.findIndex((e) => e._id.toString() === v.id);
+          console.log(ind)
           if (ind > -1) {
             console.log("3")
             const item = invList[ind];
             if (item.qty.metric !== v.metric ||
               item.qty.value < Number(v.qty)) {
-                return res.status(400).send({
-                  success: false,
-                  message: "Unable to update",
-                });
+              throw Error('Assignment cant be done')
+            }
+            console.log("4")
+            invList[ind].qty.value -= Number(v.qty)
+            items.push({
+              category: key,
+              asset: v.id,
+              totalQty: {
+                value: v.qty,
+                metric: v.metric
               }
-              console.log("4")
-              invList[ind].qty.value -= Number(v.qty)
-              items = {
-                category: key,
-                asset: v.id,
-                totalQty: {
-                  value: v.qty,
-                  metric: v.metric
-                }
-              }
-            } else {
-            console.log("1")
-            return res.status(400).send({
-              success: false,
-              message: "Unable to update",
-            });
+            })
+          } else {
+            console.log("4")
+            throw Error('Assignment cant be done')
           }
         });
       }
-    }
+    });
 
+    console.log(sldrId)
+    console.log(items)
 
     let newAssign = {
       sId: sldrId,
-      baseId: id,
+      baseId: baseDoc._id,
       items
     }
+    console.log(newAssign)
 
     const newAssignDoc = await Assign.create(newAssign)
 
@@ -313,7 +313,6 @@ export const asgnBaseAst = async (req, res) => {
       });
     }
     baseDoc.asgnAst.push(newAssignDoc._id)
-
     const updBase = await baseDoc.save()
     if (!updBase) {
       return res.status(400).send({

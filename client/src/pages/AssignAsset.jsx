@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
@@ -10,12 +10,10 @@ import SeeAllModal from "../Modals/SeeAllModal";
 import axios from "axios";
 
 function AssignAsset() {
-  const { id } = useParams();
+  const { id:baseId } = useParams();
   const { token } = useSelector((state) => state.authData);
   const { sldrsData, invtry } = useSelector((state) => state.baseData);
-  const { pageState, asgnAst, selSldr } = useSelector(
-    (state) => state.assignData
-  );
+  const { pageState, asgnAst } = useSelector((state) => state.assignData);
 
   const dispatch = useDispatch();
   const assigModalRef = useRef();
@@ -23,19 +21,25 @@ function AssignAsset() {
 
   useEffect(() => {
     if (sldrsData === null) {
-      dispatch(getBaseData(token, id));
+      dispatch(getBaseData(token, baseId));
     }
   }, [sldrsData]);
 
-  async function AddAsgnData() {
+  console.log(baseId)
+  async function AddAsgnData(id) {
+    console.log(id);
+    const { Vehicle, Ammunition, Weapons } = asgnAst.find(
+      (e) => e.sldrId === id
+    );
     const body = {
-      sldrId: selSldr.id,
-      asgnAst,
+      sldrId: id,
+      asgnAst: { Vehicle, Ammunition, Weapons },
     };
-
+    console.log(body);
     try {
+      console.log(baseId)
       const response = await axios.post(
-        `${import.meta.env.VITE_SERVER_URL}/dashboard/${id}/assign-asset`,
+        `${import.meta.env.VITE_SERVER_URL}/dashboard/${baseId}/assign-asset`,
         body,
         {
           headers: {
@@ -45,6 +49,7 @@ function AssignAsset() {
       );
       if (response.status === 200) {
         toast.success("Asset Assigned Successfully");
+        dispatch(assignActions.resetAssgnData({selSldrId:id}))
       }
       if (response.status === 400) {
         toast.error("Assignment Not possible");
@@ -65,9 +70,9 @@ function AssignAsset() {
         <AssignmentModal reference={assigModalRef} />
         <SeeAllModal
           reference={seeAllModalRef}
-          dataList={[...asgnAst.Vehicle,...asgnAst.Weapons,...asgnAst.Ammunition]}
+          dataList={asgnAst}
           btnfun={AddAsgnData}
-          title={`Assign to ${selSldr?.name}`}
+          isBtnSecGrp={true}
           btnTitle="Assign"
         />
         <div className="row mt-2">
@@ -93,9 +98,7 @@ function AssignAsset() {
           </div>
           <div className="col">
             <div className="d-flex flex-row-reverse">
-              {(asgnAst.Vehicle.length > 0 ||
-                asgnAst.Ammunition.length > 0 ||
-                asgnAst.Weapons.length > 0) && (
+              {asgnAst.length > 0 && (
                 <button
                   className="btn fw-bold text-success text-decoration-underline"
                   onClick={() => {

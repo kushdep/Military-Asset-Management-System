@@ -7,26 +7,45 @@ import { assignActions } from "../store/assign-slice";
 
 function AssignmentModal({ reference }) {
   const { invtry } = useSelector((state) => state.baseData);
-  const { selSldr,asgnAst } = useSelector((state) => state.assignData);
-  const { assetType, handleAssetType } = useFilter({code: "VCL",name: "Vehicle",});
-  const dispatch = useDispatch()
+  const { selSldr, asgnAst } = useSelector((state) => state.assignData);
+  const { assetType, handleAssetType } = useFilter({
+    code: "VCL",
+    name: "Vehicle",
+  });
+  const dispatch = useDispatch();
 
-
-  function submitAsndAst(event,metric, id, name,isExstng) {
+  function submitAsndAst(event, metric, id, name, isExstng) {
     event.preventDefault();
     const data = new FormData(event.target);
     const qty = data.get("assetQty");
-    if(qty===null || qty===""){
-      toast.error('Select Qty to Assign')
-      return 
+    if (qty === null || qty === "") {
+      toast.error("Select Qty to Assign");
+      return;
     }
-    if(isExstng){
-      dispatch(assignActions.updAsndAst({id,qty,type:assetType.name}))
-      toast.success('Saved')
-    }else{
-      dispatch(assignActions.setNewAssign({id,name,metric,qty,type:assetType.name}))
+    if (isExstng) {
+      dispatch(
+        assignActions.updAsndAst({
+          selSldrId: selSldr.id,
+          id,
+          qty,
+          type: assetType.name,
+        })
+      );
+      toast.success("Saved");
+    } else {
+      dispatch(
+        assignActions.setNewAssign({
+          selSldrId: selSldr.id,
+          id,
+          name,
+          metric,
+          qty,
+          type: assetType.name,
+        })
+      );
     }
   }
+  console.log(asgnAst);
 
   return createPortal(
     <dialog ref={reference} className="w-50 shadow rounded-4 p-4">
@@ -67,10 +86,21 @@ function AssignmentModal({ reference }) {
                 <div className="row d-flex justify-content-center">
                   <div className="col p-3">
                     {invtry[assetType.name]?.map((iv) => {
-                      const exstng = asgnAst[assetType.name].some(
-                        (i) => i.id === iv._id
-                      );
-                      console.log(exstng);
+                      const ind = asgnAst.findIndex((e) => e.sldrId === selSldr.id);
+
+                      let exstng = false;
+                      let exstngVal = null;
+                      if (ind > -1) {
+                        exstngVal = asgnAst[ind][assetType.name].find(
+                          (i) => i.id === iv._id
+                        );
+                        console.log(exstngVal)
+                        if (exstngVal !== undefined && exstngVal !== null && exstngVal?.qty !== null) {
+                          exstng = true;
+                        }
+                        console.log(exstng);
+                      }
+
                       return (
                         <div
                           key={iv._id}
@@ -84,13 +114,20 @@ function AssignmentModal({ reference }) {
                           </div>
                           <form
                             onSubmit={(e) =>
-                              submitAsndAst(e, iv.qty.metric,iv._id, iv.asset.name,exstng)
+                              submitAsndAst(
+                                e,
+                                iv.qty.metric,
+                                iv._id,
+                                iv.asset.name,
+                                exstng
+                              )
                             }
                           >
                             <div className="form-floating ms-3">
                               <select
                                 className="form-select"
                                 name="assetQty"
+                                defaultValue={exstngVal?.qty??""}
                               >
                                 <option value="">Select</option>
                                 {Array.from(
@@ -106,17 +143,22 @@ function AssignmentModal({ reference }) {
                             </div>
 
                             <div className="d-flex flex-column gap-1">
-                              <button
-                                type="submit"
-                                className="btn btn-success"
-                              >
+                              <button type="submit" className="btn btn-success">
                                 {exstng ? "Save" : "Add"}
                               </button>
                               {exstng && (
                                 <button
                                   type="button"
                                   className="btn btn-secondary"
-                                  onClick={() => dispatch(assignActions.delNewAssign({id:iv._id,type:assetType.name}))}
+                                  onClick={() =>
+                                    dispatch(
+                                      assignActions.delNewAssign({
+                                        id: iv._id,
+                                        type: assetType.name,
+                                        selSldrId: selSldr.id,
+                                      })
+                                    )
+                                  }
                                 >
                                   Cancel
                                 </button>
@@ -131,7 +173,7 @@ function AssignmentModal({ reference }) {
                   <div className="text-center">
                     <button
                       className="btn w-50 fw-semibold btn-primary rounded-pill shadow-sm mb-3"
-                      onClick={()=>reference.current.close()}
+                      onClick={() => reference.current.close()}
                     >
                       Done
                     </button>

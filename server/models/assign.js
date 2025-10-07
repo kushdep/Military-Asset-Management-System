@@ -4,17 +4,15 @@ import "./asset.js"
 import "./transfer.js"
 
 const assignSchema = new mongoose.Schema({
-  SId: {
-    type: Number,
+  sId: {
+    type: String,
     required: true,
-    unique: true
   },
   baseId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Base',
     required: true
   },
-  items: {
     items: [
       {
         category: {
@@ -42,7 +40,6 @@ const assignSchema = new mongoose.Schema({
         ],
       },
     ],
-  }
 }, { timestamps: true });
 
 const Assign = mongoose.model('Assign', assignSchema);

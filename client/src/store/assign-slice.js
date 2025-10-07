@@ -6,11 +6,7 @@ const assignSlice = createSlice({
         data: null,
         pageState: 'assign',//expenditure
         selSldr: null,
-        asgnAst: {
-            Vehicle: [],
-            Ammunition: [],
-            Weapons: [],
-        }
+        asgnAst: []
     },
     reducers: {
         setPageState(state, action) {
@@ -22,39 +18,47 @@ const assignSlice = createSlice({
         },
         setSelSldr(state, action) {
             try {
-                const {id,name}=action.payload
-                state.selSldr = {id,name}
+                const { id, name } = action.payload
+                state.selSldr = { id, name }
             } catch (error) {
                 console.log('Error in Set page State' + error)
             }
         },
-        setNewAssign(state,action){
+        setNewAssign(state, action) {
             try {
-                const {id,qty,metric,type,name} = action.payload
-                state.asgnAst[type].push({id,qty,name,metric})
+                const { id, qty, metric, type, name, selSldrId } = action.payload
+                let ind = state.asgnAst.findIndex((e) => e.sldrId === selSldrId)
+                if (ind === -1) {
+                    ind = state.asgnAst.length
+                    state.asgnAst.push({ sldrId: selSldrId, Vehicle: [], Ammunition: [], Weapons: [] })
+                }
+                state.asgnAst[ind][type].push({ id, qty, name, metric })
             } catch (error) {
                 console.log('Error in setNewAssign' + error)
             }
         },
         delNewAssign(state, action) {
             try {
-                const { id,type } = action.payload
-                state.asgnAst[type] = state.asgnAst[type].filter((e, i) => id !== e.id)
+                const { id, type, selSldrId } = action.payload
+                const ind = state.asgnAst.findIndex((e) => e.sldrId === selSldrId)
+                console.log(state.asgnAst[ind])
+                state.asgnAst[ind][type] = state.asgnAst[ind][type].filter((e) => id !== e.id)
             } catch (error) {
-                console.log('Error in delNewAssign')
+                console.log('Error in delNewAssign'+error)
             }
         },
         updAsndAst(state, action) {
             try {
-                const { id,qty,type } = action.payload
-                 state.asgnAst[type]  =  state.asgnAst[type].map((e) => {
+                const { id, qty, type, selSldrId } = action.payload
+                const ind = state.asgnAst.findIndex((e) => e.sldrId === selSldrId)
+                state.asgnAst[ind][type] = state.asgnAst[ind][type].map((e) => {
                     if (e.id === id) {
                         e.qty = qty
                     }
                     return e
                 })
             } catch (error) {
-                console.log('Error in updOldPurchase' + error)
+                console.log('Error in updAsndAst' + error)
             }
         },
         updErrState(state, action) {
@@ -72,12 +76,10 @@ const assignSlice = createSlice({
         },
         resetAssgnData(state, action) {
             try {
-                state.addNewPur.oldAst = []
-                state.addNewPur.newAst = []
-                state.addNewPur.err.oldAstErr = []
-                state.addNewPur.err.newAstErr = []
+                const { selSldrId } = action.payload
+                state.asgnAst = state.asgnAst.filter((e) => e.sldrId !== selSldrId)
             } catch (error) {
-                console.log('Error in addNewPurchase' + error)
+                console.log('Error in resetAssgnData' + error)
             }
         }
     }
