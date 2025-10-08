@@ -273,6 +273,7 @@ export const asgnBaseAst = async (req, res) => {
             items.push({
               category: key,
               asset: v.id,
+              name:v.name,
               totalQty: {
                 value: v.qty,
                 metric: v.metric
@@ -344,7 +345,7 @@ export const getIdvlBaseData = async (req, res) => {
     const { role, email } = req.user
     console.log(role)
     console.log(email)
-    const baseDoc = await Base.findOne({ baseId: id }).populate([{ path: 'purchase', populate: { path: 'items.asset' } }, { path: 'inventory.Vehicle.asset' }, { path: 'inventory.Weapons.asset' }, { path: 'inventory.Ammunition.asset' }])
+    const baseDoc = await Base.findOne({ baseId: id }).populate([{ path: 'purchase', populate: { path: 'items.asset' } }, { path: 'inventory.Vehicle.asset' }, { path: 'inventory.Weapons.asset' }, { path: 'inventory.Ammunition.asset' },{path:'asgnAst'}])
     console.log(baseDoc)
     if (baseDoc === null) {
       return res.status(400).send({

@@ -7,7 +7,7 @@ import { assignActions } from "../store/assign-slice";
 
 function AssignmentModal({ reference }) {
   const { invtry } = useSelector((state) => state.baseData);
-  const { selSldr, asgnAst } = useSelector((state) => state.assignData);
+  const { selSldr, asgnAst, pageState } = useSelector((state) => state.assignData);
   const { assetType, handleAssetType } = useFilter({
     code: "VCL",
     name: "Vehicle",
@@ -46,6 +46,7 @@ function AssignmentModal({ reference }) {
     }
   }
   console.log(asgnAst);
+  console.log(selSldr);
 
   return createPortal(
     <dialog ref={reference} className="w-50 shadow rounded-4 p-4">

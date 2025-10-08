@@ -10,7 +10,6 @@ const assignSchema = new mongoose.Schema({
   },
   baseId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Base',
     required: true
   },
     items: [
@@ -22,8 +21,11 @@ const assignSchema = new mongoose.Schema({
         },
         asset: {
           type: mongoose.Schema.Types.ObjectId,
-          ref: "Asset",
           required: true,
+        },
+        name:{
+          type:String,
+          required:true
         },
         totalQty: {
           value: { type: Number, required: true },

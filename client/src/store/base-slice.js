@@ -11,6 +11,7 @@ const baseSlice = createSlice({
         sldrsData: null,
         TINdata: [],
         TOUTdata: [],
+        assignData:[]
     },
     reducers: {
         addIds(state, action) {
@@ -27,6 +28,15 @@ const baseSlice = createSlice({
                 state.actvId = { id, name }
             } catch (error) {
                 console.error("Error in setActId() " + error)
+            }
+        },
+        setAssignData(state,action){
+            try {
+                const {astAssignData} = action.payload
+                console.log(astAssignData)
+                state.assignData= astAssignData
+            } catch (error) {
+                console.error("Error in setAssignData() " + error)
             }
         },
         addInvtData(state, action) {
@@ -87,7 +97,6 @@ const baseSlice = createSlice({
                 console.error("Error in addIds() " + error)
             }
         },
-
     }
 })
 
@@ -119,10 +128,10 @@ export const getBaseData = (token, id) => {
                 return
             }
             dispatch(baseActions.setActId({ id: baseData.baseId, name: baseData.baseName }))
+            dispatch(baseActions.setAssignData({ astAssignData: baseData.asgnAst }))
             dispatch(baseActions.addInvtData({ invtry: baseData.inventory }))
             dispatch(baseActions.addTINData({ TINdata: baseData.tsfrAst.IN }))
             dispatch(baseActions.addTOUTData({ TOUTdata: baseData.tsfrAst.OUT }))
-            console.log(baseData.sldrs)
             dispatch(baseActions.addSldrData({ sldrsData: baseData.sldrs }))
             dispatch(baseActions.addPurcData({ purchsData: baseData.purchase }))
         } catch (error) {

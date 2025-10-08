@@ -101,9 +101,7 @@ function PurchaseHistoryTable() {
                         return;
                       }
                     }
-                    const createdTime = new Date(
-                      purchs.createdAt
-                    ).toISOString();
+                    const createdTime = new Date(purchs.createdAt).toISOString();
                     const timeStamp = createdTime.slice(11);
                     const purDate = createdTime.slice(0, 10);
                     if (dateRange.from !== "" && dateRange.to !== "") {

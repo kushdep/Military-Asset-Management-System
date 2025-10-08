@@ -105,7 +105,7 @@ function SeeAllModal({
             })
           ) : (
             <div className="col border rounded-3 mb-3">
-              {isBtnSecGrp ? "Choose soldier id" : "No data"}
+              {isBtnSecGrp ? "Choose any id to see assets" : "No data"}
             </div>
           )}
         </div>
