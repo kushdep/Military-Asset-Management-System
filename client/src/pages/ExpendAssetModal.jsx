@@ -7,6 +7,7 @@ import { assignActions } from "../store/assign-slice";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { getBaseData } from "../store/base-slice";
 
 function ExpendAssetModal({ reference }) {
   const { assignData } = useSelector((state) => state.baseData);
@@ -81,7 +82,7 @@ function ExpendAssetModal({ reference }) {
         toast.success("Asset Expend Successfully");
         setModalStt("")
         dispatch(assignActions.resetExpndnData());
-        dispatch(getBaseData(token, baseId));
+        dispatch(getBaseData(token,baseId));
       }
       if (response.status === 400) {
         toast.error("Something went wrong");

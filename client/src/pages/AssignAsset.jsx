@@ -9,6 +9,7 @@ import { assignActions } from "../store/assign-slice";
 import SeeAllModal from "../Modals/SeeAllModal";
 import axios from "axios";
 import ExpendAssetModal from "./ExpendAssetModal";
+import AsgnExpndhistory from "../components/AsgnExpndHistory";
 
 function AssignAsset() {
   const { id: baseId } = useParams();
@@ -139,7 +140,7 @@ function AssignAsset() {
               )}
             </div>
             {pageState === "history" ? (
-              <h1>HIstory</h1>
+              <AsgnExpndhistory/>
             ) : pageState === "assign" ? (
               <table className="table border border-black mt-3">
                 <thead>

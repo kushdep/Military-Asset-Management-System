@@ -251,6 +251,7 @@ export const expendBaseAst = async (req, res) => {
         }
       })
     })
+    console.log(assignDoc)
 
     const updExpndAst = await assignDoc.save()
     if (!updExpndAst) {
