@@ -1,74 +1,70 @@
-import { useDispatch, useSelector } from "react-redux";
-import useFilter from "../hooks/useFilter";
-import { useRef } from "react";
-import toast from "react-hot-toast";
+import { useSelector } from "react-redux";
 
 function AsgnExpndhistory() {
   const { assignData } = useSelector((state) => state.baseData);
-  const { dateRange, handleDateRange, assetType, handleAssetType } = useFilter({
-    code: "NF",
-    name: "",
-  });
-  let sno = 1;
-  const dispatch = useDispatch();
-  const fromInp = useRef();
-  const toInp = useRef();
+  const asgnExpndHistory = [];
 
-  let asgnExpndHistory = [];
-  if (assignData !== null && assignData.length > 0) {
+  if (assignData && assignData.length > 0) {
     assignData.forEach((asgn) => {
       let ind = asgnExpndHistory.findIndex((a) => a.sId === asgn.sId);
+
       if (ind === -1) {
-        ind = asgnExpndHistory.length;
-        let data = { sId: asgn.sId, asgnExpndList: [] };
-        data.asgnExpndList.push(asgn.items);
-        asgnExpndHistory[ind] = data;
+        const data = { sId: asgn.sId, asgnExpndList: [asgn.items] };
+        asgnExpndHistory.push(data);
       } else {
         asgnExpndHistory[ind].asgnExpndList.push(asgn.items);
       }
     });
   }
-  console.log(asgnExpndHistory);
 
   return (
-    <div className="container">
+    <div className="container mt-3">
       {asgnExpndHistory.length > 0 ? (
-        asgnExpndHistory.map((asgnHis) => {
-          return (
-            <div className="row mt-2">
-              <div className="col ">
-                <div className="d-inline-flex gap-1 border rounded-3">
-                  <button
-                    className="btn btn-light border-0"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target={`#${asgnHis.sId}`}
-                    aria-expanded="false"
-                    aria-controls="collapseExample"
-                  >
-                    Soldier Id - <span className="fw-bold">{asgnHis.sId}</span>
-                  </button>
+        asgnExpndHistory.map((asgnHis) => (
+          <div className="row mt-3" key={asgnHis.sId}>
+            <div className="col">
+              <button
+                className="btn btn-light fw-semibold w-75"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target={`#collapse-${asgnHis.sId}`}
+                aria-expanded="false"
+              >
+                <div className="d-flex align-items-center justify-content-center border rounded-3 p-2 bg-light">
+                  Soldier ID: <span className="fw-bold">{asgnHis.sId}</span>
                 </div>
-                <div className="collapse" id={`${asgnHis.sId}`}>
-                  <div className="card card-body">
-                    {asgnHis.asgnExpndList.map((a) => {
-                      let asgnQty = a.totalQty.value;
-                      if (a.expnd.length > 0) {
-                        asgnQty += a.expnd.reduce(
-                          (sum, e) => sum + e.qty.value,
-                          0
-                        );
-                      }
-                      return (
-                        <div>
-                          <div>
-                            <p className="fw-semibold fs-4">
-                              Total Assigned Qty 0f {a.name} -{" "}
-                              {a.totalQty.value} {a.totalQty.metric}
-                            </p>
-                            <p className="text-muted">
-                              {
-                                <p className="text-muted">
+              </button>
+
+              <div className="collapse mt-2" id={`collapse-${asgnHis.sId}`}>
+                <div className="card card-body shadow-sm border-0">
+                  {asgnHis.asgnExpndList.map((agnEpnd, i) => (
+                    <div
+                      className="d-flex flex-wrap gap-3 border-bottom pb-3 mb-3"
+                      key={i}
+                    >
+                      {agnEpnd.map((a, j) => {
+                        const asgnQty =
+                          a.totalQty.value +
+                          (a.expnd?.reduce((sum, e) => sum + e.qty.value, 0) ||
+                            0);
+
+                        return (
+                          <div
+                            className="border rounded-3 p-3 flex-fill"
+                            key={j}
+                            style={{ minWidth: "280px" }}
+                          >
+                            <div className="mb-2">
+                              <p className="fw-semibold mb-1">
+                                Total Assigned Qty of{" "}
+                                <span className="text-primary">
+                                  {a.name || a.category}
+                                </span>{" "}
+                                – {asgnQty} {a.totalQty.metric}
+                              </p>
+
+                              {a.createdAt && (
+                                <small className="text-muted">
                                   {new Date(a.createdAt)
                                     .toISOString()
                                     .slice(0, 10)}{" "}
@@ -77,49 +73,52 @@ function AsgnExpndhistory() {
                                     .toISOString()
                                     .slice(11, 19)}
                                   )
-                                </p>
-                              }
-                            </p>
-                          </div>
-                          <p className="fw-semibold fs-4">Expended Assets</p>
-                          {e.expnd.length > 0 ? (
-                            <ul>
-                              {e.expnd.map((x) => {
-                                return (
-                                  <li>
-                                    Qty -{" "}
-                                    <span>
+                                </small>
+                              )}
+                            </div>
+
+                            <p className="fw-semibold mb-1">Expended Assets</p>
+                            {a.expnd.length > 0 ? (
+                              <ul className="mb-0 ps-3">
+                                {a.expnd.map((x, k) => (
+                                  <li key={k} className="small">
+                                    Qty –{" "}
+                                    <span className="fw-semibold">
                                       {x.qty.value} {x.qty.metric}
-                                    </span>{" "}
-                                    Expend Date -{" "}
+                                    </span>
+                                    , Expend Date –{" "}
                                     <span className="text-muted">
-                                      {new Date(a.createdAt)
+                                      {new Date(x.expndDate)
                                         .toISOString()
                                         .slice(0, 10)}{" "}
                                       (
-                                      {new Date(a.createdAt)
+                                      {new Date(x.expndDate)
                                         .toISOString()
                                         .slice(11, 19)}
                                       )
                                     </span>
                                   </li>
-                                );
-                              })}
-                            </ul>
-                          ) : (
-                            <p>No Data of Expend</p>
-                          )}
-                        </div>
-                      );
-                    })}
-                  </div>
+                                ))}
+                              </ul>
+                            ) : (
+                              <p className="text-muted small mb-0">
+                                No Data of Expend
+                              </p>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
-          );
-        })
+          </div>
+        ))
       ) : (
-        <div>No Assigned And Expend of Assets History</div>
+        <div className="text-center text-muted py-5">
+          No Assigned and Expended Asset History
+        </div>
       )}
     </div>
   );
