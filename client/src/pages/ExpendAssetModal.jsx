@@ -6,9 +6,11 @@ import useFilter from "../hooks/useFilter";
 import { assignActions } from "../store/assign-slice";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 
 function ExpendAssetModal({ reference }) {
   const { assignData } = useSelector((state) => state.baseData);
+  const {token} = useSelector((state)=>state.authData)
   const { selSldr, expndAst } = useSelector((state) => state.assignData);
   const [listModalStt, setModalStt] = useState("");
   const { assetType, handleAssetType } = useFilter({
@@ -59,15 +61,15 @@ function ExpendAssetModal({ reference }) {
   }
 
   async function submitExpendedAssets() {
-    const body = {
-      sldrId: id,
-      asgnAst: { Vehicle, Ammunition, Weapons },
-    };
+    const body ={
+        asgmtId:expndAst[0].asgmtId,
+        items:expndAst[0].items
+    }
     console.log(body);
     try {
       console.log(baseId);
-      const response = await axios.post(
-        `${import.meta.env.VITE_SERVER_URL}/dashboard/${baseId}/assign-asset`,
+      const response = await axios.patch(
+        `${import.meta.env.VITE_SERVER_URL}/dashboard/${baseId}/expend-asset`,
         body,
         {
           headers: {
@@ -76,15 +78,17 @@ function ExpendAssetModal({ reference }) {
         }
       );
       if (response.status === 200) {
-        toast.success("Asset Assigned Successfully");
-        dispatch(assignActions.resetAssgnData({ selSldrId: id }));
+        toast.success("Asset Expend Successfully");
+        setModalStt("")
+        dispatch(assignActions.resetExpndnData());
         dispatch(getBaseData(token, baseId));
       }
       if (response.status === 400) {
-        toast.error("Assignment Not possible");
+        toast.error("Something went wrong");
         return;
       }
     } catch (error) {
+        console.log(error)
       if (error.response.status === 500) {
         toast.error("Something went wrong");
       }
@@ -224,7 +228,7 @@ function ExpendAssetModal({ reference }) {
                         <div className="col p-3">
                           {assetList.length !== 0 &&
                             assetList[0].items.map((it) => {
-                              if (it.category !== assetType.name) {
+                              if (it.category !== assetType.name || it.totalQty.value<1) {
                                 return;
                               }
 

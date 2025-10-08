@@ -224,12 +224,61 @@ export const addNewPurchaseData = async (req, res) => {
   }
 };
 
+export const expendBaseAst = async (req, res) => {
+  try {
+    const { asgmtId, items } = req.body;
+    console.log(asgmtId)
+    console.log(items)
+
+    const assignDoc = await Assign.findById({ _id: asgmtId });
+    if (!assignDoc) {
+      return res.status(500).send({
+        success: false,
+        message: 'Assignment Not Found'
+      });
+    }
+    console.log(assignDoc)
+
+    items.forEach((expndItem) => {
+      assignDoc.items.forEach((docItems) => {
+        if (expndItem.itemId === docItems._id.toString()) {
+          if (expndItem.qty > docItems.totalQty.value ||
+            expndItem.metric !== docItems.totalQty.metric) {
+            throw Error('Expend of asset can\'t be done')
+          }
+          docItems.totalQty.value -= Number(expndItem.qty)
+          docItems.expnd.push({ qty: { value: expndItem.qty, metric: expndItem.metric }, expndDate: new Date() })
+        }
+      })
+    })
+
+    const updExpndAst = await assignDoc.save()
+    if (!updExpndAst) {
+      return res.status(400).send({
+        success: false,
+        message: 'Updation of Doc cant be done'
+      });
+    }
+
+    return res.status(200).send({
+      success: true,
+      message: 'Expend details Updated'
+    });
+
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send({
+      success: false,
+      message: error.message
+    });
+  }
+};
 export const asgnBaseAst = async (req, res) => {
   try {
     const { id } = req.params;
     const { sldrId, asgnAst } = req.body;
-    console.log(sldrId)
-    console.log(asgnAst)
+    // console.log(sldrId)
+    // console.log(asgnAst)
 
     const baseDoc = await Base.findOne({ baseId: id });
     if (!baseDoc) {
@@ -251,9 +300,10 @@ export const asgnBaseAst = async (req, res) => {
     }
 
     let items = []
+    // console.log(newAssign)
 
     Object.entries(asgnAst).forEach(([key, arr]) => {
-      console.log(arr)
+      // console.log(arr)
       if (arr.length > 0) {
         console.log("2")
         arr.forEach((v) => {
@@ -273,7 +323,7 @@ export const asgnBaseAst = async (req, res) => {
             items.push({
               category: key,
               asset: v.id,
-              name:v.name,
+              name: v.name,
               totalQty: {
                 value: v.qty,
                 metric: v.metric
@@ -287,8 +337,9 @@ export const asgnBaseAst = async (req, res) => {
       }
     });
 
-    console.log(sldrId)
-    console.log(items)
+    console.log("after array")
+    // console.log(sldrId)
+    // console.log(items)
 
     let newAssign = {
       sId: sldrId,
@@ -298,7 +349,8 @@ export const asgnBaseAst = async (req, res) => {
     console.log(newAssign)
 
     const newAssignDoc = await Assign.create(newAssign)
-
+    console.log("------------")
+    console.log(newAssignDoc)
     const updAstval = await Promise.all(
       items.map(ele =>
         Asset.findByIdAndUpdate(
@@ -345,7 +397,7 @@ export const getIdvlBaseData = async (req, res) => {
     const { role, email } = req.user
     console.log(role)
     console.log(email)
-    const baseDoc = await Base.findOne({ baseId: id }).populate([{ path: 'purchase', populate: { path: 'items.asset' } }, { path: 'inventory.Vehicle.asset' }, { path: 'inventory.Weapons.asset' }, { path: 'inventory.Ammunition.asset' },{path:'asgnAst'}])
+    const baseDoc = await Base.findOne({ baseId: id }).populate([{ path: 'purchase', populate: { path: 'items.asset' } }, { path: 'inventory.Vehicle.asset' }, { path: 'inventory.Weapons.asset' }, { path: 'inventory.Ammunition.asset' }, { path: 'asgnAst' }])
     console.log(baseDoc)
     if (baseDoc === null) {
       return res.status(400).send({
