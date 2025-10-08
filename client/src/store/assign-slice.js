@@ -6,9 +6,26 @@ const assignSlice = createSlice({
         data: null,
         pageState: 'assign',//expenditure
         selSldr: null,
-        asgnAst: []
+        asgnAst: [],
+        asgnInvntry: null
     },
     reducers: {
+        setAsgnInvnty(state, action) {
+            try {
+                const { invtry } = action.payload
+                state.asgnInvntry = invtry
+            } catch (error) {
+                console.log('Error in Set page State' + error)
+            }
+        },
+        updAsgnInvnty(state, action) {
+            try {
+                const { id,type } = action.payload
+                state.asgnInvntry = invtry
+            } catch (error) {
+                console.log('Error in Set page State' + error)
+            }
+        },
         setPageState(state, action) {
             try {
                 state.pageState = action.payload
@@ -44,7 +61,7 @@ const assignSlice = createSlice({
                 console.log(state.asgnAst[ind])
                 state.asgnAst[ind][type] = state.asgnAst[ind][type].filter((e) => id !== e.id)
             } catch (error) {
-                console.log('Error in delNewAssign'+error)
+                console.log('Error in delNewAssign' + error)
             }
         },
         updAsndAst(state, action) {

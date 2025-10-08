@@ -20,7 +20,7 @@ function AssignAsset() {
   const seeAllModalRef = useRef();
 
   useEffect(() => {
-    if (sldrsData === null) {
+    if (sldrsData === null || invtry===null) {
       dispatch(getBaseData(token, baseId));
     }
   }, [sldrsData]);
@@ -50,6 +50,7 @@ function AssignAsset() {
       if (response.status === 200) {
         toast.success("Asset Assigned Successfully");
         dispatch(assignActions.resetAssgnData({selSldrId:id}))
+        dispatch(getBaseData(token, baseId));
       }
       if (response.status === 400) {
         toast.error("Assignment Not possible");
@@ -61,7 +62,7 @@ function AssignAsset() {
       }
       return;
     }
-    reference.current.close();
+    asgnAst.length ===0 && seeAllModalRef.current.close();
   }
 
   return (

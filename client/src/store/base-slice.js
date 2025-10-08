@@ -31,7 +31,7 @@ const baseSlice = createSlice({
         },
         addInvtData(state, action) {
             try {
-                const { invtry = [] } = action.payload
+                const { invtry = null } = action.payload
                 state.invtry = invtry
             } catch (error) {
                 console.error("Error in addIds() " + error)

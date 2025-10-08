@@ -85,21 +85,21 @@ function AssignmentModal({ reference }) {
               <div className="container border mb-3 rounded-4 shadow-sm">
                 <div className="row d-flex justify-content-center">
                   <div className="col p-3">
-                    {invtry[assetType.name]?.map((iv) => {
+                    {invtry?.[assetType.name]?.map((iv) => {
                       const ind = asgnAst.findIndex((e) => e.sldrId === selSldr.id);
+                      const exstSldrAstAsnd =ind > -1 ? asgnAst[ind][assetType.name] : [];
 
-                      let exstng = false;
-                      let exstngVal = null;
-                      if (ind > -1) {
-                        exstngVal = asgnAst[ind][assetType.name].find(
-                          (i) => i.id === iv._id
-                        );
-                        console.log(exstngVal)
-                        if (exstngVal !== undefined && exstngVal !== null && exstngVal?.qty !== null) {
-                          exstng = true;
-                        }
-                        console.log(exstng);
-                      }
+                      const exstngVal = exstSldrAstAsnd.find((i) => i.id === iv._id);
+                      const exstng = !!exstngVal;
+
+                      const ttlAsnd = asgnAst
+                        .flatMap((sldr) => sldr[assetType.name])
+                        .filter((a) => a.id === iv._id)
+                        .reduce((sum, a) => sum + Number(a.qty), 0);
+
+                      const availableQty =iv.qty.value -ttlAsnd +(Number(exstngVal?.qty) || 0);
+
+                      if (availableQty <= 0) return null;
 
                       return (
                         <div
@@ -109,9 +109,10 @@ function AssignmentModal({ reference }) {
                           <div>
                             <p className="fw-bold mb-1">{iv.asset.name}</p>
                             <small className="text-muted">
-                              Qty: {iv.qty.value} {iv.qty.metric}
+                              Available: {availableQty} {iv.qty.metric}
                             </small>
                           </div>
+
                           <form
                             onSubmit={(e) =>
                               submitAsndAst(
@@ -127,11 +128,11 @@ function AssignmentModal({ reference }) {
                               <select
                                 className="form-select"
                                 name="assetQty"
-                                defaultValue={exstngVal?.qty??""}
+                                defaultValue={exstngVal?.qty ?? ""}
                               >
                                 <option value="">Select</option>
                                 {Array.from(
-                                  { length: iv.qty.value },
+                                  { length: availableQty },
                                   (_, i) => i + 1
                                 ).map((n) => (
                                   <option key={n} value={n}>

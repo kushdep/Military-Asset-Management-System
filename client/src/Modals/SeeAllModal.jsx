@@ -90,7 +90,7 @@ function SeeAllModal({
           <h4 className="fw-bold text-center text-decoration-underline">
             {selSldrId !== "" && selSldrId}
           </h4>
-          {selSldrList?.length !== 0 ? (
+          {selSldrId !== "" && selSldrList?.length !== 0 ? (
             selSldrList.map((d) => {
               return (
                 <div className="col border rounded-3 mb-3">
@@ -117,6 +117,7 @@ function SeeAllModal({
           onClick={() => {
             if (isBtnSecGrp) {
               btnfun(selSldrId);
+              setSldrId("")
             } else {
               btnfun();
             }

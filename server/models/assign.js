@@ -35,7 +35,9 @@ const assignSchema = new mongoose.Schema({
               value: { type: Number, required: true },
               metric: { type: String, required: true },
             },
-            expndDate: { type: Date },
+            expndDate: { type: Date, 
+              default:true
+            },
           },
         ],
       },
