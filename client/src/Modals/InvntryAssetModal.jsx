@@ -1,53 +1,23 @@
 import { createPortal } from "react-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { itemType } from "../../config";
-import toast from "react-hot-toast";
 import useFilter from "../hooks/useFilter";
-import { assignActions } from "../store/assign-slice";
 
-function AssignmentModal({ reference }) {
+function InvntryAssetModal({
+  reference,
+  submitfun,
+  selField,
+  asgnData,
+  delAsgnDataFn,
+  keyName,
+}) {
   const { invtry } = useSelector((state) => state.baseData);
-  const { selSldr, asgnAst } = useSelector((state) => state.assignData);
   const { assetType, handleAssetType } = useFilter({
     code: "VCL",
     name: "Vehicle",
   });
   const dispatch = useDispatch();
-
-  function submitAsndAst(event, metric, id, name, isExstng) {
-    event.preventDefault();
-    const data = new FormData(event.target);
-    const qty = data.get("assetQty");
-    if (qty === null || qty === "") {
-      toast.error("Select Qty to Assign");
-      return;
-    }
-    if (isExstng) {
-      dispatch(
-        assignActions.updAsndAst({
-          selSldrId: selSldr.id,
-          id,
-          qty,
-          type: assetType.name,
-        })
-      );
-      toast.success("Saved");
-    } else {
-      dispatch(
-        assignActions.setNewAssign({
-          selSldrId: selSldr.id,
-          id,
-          name,
-          metric,
-          qty,
-          type: assetType.name,
-        })
-      );
-    }
-  }
-  console.log(asgnAst);
-  console.log(selSldr);
-
+  
   return createPortal(
     <dialog ref={reference} className="w-50 shadow rounded-4 p-4">
       <form method="dialog" className="d-flex gap-5">
@@ -57,7 +27,7 @@ function AssignmentModal({ reference }) {
           data-bs-dismiss="modal"
           aria-label="Close"
         ></button>
-        <h3>{selSldr?.name}</h3>
+        <h3>{selField?.name}</h3>
       </form>
 
       <div className="container p-0">
@@ -87,18 +57,33 @@ function AssignmentModal({ reference }) {
                 <div className="row d-flex justify-content-center">
                   <div className="col p-3">
                     {invtry?.[assetType.name]?.map((iv) => {
-                      const ind = asgnAst.findIndex((e) => e.sldrId === selSldr.id);
-                      const exstSldrAstAsnd =ind > -1 ? asgnAst[ind][assetType.name] : [];
+                        console.log(asgnData?.[0]?.[keyName])
+                      const ind = asgnData.findIndex(
+                        (e) => {
+                             console.log(e)
+                             console.log(keyName)
+                             console.log(e?.[keyName])
+                            return e[keyName] === selField.id
+                        }
+                      );
+                      console.log(ind);
+                      const exstAstAsnd = ind > -1 ? asgnData[ind][assetType.name] : [];
+                      console.log(exstAstAsnd);
 
-                      const exstngVal = exstSldrAstAsnd.find((i) => i.id === iv._id);
+                      const exstngVal = exstAstAsnd.find(
+                        (i) => i.id === iv._id
+                      );
+                      console.log(exstngVal);
                       const exstng = !!exstngVal;
 
-                      const ttlAsnd = asgnAst
+                      const ttlAsnd = asgnData
                         .flatMap((sldr) => sldr[assetType.name])
                         .filter((a) => a.id === iv._id)
                         .reduce((sum, a) => sum + Number(a.qty), 0);
-
-                      const availableQty =iv.qty.value -ttlAsnd +(Number(exstngVal?.qty) || 0);
+                      console.log(ttlAsnd);
+                      const availableQty =
+                        iv.qty.value - ttlAsnd + (Number(exstngVal?.qty) || 0);
+                      console.log(availableQty);
 
                       if (availableQty <= 0) return null;
 
@@ -116,12 +101,13 @@ function AssignmentModal({ reference }) {
 
                           <form
                             onSubmit={(e) =>
-                              submitAsndAst(
+                              submitfun(
                                 e,
                                 iv.qty.metric,
                                 iv._id,
                                 iv.asset.name,
-                                exstng??false
+                                assetType.name,
+                                exstng ?? false
                               )
                             }
                           >
@@ -154,10 +140,10 @@ function AssignmentModal({ reference }) {
                                   className="btn btn-secondary"
                                   onClick={() =>
                                     dispatch(
-                                      assignActions.delNewAssign({
+                                      delAsgnDataFn({
                                         id: iv._id,
                                         type: assetType.name,
-                                        selSldrId: selSldr.id,
+                                        sel: selField.id,
                                       })
                                     )
                                   }
@@ -191,4 +177,4 @@ function AssignmentModal({ reference }) {
   );
 }
 
-export default AssignmentModal;
+export default InvntryAssetModal;

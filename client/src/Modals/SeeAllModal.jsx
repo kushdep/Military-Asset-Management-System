@@ -8,24 +8,30 @@ function SeeAllModal({
   title,
   btnTitle,
   isBtnSecGrp,
+  keyName
 }) {
   const [selSldrList, setSelSldrList] = useState([]);
   const [selSldrId, setSldrId] = useState("");
+  console.log(keyName)
 
   useEffect(() => {
     if (!isBtnSecGrp) setSelSldrList(dataList);
   }, [isBtnSecGrp, dataList]);
 
   function handleSelSldr(id) {
-    const selList = dataList.find((e) => e.sldrId === id);
-    if (selList)
+    console.log(id)
+    const selList = dataList.find((e) => e[keyName] === id);
+    console.log(selList)
+    if (selList){
       setSelSldrList([
         ...(selList.Vehicle || []),
         ...(selList.Ammunition || []),
         ...(selList.Weapons || []),
       ]);
-    setSldrId(id);
+    setSldrId(selList[keyName]);
+    }
   }
+  console.log(dataList)
 
   return createPortal(
     <dialog ref={reference} className="shadow rounded-4 p-4">
@@ -42,17 +48,19 @@ function SeeAllModal({
           role="group"
           aria-label="Button group with nested dropdown"
         >
-          {dataList.slice(0, 2).map((e) => (
-            <button
-              key={e.sldrId}
+          {dataList.slice(0, 2).map((e) => {
+            console.log(e)
+            console.log(e[keyName])
+            return <button
+              key={e[keyName]}
               className={`btn ${
-                selSldrId === e.sldrId ? "btn-primary" : " btn-outline-primary"
+                selSldrId === e[keyName] ? "btn-primary" : " btn-outline-primary"
               }`}
-              onClick={() => handleSelSldr(e.sldrId)}
+              onClick={() => handleSelSldr(e[keyName])}
             >
-              {e.sldrId}
+              {e[keyName]}
             </button>
-          ))}
+})}
 
           {dataList.length > 2 && (
             <div className="btn-group" role="group">
@@ -64,16 +72,16 @@ function SeeAllModal({
               ></button>
               <ul className="dropdown-menu">
                 {dataList.slice(2).map((item) => (
-                  <li key={item.sldrId}>
+                  <li key={item[keyName]}>
                     <button
                       className={`btn ${
-                        selSldrId === item.sldrId
+                        selSldrId === item[keyName]
                           ? "btn-primary"
                           : " btn-outline-primary"
                       } dropdown-item`}
-                      onClick={() => handleSelSldr(item.sldrId)}
+                      onClick={() => handleSelSldr(item[keyName])}
                     >
-                      {item.sldrId}
+                      {item[keyName]}
                     </button>
                   </li>
                 ))}

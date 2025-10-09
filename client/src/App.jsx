@@ -6,6 +6,7 @@ import PurchasePage from "./pages/PurchasePage";
 import LoginRoute from "./auth-routes/LoginRoute";
 import DashRoute from "./auth-routes/DashRoute";
 import AssignAsset from "./pages/AssignAsset";
+import TransferAsset from "./components/TransferAssets";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,7 @@ const router = createBrowserRouter([
           { path: "purchase", element: <PurchasePage /> },
           { path: "assign", element: <AssignAsset/> },
           { path: "expenditure", element: <AssignAsset/> },
+          { path: "transfer", element: <TransferAsset/> },
         ],
       },
     ],

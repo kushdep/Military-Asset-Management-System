@@ -1,9 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const assignSlice = createSlice({
-    name: 'purchase',
+    name: 'assign',
     initialState: {
-        data: null,
         pageState: 'assign',//expenditure,history
         selSldr: null,
         asgnAst: [],

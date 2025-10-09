@@ -8,7 +8,7 @@ import { getBaseData } from "../store/base-slice";
 import { assignActions } from "../store/assign-slice";
 import SeeAllModal from "../Modals/SeeAllModal";
 import axios from "axios";
-import ExpendAssetModal from "./ExpendAssetModal";
+import ExpendAssetModal from "../Modals/ExpendAssetModal";
 import AsgnExpndhistory from "../components/AsgnExpndHistory";
 
 function AssignAsset() {
@@ -78,7 +78,6 @@ function AssignAsset() {
       }
     });
   }
-
   return (
     <>
       <div className="container-fluid">
@@ -90,6 +89,7 @@ function AssignAsset() {
           btnfun={AddAsgnData}
           isBtnSecGrp={true}
           btnTitle="Assign"
+          keyName={"sldrId"}
         />
         <div className="row mt-2">
           <div className="col-1 p-2 d-flex flex-column gap-2">

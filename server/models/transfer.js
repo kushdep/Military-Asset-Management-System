@@ -14,6 +14,12 @@ const transferSchema = new Schema({
         type: Types.ObjectId,
         required: true
     },
+    status:{
+        type:String,
+        enum:['PENDING','RECIEVED','CANCELLED'],
+        default:'PENDING',
+        required:true
+    },
     astDtl: [{
         assetId: {
             type: Types.ObjectId,

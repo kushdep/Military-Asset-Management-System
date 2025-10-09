@@ -9,8 +9,8 @@ const baseSlice = createSlice({
         invtry: {},
         purchaseHistory: null,
         sldrsData: null,
-        TINdata: [],
-        TOUTdata: [],
+        TINdata: null,
+        TOUTdata: null,
         assignData:[]
     },
     reducers: {
@@ -51,6 +51,7 @@ const baseSlice = createSlice({
             try {
                 const { TINdata = [] } = action.payload
                 state.TINdata = TINdata
+                console.log(state.TINdata)
             } catch (error) {
                 console.error("Error in addIds() " + error)
             }

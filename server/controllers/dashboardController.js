@@ -30,7 +30,6 @@ export const getALLBaseData = async (req, res) => {
   }
 }
 
-
 export const addNewPurchaseData = async (req, res) => {
   try {
     const { id } = req.params;
@@ -274,7 +273,8 @@ export const expendBaseAst = async (req, res) => {
     });
   }
 };
-export const asgnBaseAst = async (req, res) => {
+
+export const transferBaseAst = async (req, res) => {
   try {
     const { id } = req.params;
     const { sldrId, asgnAst } = req.body;
@@ -390,6 +390,121 @@ export const asgnBaseAst = async (req, res) => {
   }
 };
 
+export const asgnBaseAst = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { sldrId, asgnAst } = req.body;
+    // console.log(sldrId)
+    // console.log(asgnAst)
+
+    const baseDoc = await Base.findOne({ baseId: id });
+    if (!baseDoc) {
+      return res.status(500).send({
+        success: false,
+        message: 'Base Not Found'
+      });
+    }
+
+    console.log(asgnAst)
+    console.log(baseDoc)
+    if (asgnAst?.Vehicle.length > 0 && baseDoc?.inventory?.Vehicle.length == 0 ||
+      asgnAst?.Ammunition.length > 0 && baseDoc?.inventory?.Ammunition.length == 0 ||
+      asgnAst?.Weapons.length > 0 && baseDoc?.inventory?.Weapons.length == 0) {
+      return res.status(400).send({
+        success: false,
+        message: 'Assignment Not possible'
+      });
+    }
+
+    let items = []
+    // console.log(newAssign)
+
+    Object.entries(asgnAst).forEach(([key, arr]) => {
+      // console.log(arr)
+      if (arr.length > 0) {
+        console.log("2")
+        arr.forEach((v) => {
+          const invList = baseDoc.inventory[key];
+          console.log(invList)
+          const ind = invList.findIndex((e) => e._id.toString() === v.id);
+          console.log(ind)
+          if (ind > -1) {
+            console.log("3")
+            const item = invList[ind];
+            if (item.qty.metric !== v.metric ||
+              item.qty.value < Number(v.qty)) {
+              throw Error('Assignment cant be done')
+            }
+            console.log("4")
+            invList[ind].qty.value -= Number(v.qty)
+            items.push({
+              category: key,
+              asset: v.id,
+              name: v.name,
+              totalQty: {
+                value: v.qty,
+                metric: v.metric
+              }
+            })
+          } else {
+            console.log("4")
+            throw Error('Assignment cant be done')
+          }
+        });
+      }
+    });
+
+    console.log("after array")
+    // console.log(sldrId)
+    // console.log(items)
+
+    let newAssign = {
+      sId: sldrId,
+      baseId: baseDoc._id,
+      items
+    }
+    console.log(newAssign)
+
+    const newAssignDoc = await Assign.create(newAssign)
+    console.log("------------")
+    console.log(newAssignDoc)
+    const updAstval = await Promise.all(
+      items.map(ele =>
+        Asset.findByIdAndUpdate(
+          ele.asset,
+          { $push: { assignId: newAssignDoc._id } }
+        )
+      )
+    )
+    if (!updAstval) {
+      return res.status(400).send({
+        success: false,
+        message: 'Base Not Found'
+      });
+    }
+    baseDoc.asgnAst.push(newAssignDoc._id)
+    const updBase = await baseDoc.save()
+    if (!updBase) {
+      return res.status(400).send({
+        success: false,
+        message: 'Unable to update'
+      });
+    }
+
+    return res.status(200).send({
+      success: true,
+      data: baseDoc,
+      message: 'Base Details Updated'
+    });
+
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send({
+      success: false,
+      message: error.message
+    });
+  }
+};
 
 export const getIdvlBaseData = async (req, res) => {
   try {
