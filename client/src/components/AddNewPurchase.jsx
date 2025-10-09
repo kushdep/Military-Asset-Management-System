@@ -144,7 +144,7 @@ function AddNewPurchase() {
                           <label className="p-2">metric</label>
                         </div>
                         <button
-                          className="btn btn-primary"
+                          className="btn btn-success"
                           type="submit"
                         >
                           {exstng ? "Save" : "Add"}

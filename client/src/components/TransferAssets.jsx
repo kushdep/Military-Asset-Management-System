@@ -173,8 +173,8 @@ function TransferAsset() {
             onClick={() => dispatch(transferActions.setPageState("transfer"))}
             className={`btn fw-bold p-2 ${
               pageState === "transfer"
-                ? "active btn-success"
-                : "btn-outline-success"
+                ? "active btn-dark"
+                : "btn-outline-dark"
             }`}
           >
             Transfer
@@ -183,8 +183,8 @@ function TransferAsset() {
             onClick={() => dispatch(transferActions.setPageState("approvals"))}
             className={`btn fw-bold p-2 ${
               pageState === "approvals"
-                ? "active btn-success"
-                : "btn-outline-success"
+                ? "active btn-dark"
+                : "btn-outline-dark"
             }`}
           >
             Approvals
@@ -193,8 +193,8 @@ function TransferAsset() {
             onClick={() => dispatch(transferActions.setPageState("history"))}
             className={`btn fw-bold p-2 ${
               pageState === "history"
-                ? "active btn-success"
-                : "btn-outline-success"
+                ? "active btn-dark"
+                : "btn-outline-dark"
             }`}
           >
             History
@@ -236,7 +236,7 @@ function TransferAsset() {
                         <td>{b.baseName}</td>
                         <td>
                           <button
-                            className="btn btn-primary"
+                            className="btn btn-success"
                             onClick={() => {
                               console.log(b);
                               dispatch(

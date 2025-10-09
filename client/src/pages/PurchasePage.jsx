@@ -25,10 +25,10 @@ function PurchasePage() {
     <>
       <div className="container-fluid h-100">
         <div className="row mt-3 h-100">
-          <div className="col-1 d-flex flex-column gap-3 justify-content-center me-3">
+          <div className="col-1 d-flex flex-column gap-3 me-3">
             <button
               className={`btn fw-bold ${
-                pageState === "add" ? "btn-primary" : "btn-outline-primary"
+                pageState === "add" ? "btn-dark" : "btn-outline-dark"
               }`}
               onClick={()=>dispatch(purchaseActions.setPageState('add'))}
               >
@@ -36,7 +36,7 @@ function PurchasePage() {
             </button>
             <button
               className={`btn fw-bold ${
-                pageState === "history" ? "btn-primary" : "btn-outline-primary"
+                pageState === "history" ? "btn-dark" : "btn-outline-dark"
               }`}
               onClick={()=>dispatch(purchaseActions.setPageState('history'))}
             >

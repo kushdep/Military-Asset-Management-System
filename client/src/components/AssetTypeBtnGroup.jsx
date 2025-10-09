@@ -12,8 +12,8 @@ function AssetTypeBtnGroup({fun,val}) {
                 type="button"
                 className={`btn fw-bold ${
                   val === item.code
-                    ? `btn-primary`
-                    : `btn-outline-primary`
+                    ? `btn-dark`
+                    : `btn-outline-dark`
                 }`}
                 onClick={() => fun(item)}
               >

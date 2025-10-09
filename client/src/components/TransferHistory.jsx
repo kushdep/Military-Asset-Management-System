@@ -15,14 +15,14 @@ function TransferHistory({ TINhis, TOUThis }) {
       <div className="row">
         <div className="col text-center">
           <div
-            className="btn-group w-50"
+            className="btn-group w-50 gap-1"
             role="group"
             aria-label="Basic outlined example"
           >
             <button
               type="button"
               className={`fw-bold btn ${
-                hisState === "IN" ? "btn-primary" : "btn-outline-primary"
+                hisState === "IN" ? "btn-dark" : "btn-outline-dark"
               }`}
               onClick={() => selHisState("IN")}
             >
@@ -31,7 +31,7 @@ function TransferHistory({ TINhis, TOUThis }) {
             <button
               type="button"
               className={`fw-bold btn ${
-                hisState === "OUT" ? "btn-primary" : "btn-outline-primary"
+                hisState === "OUT" ? "btn-dark" : "btn-outline-dark"
               }`}
               onClick={() => selHisState("OUT")}
             >

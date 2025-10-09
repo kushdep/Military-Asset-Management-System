@@ -97,8 +97,8 @@ function AssignAsset() {
               onClick={() => dispatch(assignActions.setPageState("assign"))}
               className={`btn fw-bold p-2 ${
                 pageState === "assign"
-                  ? "active btn-success"
-                  : "btn-outline-success"
+                  ? "active btn-dark"
+                  : "btn-outline-dark"
               }`}
             >
               Assignment
@@ -109,8 +109,8 @@ function AssignAsset() {
               }
               className={`btn fw-bold p-2 ${
                 pageState === "expenditure"
-                  ? "active btn-success"
-                  : "btn-outline-success"
+                  ? "active btn-dark"
+                  : "btn-outline-dark"
               }`}
             >
               Expenditure
@@ -119,8 +119,8 @@ function AssignAsset() {
               onClick={() => dispatch(assignActions.setPageState("history"))}
               className={`btn fw-bold p-2 ${
                 pageState === "history"
-                  ? "active btn-success"
-                  : "btn-outline-success"
+                  ? "active btn-dark"
+                  : "btn-outline-dark"
               }`}
             >
               History
@@ -130,7 +130,7 @@ function AssignAsset() {
             <div className="d-flex flex-row-reverse">
               {asgnAst.length > 0 && (
                 <button
-                  className="btn fw-bold text-success text-decoration-underline"
+                  className="btn fw-bold text-dark text-decoration-underline"
                   onClick={() => {
                     seeAllModalRef.current.showModal();
                   }}
@@ -163,7 +163,7 @@ function AssignAsset() {
                           <td>{s.age}</td>
                           <td>
                             <button
-                              className="btn btn-primary"
+                              className="btn btn-success"
                               disabled={Object.keys(invtry).length === 0}
                               onClick={() => {
                                 dispatch(
