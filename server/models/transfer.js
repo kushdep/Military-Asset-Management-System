@@ -11,7 +11,7 @@ const transferSchema = new Schema({
     },
     status: {
         type: String,
-        enum: ['PENDING', 'RECIEVED', 'CANCELLED'],
+        enum: ['PENDING', 'RECEIVED', 'CANCELLED'],
         default: 'PENDING',
     },
     astDtl: [{

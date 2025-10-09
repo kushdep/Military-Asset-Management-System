@@ -82,13 +82,6 @@ const transferSlice = createSlice({
             } catch (error) {
                 console.log('Error in resetTfrAsgnData' + error)
             }
-        },
-        resetExpndnData(state, action) {
-            try {
-                state.expndAst = []
-            } catch (error) {
-                console.log('Error in resetExpndnData' + error)
-            }
         }
     }
 })

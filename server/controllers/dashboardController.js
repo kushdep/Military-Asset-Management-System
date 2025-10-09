@@ -288,9 +288,6 @@ export const transferBaseAst = async (req, res) => {
         message: 'Sender Base Not Found'
       });
     }
-
-    console.log(trnsfrAst)
-    console.log(baseDoc)
     if (trnsfrAst?.Vehicle.length > 0 && baseDoc?.inventory?.Vehicle.length == 0 ||
       trnsfrAst?.Ammunition.length > 0 && baseDoc?.inventory?.Ammunition.length == 0 ||
       trnsfrAst?.Weapons.length > 0 && baseDoc?.inventory?.Weapons.length == 0) {
@@ -299,6 +296,8 @@ export const transferBaseAst = async (req, res) => {
         message: 'Transfer Not possible'
       });
     }
+
+    console.log(Object.entries(trnsfrAst))
 
     let items = []
     Object.entries(trnsfrAst).forEach(([key, arr]) => {
@@ -392,6 +391,194 @@ export const transferBaseAst = async (req, res) => {
       success: false,
       message: error.message
     });
+  }
+};
+
+export const recieveBaseAst = async (req, res) => {
+  try {
+    const { status } = req.query
+
+    if (status) {
+      const response = await setAssetRecieved(req, res)
+      if (!response.success) {
+        return res.status(response.status).send({
+          success: false,
+          message: response.message
+        })
+      }
+      return res.status(response.status).send({
+        success: true,
+        message: response.message
+      })
+    } else {
+      const response = await setAssetCancelled(req, res)
+      if (!response.success) {
+        return res.status(response.status).send({
+          success: false,
+          message: response.message
+        })
+      }
+      return res.status(Number(response.status)).send({
+        success: true,
+        message: response.message
+      })
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send({
+      success: false,
+      message: error.message
+    });
+  }
+}
+
+const setAssetRecieved = async (req, res) => {
+  try {
+    const { tfrId } = req.body
+    const { id } = req.params
+
+    const transferDoc = await Transfer.findOne({ _id: tfrId })
+    if (!transferDoc) {
+      return{
+        success: false,
+        status:500,
+        message: 'Transfer Data Not Found'
+      }
+    }
+
+    console.log(transferDoc)
+    const { astDtl } = transferDoc
+
+    if (astDtl.length === 0) {
+      return {
+        success: false,
+        status: 400,
+        message: 'Assets Not Found'
+      }
+    }
+
+    const baseDoc = await Base.findOne({ baseId: id })
+
+    astDtl.forEach((asset) => {
+      const invList = baseDoc.inventory[asset.category];
+      console.log(invList)
+      const ind = invList.findIndex((e) => e._id.toString() === asset.assetId);
+      console.log(ind)
+      if (ind > -1) {
+        baseDoc.inventory[asset.category][ind].qty.value += Number(asset.totalQty.value)
+      } else {
+        baseDoc.inventory[asset.category].push({ asset: asset.assetId, qty: { value: asset.totalQty.value, metric: asset.totalQty.metric }, OpeningBalQty: asset.totalQty.value })
+      }
+    })
+
+    const updBase = await baseDoc.save()
+    if(!updBase){
+      return {
+        success:false,
+        status:500,
+        message:'Base Update Failed'
+      }
+    }
+    
+    transferDoc.status='RECEIVED'
+    transferDoc.TINdate=new Date()
+    
+    const updTfr = await transferDoc.save()
+    if(!updTfr){
+      return {
+        success:false,
+        status:500,
+        message:'Transfer Deatails Update Failed'
+      }
+    }
+
+    return{
+      success:true,
+      status:200,
+      message:'Transfer Update SuccessFully'
+    }
+
+  } catch (error) {
+    console.log(error);
+    return {
+      success: false,
+      status:500,
+      message: error.message
+    }
+  }
+}
+
+const setAssetCancelled = async (req, res) => {
+  try {
+    const { tfrId } = req.body
+
+    const transferDoc = await Transfer.findById({ _id: tfrId })
+    if (!transferDoc) {
+      return {
+        success: false,
+        status:400,
+        message: 'Transfer Data Not Found'
+      };
+    }
+
+    console.log(transferDoc)
+    const { astDtl } = transferDoc
+
+    if (astDtl.length === 0) {
+      return {
+        success: false,
+        status: 400,
+        message: 'Assets Not Found'
+      }
+    }
+
+    const baseDoc = await Base.findOne({ baseId: transferDoc.by })
+
+    astDtl.forEach((asset) => {
+      const invList = baseDoc.inventory[asset.category];
+      console.log(invList)
+      const ind = invList.findIndex((e) => e._id.toString() === asset.assetId);
+      console.log(ind)
+      if (ind > -1) {
+        baseDoc.inventory[asset.category][ind].qty.value += Number(asset.totalQty.value)
+      } else {
+        throw Error('Asset Not found in Base Inventory')
+      }
+    })
+
+    const updBase = await baseDoc.save()
+    if(!updBase){
+      return {
+        success:false,
+        status:500,
+        message:'Base Update Failed'
+      }
+    }
+    
+    transferDoc.status='CANCELLED'
+    
+    const updTfr = await transferDoc.save()
+    if(!updTfr){
+      return {
+        success:false,
+        status:500,
+        message:'Transfer Deatails Update Failed'
+      }
+    }
+
+    return{
+      success:true,
+      status:200,
+      message:'Transfer Update SuccessFully'
+    }
+
+  } catch (error) {
+    console.log(error);
+    return {
+      success: false,
+      status:500,
+      message: error.message
+    }
   }
 };
 
@@ -518,7 +705,7 @@ export const getIdvlBaseData = async (req, res) => {
     const { role, email } = req.user
     console.log(role)
     console.log(email)
-    const baseDoc = await Base.findOne({ baseId: id }).populate([{ path: 'purchase', populate: { path: 'items.asset' } }, { path: 'inventory.Vehicle.asset' }, { path: 'inventory.Weapons.asset' }, { path: 'inventory.Ammunition.asset' }, { path: 'asgnAst' }])
+    const baseDoc = await Base.findOne({ baseId: id }).populate([{ path: 'purchase', populate: { path: 'items.asset' } }, { path: 'inventory.Vehicle.asset' }, { path: 'inventory.Weapons.asset' }, { path: 'inventory.Ammunition.asset' }, { path: 'asgnAst' }, { path: 'tsfrAst.IN' }, { path: 'tsfrAst.OUT' }])
     console.log(baseDoc)
     if (baseDoc === null) {
       return res.status(400).send({

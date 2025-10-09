@@ -1,5 +1,5 @@
 import express from 'express'
-import { addNewPurchaseData, asgnBaseAst, expendBaseAst, getALLBaseData as getALLBaseIds, getIdvlBaseData, transferBaseAst } from '../controllers/dashboardController.js';
+import { addNewPurchaseData, asgnBaseAst, expendBaseAst, getALLBaseData as getALLBaseIds, getIdvlBaseData, recieveBaseAst, transferBaseAst } from '../controllers/dashboardController.js';
 import { newPurchaseValidation } from '../middlewares/validations/purchase-validation.js';
 
 const router = express.Router()
@@ -15,6 +15,7 @@ router.post('/:id/assign-asset', asgnBaseAst)
 router.patch('/:id/expend-asset', expendBaseAst)
 
 router.post('/:id/transfer-asset', transferBaseAst)
+router.post('/:id/recieve-asset', recieveBaseAst)
 
 
 export default router;

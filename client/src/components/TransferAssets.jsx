@@ -8,11 +8,17 @@ import InvntryAssetModal from "../Modals/InvntryAssetModal";
 import toast from "react-hot-toast";
 import SeeAllModal from "../Modals/SeeAllModal";
 import axios from "axios";
+import React from "react";
+import TransferHistory from "./TransferHistory";
 
 function TransferAsset() {
   const { id } = useParams();
-  const { baseIds, TINdata, TOUTdata, invtry } = useSelector((state) => state.baseData);
-  const { pageState, selBase, trnsfrAst } = useSelector((state) => state.transferData);
+  const { baseIds, TINdata, TOUTdata, invtry } = useSelector(
+    (state) => state.baseData
+  );
+  const { pageState, selBase, trnsfrAst } = useSelector(
+    (state) => state.transferData
+  );
   const { token } = useSelector((state) => state.authData);
   const dispatch = useDispatch();
   const tfrAstModalRef = useRef();
@@ -70,7 +76,9 @@ function TransferAsset() {
 
   async function submitAsgTfrnData(selBaseId) {
     console.log(selBaseId);
-    const { Vehicle, Ammunition, Weapons } = trnsfrAst.find((e) => e.baseId === selBaseId);
+    const { Vehicle, Ammunition, Weapons } = trnsfrAst.find(
+      (e) => e.baseId === selBaseId
+    );
     const body = {
       toBaseId: selBaseId,
       trnsfrAst: { Vehicle, Ammunition, Weapons },
@@ -89,7 +97,7 @@ function TransferAsset() {
       );
       if (response.status === 200) {
         toast.success("Asset Assigned Successfully");
-        dispatch(transferActions.resetTfrAsgnData({ sel:selBaseId  }));
+        dispatch(transferActions.resetTfrAsgnData({ sel: selBaseId }));
         dispatch(getBaseData(token, id));
       }
       if (response.status === 400) {
@@ -97,7 +105,7 @@ function TransferAsset() {
         return;
       }
     } catch (error) {
-        console.log(error)
+      console.log(error);
       if (error.response.status === 500) {
         toast.error("Something went wrong");
       }
@@ -106,6 +114,41 @@ function TransferAsset() {
     trnsfrAst.length === 0 && seeAllModalRef.current.close();
   }
 
+  async function setTFrStts(isRcvd,tfrId) {
+    try {
+     const body = {
+        tfrId
+     }
+      const response = await axios.post(
+        `${import.meta.env.VITE_SERVER_URL}/dashboard/${id}/recieve-asset?status=${isRcvd}`,
+        body
+        ,{
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        toast.success("Status Updated Successfully");
+        dispatch(transferActions.resetTfrAsgnData({ sel: selBaseId }));
+        dispatch(getBaseData(token, id));
+      }
+      if (response.status === 400) {
+        toast.error("Something went wrong");
+        return;
+      }
+    } catch (error) {
+      console.log(error);
+      if (error.response.status === 500) {
+        toast.error("Something went wrong");
+      }
+      return;
+    }
+  }
+
+
+  console.log(TINdata);
+  console.log(TOUTdata);
   return (
     <div className="container-fluid">
       <InvntryAssetModal
@@ -171,7 +214,7 @@ function TransferAsset() {
             )}
           </div>
           {pageState === "history" ? (
-            <Transferhistory />
+            <TransferHistory TINhis={TINdata} TOUThis={TOUTdata}/>
           ) : pageState === "transfer" ? (
             <table className="table border border-black mt-3">
               <thead>
@@ -217,35 +260,68 @@ function TransferAsset() {
             <table className="table border border-black mt-3 text-center">
               <thead>
                 <tr>
-                  <th scope="col">SId</th>
-                  <th scope="col"></th>
+                  <th scope="col">Transfer Date</th>
+                  <th scope="col">Transfer By</th>
+                  <th scope="col">Assets</th>
+                  <th scope="col">Recieve Status</th>
                 </tr>
               </thead>
               <tbody className="table-group-divider border">
-                {assignSldr.length > 0 &&
-                  assignSldr.map((s, i) => {
+                {TINdata.length > 0 &&
+                  TINdata.map((t, i) => {
+                    if (t.status !== "PENDING") return null;
+
                     return (
-                      <tr key={s}>
-                        <th className={"col"} scope="row">
-                          {s}
-                        </th>
-                        <td>
-                          <button
-                            className="btn btn-outline-success fw-bold"
-                            onClick={() => {
-                              dispatch(
-                                assignActions.setSelSldr({
-                                  id: s,
-                                  name: "",
-                                })
-                              );
-                              expendModalRef.current.showModal();
-                            }}
-                          >
-                            See Assigned Assets
-                          </button>
-                        </td>
-                      </tr>
+                      <React.Fragment key={t._id}>
+                        <tr>
+                          <th scope="row">
+                            {new Date(t.TOUTdate).toLocaleDateString()}
+                          </th>
+                          <td>{t.by}</td>
+                          <td>
+                            <button
+                              className="btn btn-light fw-semibold"
+                              type="button"
+                              data-bs-toggle="collapse"
+                              data-bs-target={`#collapse-${t._id}`}
+                              aria-expanded="false"
+                              aria-controls={`collapse-${t._id}`}
+                            >
+                              See Transferred Assets
+                            </button>
+                          </td>
+                          <td className="p-3 d-flex justify-content-around">
+                            <button className="btn btn-success fw-bold"
+                            onClick={()=>setTFrStts(true,t._id)}
+                            >
+                              Recieved
+                            </button>
+                            <button className="btn btn-danger fw-bold"
+                            onClick={()=>setTFrStts(false,t._id)}
+                            >
+                              Cancel
+                            </button>
+                          </td>
+                        </tr>
+
+                        <tr className="collapse" id={`collapse-${t._id}`}>
+                          <td colSpan="4">
+                            <div className="card card-body border-0 container p-2">
+                                <div className="row row-cols-3">
+                              {t.astDtl.map((d) => {
+                                return <div className="col border d-flex rounded-3 justify-content-around">
+                                    
+                                    <span className="fw-bold text-primary">{d.name}</span>{" "}
+                                    <span className="fw-semibold">Qty - {d.totalQty.value}
+                                    {d.totalQty.metric}</span>
+                                    
+                                </div>
+                                })}
+                            </div>
+                            </div>
+                          </td>
+                        </tr>
+                      </React.Fragment>
                     );
                   })}
               </tbody>
