@@ -136,27 +136,27 @@ export const addNewPurchaseData = async (req, res) => {
     let itemIds = [
       ...newPurIdsArr.Vehicle.map(e => ({
         asset: e.asset.toString(),
-        qty: `${e.qty.value} ${e.qty.metric}`
+        qty: e.qty.value
       })),
       ...newPurIdsArr.Ammunition.map(e => ({
         asset: e.asset.toString(),
-        qty: `${e.qty.value} ${e.qty.metric}`
+        qty: e.qty.value
       })),
       ...newPurIdsArr.Weapons.map(e => ({
         asset: e.asset.toString(),
-        qty: `${e.qty.value} ${e.qty.metric}`
+        qty: e.qty.value
       })),
       ...oldAstIdsArr.Vehicle.map(e => ({
         asset: e.id.toString(),
-        qty: `${e.qty} ${e.metric}`
+        qty: e.qty
       })),
       ...oldAstIdsArr.Weapons.map(e => ({
         asset: e.id.toString(),
-        qty: `${e.qty} ${e.metric}`
+        qty: e.qty
       })),
       ...oldAstIdsArr.Ammunition.map(e => ({
         asset: e.id.toString(),
-        qty: `${e.qty} ${e.metric}`
+        qty: e.qty
       }))
     ];
 

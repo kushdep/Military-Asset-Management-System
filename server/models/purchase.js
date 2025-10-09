@@ -21,7 +21,7 @@ const purchaseSchema = new mongoose.Schema({
                 required: true
             },
             qty:{
-                type:String,
+                type:Number,
             }
         }
     ],

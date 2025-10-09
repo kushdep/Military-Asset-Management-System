@@ -19,11 +19,11 @@ const Navbar = () => {
                   to="/dashboard"
                 >
                   <img
-                    src="/icons/store.png"
+                    src="/icons/logo.png"
                     alt="Logo"
                     width="40"
                     height="40"
-                    className="d-inline-block align-top me-2 rounded-circle"
+                    className="d-inline-block align-top me-2 rounded-5 p-1 bg-light"
                   />
                   <span className="fw-bold fs-5 text-light">MAMS</span>
                 </Link>

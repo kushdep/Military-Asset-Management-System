@@ -42,6 +42,8 @@ function AddPurchaseModal({ reference }) {
 
     if (newPurErr.length > 0) {
       dispatch(purchaseActions.updErrState({ newAstErr: newPurErr }));
+    }else{
+      dispatch(purchaseActions.updErrState({ newAstErr: [] }));
     }
     reference.current.close();
   }

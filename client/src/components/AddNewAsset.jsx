@@ -112,7 +112,8 @@ const AddNewAsset = ({ index, addBloc=null, errMsg = null }) => {
           </div>
         </div>
         <div className="col-3 d-flex flex-column gap-1 justify-content-center">
-          <button className="btn btn-dark" onClick={() => setIsEdit(!isEdit)}>
+          <button className="btn btn-dark" onClick={() => setIsEdit(!isEdit)} 
+          disabled={Object.values(addBloc).some(e=>e===''||e==='NS')?true:false}>
             {isEdit ? "Edit" : "Add"}
           </button>
           {
