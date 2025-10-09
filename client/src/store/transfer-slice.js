@@ -77,10 +77,10 @@ const transferSlice = createSlice({
         },
         resetTfrAsgnData(state, action) {
             try {
-                const { selSldrId } = action.payload
-                state.asgnAst = state.asgnAst.filter((e) => e.sldrId !== selSldrId)
+                const { sel } = action.payload
+                state.trnsfrAst = state.trnsfrAst.filter((e) => e.baseId !== sel)
             } catch (error) {
-                console.log('Error in resetAssgnData' + error)
+                console.log('Error in resetTfrAsgnData' + error)
             }
         },
         resetExpndnData(state, action) {

@@ -1,31 +1,34 @@
 import mongoose, { Schema, Types } from "mongoose";
 
 const transferSchema = new Schema({
-    trnsfrType: {
-        type: String,
-        enum: ['IN', 'OUT'],
-        required: true
-    },
     to: {
-        type: Types.ObjectId,
+        type: String,
         required: true
     },
     by: {
-        type: Types.ObjectId,
+        type: String,
         required: true
     },
-    status:{
-        type:String,
-        enum:['PENDING','RECIEVED','CANCELLED'],
-        default:'PENDING',
-        required:true
+    status: {
+        type: String,
+        enum: ['PENDING', 'RECIEVED', 'CANCELLED'],
+        default: 'PENDING',
     },
     astDtl: [{
         assetId: {
             type: Types.ObjectId,
             required: true
         },
-        qty: {
+        category: {
+            type: String,
+            enum: ['Vehicle', 'Ammunition', 'Weapons'],
+            required: true
+        },
+        name: {
+            type: String,
+            required: true
+        },
+        totalQty: {
             value: {
                 type: Number,
                 required: true
@@ -35,7 +38,13 @@ const transferSchema = new Schema({
                 required: true
             }
         },
-    }]
+    }],
+    TINdate:{
+        type:Date,
+    },
+    TOUTdate:{
+        type:Date,
+    }
 }, { timestamps: true })
 
 const Transfer = mongoose.model('Transfer', transferSchema)

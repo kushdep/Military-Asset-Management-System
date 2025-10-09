@@ -2,6 +2,7 @@ import Asset from "../models/asset.js"
 import Assign from "../models/assign.js"
 import Base from "../models/base.js"
 import Purchase from "../models/purchase.js"
+import Transfer from "../models/transfer.js"
 
 export const getALLBaseData = async (req, res) => {
   try {
@@ -276,35 +277,31 @@ export const expendBaseAst = async (req, res) => {
 
 export const transferBaseAst = async (req, res) => {
   try {
-    const { id } = req.params;
-    const { sldrId, asgnAst } = req.body;
-    // console.log(sldrId)
-    // console.log(asgnAst)
+    const { id: fromBaseId } = req.params;
+    const { toBaseId, trnsfrAst } = req.body;
 
-    const baseDoc = await Base.findOne({ baseId: id });
+
+    const baseDoc = await Base.findOne({ baseId: fromBaseId });
     if (!baseDoc) {
       return res.status(500).send({
         success: false,
-        message: 'Base Not Found'
+        message: 'Sender Base Not Found'
       });
     }
 
-    console.log(asgnAst)
+    console.log(trnsfrAst)
     console.log(baseDoc)
-    if (asgnAst?.Vehicle.length > 0 && baseDoc?.inventory?.Vehicle.length == 0 ||
-      asgnAst?.Ammunition.length > 0 && baseDoc?.inventory?.Ammunition.length == 0 ||
-      asgnAst?.Weapons.length > 0 && baseDoc?.inventory?.Weapons.length == 0) {
+    if (trnsfrAst?.Vehicle.length > 0 && baseDoc?.inventory?.Vehicle.length == 0 ||
+      trnsfrAst?.Ammunition.length > 0 && baseDoc?.inventory?.Ammunition.length == 0 ||
+      trnsfrAst?.Weapons.length > 0 && baseDoc?.inventory?.Weapons.length == 0) {
       return res.status(400).send({
         success: false,
-        message: 'Assignment Not possible'
+        message: 'Transfer Not possible'
       });
     }
 
     let items = []
-    // console.log(newAssign)
-
-    Object.entries(asgnAst).forEach(([key, arr]) => {
-      // console.log(arr)
+    Object.entries(trnsfrAst).forEach(([key, arr]) => {
       if (arr.length > 0) {
         console.log("2")
         arr.forEach((v) => {
@@ -317,22 +314,22 @@ export const transferBaseAst = async (req, res) => {
             const item = invList[ind];
             if (item.qty.metric !== v.metric ||
               item.qty.value < Number(v.qty)) {
-              throw Error('Assignment cant be done')
+              throw Error('Transfer cant be done')
             }
             console.log("4")
             invList[ind].qty.value -= Number(v.qty)
             items.push({
               category: key,
-              asset: v.id,
+              assetId: v.id,
               name: v.name,
               totalQty: {
                 value: v.qty,
                 metric: v.metric
-              }
+              },
             })
           } else {
             console.log("4")
-            throw Error('Assignment cant be done')
+            throw Error('Transfer cant be done')
           }
         });
       }
@@ -342,31 +339,33 @@ export const transferBaseAst = async (req, res) => {
     // console.log(sldrId)
     // console.log(items)
 
-    let newAssign = {
-      sId: sldrId,
-      baseId: baseDoc._id,
-      items
+    let newTranfer = {
+      to: toBaseId,
+      by: fromBaseId,
+      status: 'PENDING',
+      astDtl: items,
+      TOUTdate: new Date(),
     }
-    console.log(newAssign)
+    console.log(newTranfer)
 
-    const newAssignDoc = await Assign.create(newAssign)
+    const newTranferDoc = await Transfer.create(newTranfer)
     console.log("------------")
-    console.log(newAssignDoc)
+    console.log(newTranferDoc)
     const updAstval = await Promise.all(
       items.map(ele =>
         Asset.findByIdAndUpdate(
           ele.asset,
-          { $push: { assignId: newAssignDoc._id } }
+          { $push: { tfrId: newTranferDoc._id } }
         )
       )
     )
     if (!updAstval) {
       return res.status(400).send({
         success: false,
-        message: 'Base Not Found'
+        message: 'Asset Not Found'
       });
     }
-    baseDoc.asgnAst.push(newAssignDoc._id)
+    baseDoc.tsfrAst.OUT.push(newTranferDoc._id)
     const updBase = await baseDoc.save()
     if (!updBase) {
       return res.status(400).send({
@@ -375,10 +374,16 @@ export const transferBaseAst = async (req, res) => {
       });
     }
 
+    const recBaseDoc = await Base.findOneAndUpdate({ baseId: toBaseId }, { $push: { 'tsfrAst.IN': newTranferDoc._id } })
+    if (!recBaseDoc) {
+      return res.status(400).send({
+        success: false,
+        message: 'Reciever Base Not Found'
+      });
+    }
     return res.status(200).send({
       success: true,
-      data: baseDoc,
-      message: 'Base Details Updated'
+      message: 'Transfer Details Updated'
     });
 
   } catch (error) {

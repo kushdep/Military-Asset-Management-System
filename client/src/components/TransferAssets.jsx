@@ -7,6 +7,7 @@ import { useRef } from "react";
 import InvntryAssetModal from "../Modals/InvntryAssetModal";
 import toast from "react-hot-toast";
 import SeeAllModal from "../Modals/SeeAllModal";
+import axios from "axios";
 
 function TransferAsset() {
   const { id } = useParams();
@@ -71,7 +72,7 @@ function TransferAsset() {
     console.log(selBaseId);
     const { Vehicle, Ammunition, Weapons } = trnsfrAst.find((e) => e.baseId === selBaseId);
     const body = {
-      baseId: selBaseId,
+      toBaseId: selBaseId,
       trnsfrAst: { Vehicle, Ammunition, Weapons },
     };
     console.log(body);
@@ -88,7 +89,7 @@ function TransferAsset() {
       );
       if (response.status === 200) {
         toast.success("Asset Assigned Successfully");
-        dispatch(transferActions.resetTfrAsgnData({ selBaseId  }));
+        dispatch(transferActions.resetTfrAsgnData({ sel:selBaseId  }));
         dispatch(getBaseData(token, id));
       }
       if (response.status === 400) {
@@ -96,6 +97,7 @@ function TransferAsset() {
         return;
       }
     } catch (error) {
+        console.log(error)
       if (error.response.status === 500) {
         toast.error("Something went wrong");
       }
