@@ -5,7 +5,7 @@ const baseSlice = createSlice({
     name: 'base',
     initialState: {
         baseIds: [],
-        actvId: {},
+        actvId: {id:'BRV'},
         invtry: {},
         purchaseHistory: null,
         sldrsData: null,
