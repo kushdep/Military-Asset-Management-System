@@ -1,17 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { itemType, months } from "../../config";
 
 const baseSlice = createSlice({
     name: 'base',
     initialState: {
         baseIds: [],
-        actvId: {id:'BRV'},
+        actvId: { id: 'BRAVO' },
         invtry: {},
         purchaseHistory: null,
         sldrsData: null,
         TINdata: null,
         TOUTdata: null,
-        assignData:[]
+        assignData: [],
+        dashMetric: {
+            openingBal: null,
+            closingBal: null,
+            NetMvmnt: null
+        }
     },
     reducers: {
         addIds(state, action) {
@@ -30,11 +36,11 @@ const baseSlice = createSlice({
                 console.error("Error in setActId() " + error)
             }
         },
-        setAssignData(state,action){
+        setAssignData(state, action) {
             try {
-                const {astAssignData} = action.payload
+                const { astAssignData } = action.payload
                 console.log(astAssignData)
-                state.assignData= astAssignData
+                state.assignData = astAssignData
             } catch (error) {
                 console.error("Error in setAssignData() " + error)
             }
@@ -98,6 +104,16 @@ const baseSlice = createSlice({
                 console.error("Error in addIds() " + error)
             }
         },
+        setDashboardMetrics(state, action) {
+            try {
+                const { category, fromDate, toDate } = action.payload
+                state.dashMetric.openingBal = calcOpeningBal(category, fromDate, state.invtry, state.TOUTdata, state.assignData, state.actvId)
+                state.dashMetric.closingBal = calcClosingBal(category, fromDate, toDate)
+                state.dashMetric.NetMvmnt = calcNetMvmntBal(category, fromDate, toDate)
+            } catch (error) {
+                console.error("Error in setDashboardMetrics() " + error)
+            }
+        }
     }
 })
 
@@ -173,6 +189,67 @@ export const getBaseIds = (token) => {
     }
 }
 
+const calcOpeningBal = (fltrType, from, inventory, outAst, asgnAst, baseId) => {
+    try {
+        let openingBal = null
+        const month = months[new Date(from).getMonth()];
+        itemType.forEach(t => {
+            if (fltrType !== 'all' && t.name !== fltrType) {
+                return
+            }
+            openingBal = inventory[t.name].reduce((sum, inv) => sum + inv.OpeningBalQty[month], 0)
+        });
+        if (new Date(from).getDate() === 1) {
+            return openingBal
+        }
+        const midOpnngBal = calcClosingBal(fltrType, `01-${new Date(from).getMonth()}-${new Date(from).getFullYear()}`, from, openingBal, outAst, asgnAst, baseId)
+        if (!midOpnngBal) {
+            return null
+        }
+        return midOpnngBal
+    } catch (error) {
+        console.log(error)
+        return null
+    }
+}
+
+const calcClosingBal = (fltrType, from, closingDate, opnngBal, outAst, asgnAst, baseId) => {
+    try {
+        let totalTout = 0
+        let totalExpnd = 0
+        itemType.forEach(t => {
+            if (fltrType !== 'all' && t.name !== fltrType) {
+                return
+            }
+            outAst.forEach((o) => {
+                if (o.by !== baseId || o.status !== 'RECEIVED') {
+                    return
+                }
+                totalTout = o.astDtl.reduce((sum, ast) => {
+                    if (fltrType !== 'all' && ast.category !== fltrType) {
+                        return 0
+                    }
+                    return sum + ast.totalQty.value
+                }, totalTout)
+            })
+            asgnAst.forEach((a) => {
+                if (a.baseId !== baseId._id) {
+                    return
+                }
+                totalExpnd = a.items.forEach((item) => {
+                    if (fltrType !== 'all' && item.category !== fltrType) {
+                        return 0
+                    }
+                    item.expnd.reduce((sum,exp)=>sum+exp.qty.val,totalExpnd)
+                    
+                })
+            })            
+        });
+    } catch (error) {
+        console.log(error)
+        return null
+    }
+}
 
 
 

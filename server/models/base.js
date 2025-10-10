@@ -30,8 +30,8 @@ const baseSchema = new mongoose.Schema({
                 }
             },
             OpeningBalQty: {
-                type: Number,
-                required: true
+                type: Map,
+                of: Number
             }
         }],
         Weapons: [{
