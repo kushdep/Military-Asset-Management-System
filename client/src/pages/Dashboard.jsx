@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getBaseData, getBaseIds } from "../store/base-slice";
+import { baseActions, getBaseData, getBaseIds } from "../store/base-slice";
 import { useNavigate, useParams } from "react-router-dom";
 import DashboardStats from "../components/DashboardStats";
 
 function Dashboard() {
   const dispatch = useDispatch();
   const { token, role } = useSelector((state) => state.authData);
-  const { baseIds, actvId } = useSelector((state) => state.baseData);
+  const { baseIds, actvId,assignData } = useSelector((state) => state.baseData);
 
   const navigate = useNavigate();
 
@@ -18,13 +18,13 @@ function Dashboard() {
       Object.keys(actvId).length === 0 &&
       baseIds?.length === 0
     ) {
-      console.log("inside");
       dispatch(getBaseIds(token));
     } else {
       //call for particular base dashboard
     }
   }, []);
   console.log(baseIds);
+  console.log(assignData);
   console.log(id);
   return (
     <>

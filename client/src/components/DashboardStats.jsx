@@ -28,6 +28,8 @@ function DashboardStats() {
 
     const from = new Date(fromDate);
     const to = new Date(toDate);
+    console.log(from)
+    console.log(to)
     if (from > to) {
       toast.error("Please Select valid Dates");
       return;
@@ -60,7 +62,7 @@ function DashboardStats() {
               name="category"
             >
               <option value="ALL" selected>
-                No Type Filter
+                ALL
               </option>
               {itemType.map((i) => {
                 return (
@@ -76,12 +78,12 @@ function DashboardStats() {
         <div className="col d-flex p-2">
           <div className="col-md-3">
             <label className="form-label fw-bold">From:</label>
-            <input type="date" name="toDate" className="form-control" />
+            <input type="date" name="fromDate" className="form-control" />
           </div>
 
           <div className="col-md-3">
             <label className="form-label fw-bold">To:</label>
-            <input type="date" name="fromDate" className="form-control" />
+            <input type="date" name="toDate" className="form-control" />
           </div>
           <div className="col-md-2 d-flex align-items-end">
             <button type="submit" className="btn btn-success w-100">

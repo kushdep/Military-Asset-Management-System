@@ -6,7 +6,7 @@ const baseSlice = createSlice({
     name: 'base',
     initialState: {
         baseIds: [],
-        actvId: { id: 'BRAVO' },
+        actvId: {},
         invtry: {},
         purchaseHistory: null,
         sldrsData: null,
@@ -30,8 +30,8 @@ const baseSlice = createSlice({
         },
         setActId(state, action) {
             try {
-                const { id = null, name = '' } = action.payload
-                state.actvId = { id, name }
+                const { id = null, name = '',_id='' } = action.payload
+                state.actvId = { id, name,_id }
             } catch (error) {
                 console.error("Error in setActId() " + error)
             }
@@ -108,8 +108,8 @@ const baseSlice = createSlice({
             try {
                 const { category, fromDate, toDate } = action.payload
                 state.dashMetric.openingBal = calcOpeningBal(category, fromDate, state.invtry, state.TOUTdata, state.assignData, state.actvId)
-                state.dashMetric.closingBal = calcClosingBal(category, fromDate, toDate)
-                state.dashMetric.NetMvmnt = calcNetMvmntBal(category, fromDate, toDate)
+                state.dashMetric.closingBal = calcClosingBal(category, fromDate, toDate, state.dashMetric.openingBal, assignData, state.actvId)
+                state.dashMetric.NetMvmnt = calcNetMvmntBal(category, fromDate, toDate, purchaseHistory, state.TOUTdata, state.assignData, state.actvId)
             } catch (error) {
                 console.error("Error in setDashboardMetrics() " + error)
             }
@@ -190,66 +190,150 @@ export const getBaseIds = (token) => {
 }
 
 const calcOpeningBal = (fltrType, from, inventory, outAst, asgnAst, baseId) => {
-    try {
-        let openingBal = null
-        const month = months[new Date(from).getMonth()];
-        itemType.forEach(t => {
-            if (fltrType !== 'all' && t.name !== fltrType) {
-                return
-            }
-            openingBal = inventory[t.name].reduce((sum, inv) => sum + inv.OpeningBalQty[month], 0)
-        });
-        if (new Date(from).getDate() === 1) {
-            return openingBal
-        }
-        const midOpnngBal = calcClosingBal(fltrType, `01-${new Date(from).getMonth()}-${new Date(from).getFullYear()}`, from, openingBal, outAst, asgnAst, baseId)
-        if (!midOpnngBal) {
-            return null
-        }
-        return midOpnngBal
-    } catch (error) {
-        console.log(error)
-        return null
-    }
-}
+  try {
+    let openingBal = 0;
+    const dateObj = new Date(from);
+    const month = months[dateObj.getMonth()];
+    const isFirstDay = dateObj.getDate() === 1;
+
+    itemType.forEach((t) => {
+      if (fltrType !== "all" && t.name !== fltrType) return;
+      if (!inventory[t.name]) return;
+
+      const sum = inventory[t.name].reduce(
+        (total, inv) => total + (inv.OpeningBalQty?.[month] || 0),
+        0
+      );
+      openingBal += sum;
+    });
+
+    if (isFirstDay) return openingBal;
+
+    const m = dateObj.getMonth() + 1;
+    const y = dateObj.getFullYear();
+    const firstDate = `01-${m}-${y}`;
+
+    const midOpnngBal = calcClosingBal(
+      fltrType,
+      firstDate,
+      from,
+      openingBal,
+      outAst,
+      asgnAst,
+      baseId
+    );
+
+    return midOpnngBal ?? null;
+  } catch (error) {
+    console.error("calcOpeningBal error:", error);
+    return null;
+  }
+};
+
 
 const calcClosingBal = (fltrType, from, closingDate, opnngBal, outAst, asgnAst, baseId) => {
-    try {
-        let totalTout = 0
-        let totalExpnd = 0
-        itemType.forEach(t => {
-            if (fltrType !== 'all' && t.name !== fltrType) {
-                return
+  try {
+    let totalTout = 0;
+    let totalExpnd = 0;
+    const fromEpch = new Date(from);
+    const clsngEpch = new Date(closingDate);
+
+    itemType.forEach((t) => {
+      if (fltrType !== "all" && t.name !== fltrType) return;
+
+      outAst.forEach((o) => {
+        if (
+          o.by === baseId &&
+          o.status === "RECEIVED" &&
+          new Date(o.TOUTdate) >= fromEpch &&
+          new Date(o.TOUTdate) <= clsngEpch
+        ) {
+          totalTout += o.astDtl.reduce((sum, ast) => {
+            if (fltrType !== "all" && ast.category !== fltrType) return sum;
+            return sum + (ast.totalQty?.value || 0);
+          }, 0);
+        }
+      });
+
+      asgnAst.forEach((a) => {
+        if (a.baseId !== baseId._id) return;
+
+        totalExpnd += a.items.reduce((sum, item) => {
+          if (fltrType !== "all" && item.category !== fltrType) return sum;
+
+          const expSum = item.expnd.reduce((expTotal, exp) => {
+            const expDate = new Date(exp.expndDate);
+            if (expDate >= fromEpch && expDate <= clsngEpch) {
+              return expTotal + (exp.qty?.value || 0);
             }
-            outAst.forEach((o) => {
-                if (o.by !== baseId || o.status !== 'RECEIVED') {
-                    return
-                }
-                totalTout = o.astDtl.reduce((sum, ast) => {
-                    if (fltrType !== 'all' && ast.category !== fltrType) {
-                        return 0
-                    }
-                    return sum + ast.totalQty.value
-                }, totalTout)
-            })
-            asgnAst.forEach((a) => {
-                if (a.baseId !== baseId._id) {
-                    return
-                }
-                totalExpnd = a.items.forEach((item) => {
-                    if (fltrType !== 'all' && item.category !== fltrType) {
-                        return 0
-                    }
-                    item.expnd.reduce((sum,exp)=>sum+exp.qty.val,totalExpnd)
-                    
-                })
-            })            
-        });
-    } catch (error) {
-        console.log(error)
-        return null
-    }
-}
+            return expTotal;
+          }, 0);
+
+          return sum + expSum;
+        }, 0);
+      });
+    });
+
+    return opnngBal - totalTout - totalExpnd;
+  } catch (error) {
+    console.error("calcClosingBal error:", error);
+    return null;
+  }
+};
+
+
+const calcNetMvmntBal = (fltrType, from, to, purchaseList, inAst, outAst, baseId) => {
+  try {
+    const fromEpch = new Date(from);
+    const toEpch = new Date(to);
+    let totalPur = 0;
+    let totalTout = 0;
+    let totalTin = 0;
+
+    purchaseList.forEach((p) => {
+      if (p.base !== baseId._id) return;
+      if (p.date && (new Date(p.date) < fromEpch || new Date(p.date) > toEpch)) return;
+
+      totalPur += p.items.reduce((sum, item) => {
+        if (fltrType !== "all" && item.asset.type !== fltrType) return sum;
+        return sum + (item.qty || 0);
+      }, 0);
+    });
+
+    outAst.forEach((o) => {
+      if (
+        o.by === baseId &&
+        o.status === "RECEIVED" &&
+        new Date(o.TOUTdate) >= fromEpch &&
+        new Date(o.TOUTdate) <= toEpch
+      ) {
+        totalTout += o.astDtl.reduce((sum, ast) => {
+          if (fltrType !== "all" && ast.category !== fltrType) return sum;
+          return sum + (ast.totalQty?.value || 0);
+        }, 0);
+      }
+    });
+
+    inAst.forEach((i) => {
+      if (
+        i.to === baseId &&
+        i.status === "RECEIVED" &&
+        new Date(i.TINdate) >= fromEpch &&
+        new Date(i.TINdate) <= toEpch
+      ) {
+        totalTin += i.astDtl.reduce((sum, ast) => {
+          if (fltrType !== "all" && ast.category !== fltrType) return sum;
+          return sum + (ast.totalQty?.value || 0);
+        }, 0);
+      }
+    });
+
+    return totalPur + totalTin - totalTout;
+  } catch (error) {
+    console.error("calcNetMvmntBal error:", error);
+    return null;
+  }
+};
 
 
 
