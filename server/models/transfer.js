@@ -44,6 +44,7 @@ const transferSchema = new Schema({
     },
     TOUTdate:{
         type:Date,
+        default:Date.now
     }
 }, { timestamps: true })
 

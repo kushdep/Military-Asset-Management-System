@@ -45,8 +45,6 @@ function AssignmentModal({ reference }) {
       );
     }
   }
-  console.log(asgnAst);
-  console.log(selSldr);
 
   return createPortal(
     <dialog ref={reference} className="w-50 shadow rounded-4 p-4">

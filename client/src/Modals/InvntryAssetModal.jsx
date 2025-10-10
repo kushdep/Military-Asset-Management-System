@@ -67,14 +67,14 @@ function InvntryAssetModal({
                       console.log(exstAstAsnd);
 
                       const exstngVal = exstAstAsnd.find(
-                        (i) => i.id === iv._id
+                        (i) => i.id === iv.asset._id
                       );
                       console.log(exstngVal);
                       const exstng = !!exstngVal;
 
                       const ttlAsnd = asgnData
                         .flatMap((sldr) => sldr[assetType.name])
-                        .filter((a) => a.id === iv._id)
+                        .filter((a) => a.id === iv.asset._id)
                         .reduce((sum, a) => sum + Number(a.qty), 0);
                       console.log(ttlAsnd);
                       const availableQty =
@@ -100,7 +100,7 @@ function InvntryAssetModal({
                               submitfun(
                                 e,
                                 iv.qty.metric,
-                                iv._id,
+                                iv.asset._id,
                                 iv.asset.name,
                                 assetType.name,
                                 exstng ?? false
@@ -137,7 +137,7 @@ function InvntryAssetModal({
                                   onClick={() =>
                                     dispatch(
                                       delAsgnDataFn({
-                                        id: iv._id,
+                                        id: iv.asset._id,
                                         type: assetType.name,
                                         sel: selField.id,
                                       })

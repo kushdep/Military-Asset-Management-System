@@ -304,7 +304,7 @@ export const transferBaseAst = async (req, res) => {
         arr.forEach((v) => {
           const invList = baseDoc.inventory[key];
           console.log(invList)
-          const ind = invList.findIndex((e) => e._id.toString() === v.id);
+          const ind = invList.findIndex((e) => e.asset.toString() === v.id);
           console.log(ind)
           if (ind > -1) {
             console.log("3")
@@ -332,10 +332,6 @@ export const transferBaseAst = async (req, res) => {
       }
     });
 
-    console.log("after array")
-    // console.log(sldrId)
-    // console.log(items)
-
     let newTranfer = {
       to: toBaseId,
       by: fromBaseId,
@@ -351,7 +347,7 @@ export const transferBaseAst = async (req, res) => {
     const updAstval = await Promise.all(
       items.map(ele =>
         Asset.findByIdAndUpdate(
-          ele.asset,
+          {_id:ele.assetId},
           { $push: { tfrId: newTranferDoc._id } }
         )
       )
@@ -395,9 +391,12 @@ export const transferBaseAst = async (req, res) => {
 export const recieveBaseAst = async (req, res) => {
   try {
     const { status } = req.query
-
-    if (status) {
+    console.log(status)
+    
+    if (status==='true') {
+      console.log('In Success')
       const response = await setAssetRecieved(req, res)
+      console.log(response)
       if (!response.success) {
         return res.status(response.status).send({
           success: false,
@@ -409,7 +408,9 @@ export const recieveBaseAst = async (req, res) => {
         message: response.message
       })
     } else {
+      console.log('In Fail')
       const response = await setAssetCancelled(req, res)
+      console.log(response)
       if (!response.success) {
         return res.status(response.status).send({
           success: false,
@@ -460,7 +461,7 @@ const setAssetRecieved = async (req, res) => {
     astDtl.forEach((asset) => {
       const invList = baseDoc.inventory[asset.category];
       console.log(invList)
-      const ind = invList.findIndex((e) => e._id.toString() === asset.assetId);
+      const ind = invList.findIndex((e) => e.asset.toString() === asset.assetId.toString());
       console.log(ind)
       if (ind > -1) {
         baseDoc.inventory[asset.category][ind].qty.value += Number(asset.totalQty.value)
@@ -509,7 +510,6 @@ const setAssetRecieved = async (req, res) => {
 const setAssetCancelled = async (req, res) => {
   try {
     const { tfrId } = req.body
-
     const transferDoc = await Transfer.findById({ _id: tfrId })
     if (!transferDoc) {
       return {
@@ -531,11 +531,12 @@ const setAssetCancelled = async (req, res) => {
     }
 
     const baseDoc = await Base.findOne({ baseId: transferDoc.by })
+    console.log(baseDoc)
 
     astDtl.forEach((asset) => {
       const invList = baseDoc.inventory[asset.category];
       console.log(invList)
-      const ind = invList.findIndex((e) => e._id.toString() === asset.assetId);
+      const ind = invList.findIndex((e) => e.asset.toString() === asset.assetId.toString());
       console.log(ind)
       if (ind > -1) {
         baseDoc.inventory[asset.category][ind].qty.value += Number(asset.totalQty.value)

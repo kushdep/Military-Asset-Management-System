@@ -44,6 +44,12 @@ const transferSlice = createSlice({
                 const ind = state.trnsfrAst.findIndex((e) => e.baseId === sel)
                 console.log(state.trnsfrAst[ind])
                 state.trnsfrAst[ind][type] = state.trnsfrAst[ind][type].filter((e) => id !== e.id)
+                if (state.trnsfrAst[ind].Vehicle.length === 0 &&
+                    state.trnsfrAst[ind].Weapons.length === 0 &&
+                    state.trnsfrAst[ind].Ammunition.length === 0
+                ) {
+                    state.trnsfrAst = state.trnsfrAst.filter((e, i) => i !== ind)
+                }
             } catch (error) {
                 console.log('Error in delNewAssign' + error)
             }

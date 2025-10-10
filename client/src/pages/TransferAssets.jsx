@@ -9,7 +9,7 @@ import toast from "react-hot-toast";
 import SeeAllModal from "../Modals/SeeAllModal";
 import axios from "axios";
 import React from "react";
-import TransferHistory from "./TransferHistory";
+import TransferHistory from "../components/TransferHistory";
 
 function TransferAsset() {
   const { id } = useParams();
@@ -39,15 +39,10 @@ function TransferAsset() {
 
   function addAsndTfrAst(event, metric, id, name, type, isExstng) {
     event.preventDefault();
-    console.log(metric);
-    console.log(id);
-    console.log(name);
-    console.log(selBase);
-    console.log(isExstng);
     const data = new FormData(event.target);
     const qty = data.get("assetQty");
     if (qty === null || qty === "") {
-      toast.error("Select Qty to Assign");
+      toast.error("Select Qty to Transfer");
       return;
     }
     if (isExstng) {
@@ -96,12 +91,12 @@ function TransferAsset() {
         }
       );
       if (response.status === 200) {
-        toast.success("Asset Assigned Successfully");
+        toast.success("Asset Transferred Successfully");
         dispatch(transferActions.resetTfrAsgnData({ sel: selBaseId }));
         dispatch(getBaseData(token, id));
       }
       if (response.status === 400) {
-        toast.error("Assignment Not possible");
+        toast.error("Transfer Not possible");
         return;
       }
     } catch (error) {
@@ -270,7 +265,7 @@ function TransferAsset() {
                 {TINdata.length > 0 &&
                   TINdata.map((t, i) => {
                     if (t.status !== "PENDING") return null;
-
+                    console.log(t)
                     return (
                       <React.Fragment key={t._id}>
                         <tr>
@@ -290,7 +285,7 @@ function TransferAsset() {
                               See Transferred Assets
                             </button>
                           </td>
-                          <td className="p-3 d-flex justify-content-around">
+                          <td className="p-3 d-flex justify-content-center gap-3">
                             <button className="btn btn-success fw-bold"
                             onClick={()=>setTFrStts(true,t._id)}
                             >
@@ -309,6 +304,7 @@ function TransferAsset() {
                             <div className="card card-body border-0 container p-2">
                                 <div className="row row-cols-3">
                               {t.astDtl.map((d) => {
+                                
                                 return <div className="col border d-flex rounded-3 justify-content-around">
                                     
                                     <span className="fw-bold text-primary">{d.name}</span>{" "}

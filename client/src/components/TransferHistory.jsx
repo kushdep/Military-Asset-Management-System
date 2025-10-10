@@ -1,14 +1,13 @@
 import React from "react";
-import { useEffect } from "react";
 import { useState } from "react";
 
 function TransferHistory({ TINhis, TOUThis }) {
   const [hisState, selHisState] = useState("IN");
   let hisData = [];
 
-    hisData = hisState === "IN" ? TINhis : TOUThis;
+  hisData = hisState === "IN" ? TINhis : TOUThis;
 
-  console.log(hisData)
+  console.log(hisData);
 
   return (
     <div className="container-fluid">
@@ -45,14 +44,14 @@ function TransferHistory({ TINhis, TOUThis }) {
           <thead>
             <tr>
               <th scope="col">Transfer Date</th>
-              <th scope="col">Transfer To</th>
+              <th scope="col">Transfer {hisState === "IN" ? "By" : "To"}</th>
               <th scope="col">Assets</th>
               <th scope="col">Recieve Status</th>
               <th scope="col">Recieved Date</th>
             </tr>
           </thead>
           <tbody className="table-group-divider border">
-            {hisData.length > 0 ?
+            {hisData.length > 0 ? (
               hisData.map((t, i) => {
                 return (
                   <React.Fragment key={t._id}>
@@ -60,7 +59,7 @@ function TransferHistory({ TINhis, TOUThis }) {
                       <th scope="row">
                         {new Date(t.TOUTdate).toLocaleDateString()}
                       </th>
-                      <td>{t.to}</td>
+                      <td>{hisState === "IN" ? `${t.by}` : `${t.to}`}</td>
                       <td>
                         <button
                           className="btn btn-light fw-semibold"
@@ -74,9 +73,27 @@ function TransferHistory({ TINhis, TOUThis }) {
                         </button>
                       </td>
                       <td className="p-3 d-flex justify-content-around">
-                        <span class={`badge p-2 text-light ${t.status==='PENDING'?'text-bg-info':(t.status==='RECIEVED'?'text-bg-success':'text-bg-danger')}`}>{t.status}</span>
+                        <span
+                          class={`badge p-2 text-light ${
+                            t.status === "PENDING"
+                              ? "text-bg-info"
+                              : t.status === "RECEIVED"
+                              ? "text-bg-success"
+                              : "text-bg-danger"
+                          }`}
+                        >
+                          {t.status}
+                        </span>
                       </td>
-                      <td>{t.status!=='PENDING'?`${new Date(t.TINdate).toLocaleDateString()}`:"-"}</td>
+                      <td>
+                        {t.status !== "PENDING"
+                          ? t.status !== "CANCELLED"?`${new Date(
+                              t.TINdate
+                            ).toLocaleDateString()} (${new Date(
+                              t.TINdate
+                            ).toLocaleTimeString()})`:'-'
+                          : "-"}
+                      </td>
                     </tr>
 
                     <tr className="collapse" id={`collapse-${t._id}`}>
@@ -102,7 +119,10 @@ function TransferHistory({ TINhis, TOUThis }) {
                     </tr>
                   </React.Fragment>
                 );
-              }):<h3 className="text-center text-muted">No data</h3>}
+              })
+            ) : (
+              <h3 className="text-center text-muted">No data</h3>
+            )}
           </tbody>
         </table>
       </div>
