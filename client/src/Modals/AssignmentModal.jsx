@@ -90,12 +90,12 @@ function AssignmentModal({ reference }) {
                       const ind = asgnAst.findIndex((e) => e.sldrId === selSldr.id);
                       const exstSldrAstAsnd =ind > -1 ? asgnAst[ind][assetType.name] : [];
 
-                      const exstngVal = exstSldrAstAsnd.find((i) => i.id === iv._id);
+                      const exstngVal = exstSldrAstAsnd.find((i) => i.id === iv.asset._id);
                       const exstng = !!exstngVal;
 
                       const ttlAsnd = asgnAst
                         .flatMap((sldr) => sldr[assetType.name])
-                        .filter((a) => a.id === iv._id)
+                        .filter((a) => a.id === iv.asset._id)
                         .reduce((sum, a) => sum + Number(a.qty), 0);
 
                       const availableQty =iv.qty.value -ttlAsnd +(Number(exstngVal?.qty) || 0);
@@ -119,7 +119,7 @@ function AssignmentModal({ reference }) {
                               submitAsndAst(
                                 e,
                                 iv.qty.metric,
-                                iv._id,
+                                iv.asset._id,
                                 iv.asset.name,
                                 exstng??false
                               )
@@ -155,7 +155,7 @@ function AssignmentModal({ reference }) {
                                   onClick={() =>
                                     dispatch(
                                       assignActions.delNewAssign({
-                                        id: iv._id,
+                                        id: iv.asset._id,
                                         type: assetType.name,
                                         selSldrId: selSldr.id,
                                       })

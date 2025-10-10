@@ -89,7 +89,6 @@ function AssignAsset() {
           btnfun={AddAsgnData}
           isBtnSecGrp={true}
           btnTitle="Assign"
-          keyName={"sldrId"}
         />
         <div className="row mt-2">
           <div className="col-1 p-2 d-flex flex-column gap-2">
@@ -130,7 +129,7 @@ function AssignAsset() {
             <div className="d-flex flex-row-reverse">
               {asgnAst.length > 0 && (
                 <button
-                  className="btn fw-bold text-dark text-decoration-underline"
+                  className="btn fw-bold text-success text-decoration-underline"
                   onClick={() => {
                     seeAllModalRef.current.showModal();
                   }}

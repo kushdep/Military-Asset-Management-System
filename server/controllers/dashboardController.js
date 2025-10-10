@@ -227,8 +227,6 @@ export const addNewPurchaseData = async (req, res) => {
 export const expendBaseAst = async (req, res) => {
   try {
     const { asgmtId, items } = req.body;
-    console.log(asgmtId)
-    console.log(items)
 
     const assignDoc = await Assign.findById({ _id: asgmtId });
     if (!assignDoc) {
@@ -439,9 +437,9 @@ const setAssetRecieved = async (req, res) => {
 
     const transferDoc = await Transfer.findOne({ _id: tfrId })
     if (!transferDoc) {
-      return{
+      return {
         success: false,
-        status:500,
+        status: 500,
         message: 'Transfer Data Not Found'
       }
     }
@@ -472,37 +470,37 @@ const setAssetRecieved = async (req, res) => {
     })
 
     const updBase = await baseDoc.save()
-    if(!updBase){
+    if (!updBase) {
       return {
-        success:false,
-        status:500,
-        message:'Base Update Failed'
-      }
-    }
-    
-    transferDoc.status='RECEIVED'
-    transferDoc.TINdate=new Date()
-    
-    const updTfr = await transferDoc.save()
-    if(!updTfr){
-      return {
-        success:false,
-        status:500,
-        message:'Transfer Deatails Update Failed'
+        success: false,
+        status: 500,
+        message: 'Base Update Failed'
       }
     }
 
-    return{
-      success:true,
-      status:200,
-      message:'Transfer Update SuccessFully'
+    transferDoc.status = 'RECEIVED'
+    transferDoc.TINdate = new Date()
+
+    const updTfr = await transferDoc.save()
+    if (!updTfr) {
+      return {
+        success: false,
+        status: 500,
+        message: 'Transfer Deatails Update Failed'
+      }
+    }
+
+    return {
+      success: true,
+      status: 200,
+      message: 'Transfer Update SuccessFully'
     }
 
   } catch (error) {
     console.log(error);
     return {
       success: false,
-      status:500,
+      status: 500,
       message: error.message
     }
   }
@@ -516,7 +514,7 @@ const setAssetCancelled = async (req, res) => {
     if (!transferDoc) {
       return {
         success: false,
-        status:400,
+        status: 400,
         message: 'Transfer Data Not Found'
       };
     }
@@ -547,36 +545,36 @@ const setAssetCancelled = async (req, res) => {
     })
 
     const updBase = await baseDoc.save()
-    if(!updBase){
+    if (!updBase) {
       return {
-        success:false,
-        status:500,
-        message:'Base Update Failed'
-      }
-    }
-    
-    transferDoc.status='CANCELLED'
-    
-    const updTfr = await transferDoc.save()
-    if(!updTfr){
-      return {
-        success:false,
-        status:500,
-        message:'Transfer Deatails Update Failed'
+        success: false,
+        status: 500,
+        message: 'Base Update Failed'
       }
     }
 
-    return{
-      success:true,
-      status:200,
-      message:'Transfer Update SuccessFully'
+    transferDoc.status = 'CANCELLED'
+
+    const updTfr = await transferDoc.save()
+    if (!updTfr) {
+      return {
+        success: false,
+        status: 500,
+        message: 'Transfer Deatails Update Failed'
+      }
+    }
+
+    return {
+      success: true,
+      status: 200,
+      message: 'Transfer Update SuccessFully'
     }
 
   } catch (error) {
     console.log(error);
     return {
       success: false,
-      status:500,
+      status: 500,
       message: error.message
     }
   }
@@ -586,8 +584,6 @@ export const asgnBaseAst = async (req, res) => {
   try {
     const { id } = req.params;
     const { sldrId, asgnAst } = req.body;
-    // console.log(sldrId)
-    // console.log(asgnAst)
 
     const baseDoc = await Base.findOne({ baseId: id });
     if (!baseDoc) {
@@ -609,25 +605,19 @@ export const asgnBaseAst = async (req, res) => {
     }
 
     let items = []
-    // console.log(newAssign)
 
     Object.entries(asgnAst).forEach(([key, arr]) => {
-      // console.log(arr)
+      console.log(arr)
       if (arr.length > 0) {
-        console.log("2")
         arr.forEach((v) => {
           const invList = baseDoc.inventory[key];
-          console.log(invList)
-          const ind = invList.findIndex((e) => e._id.toString() === v.id);
-          console.log(ind)
+          const ind = invList.findIndex((e) => e.asset.toString() === v.id);
           if (ind > -1) {
-            console.log("3")
             const item = invList[ind];
             if (item.qty.metric !== v.metric ||
               item.qty.value < Number(v.qty)) {
               throw Error('Assignment cant be done')
             }
-            console.log("4")
             invList[ind].qty.value -= Number(v.qty)
             items.push({
               category: key,
@@ -639,16 +629,11 @@ export const asgnBaseAst = async (req, res) => {
               }
             })
           } else {
-            console.log("4")
             throw Error('Assignment cant be done')
           }
         });
       }
     });
-
-    console.log("after array")
-    // console.log(sldrId)
-    // console.log(items)
 
     let newAssign = {
       sId: sldrId,
@@ -658,8 +643,6 @@ export const asgnBaseAst = async (req, res) => {
     console.log(newAssign)
 
     const newAssignDoc = await Assign.create(newAssign)
-    console.log("------------")
-    console.log(newAssignDoc)
     const updAstval = await Promise.all(
       items.map(ele =>
         Asset.findByIdAndUpdate(

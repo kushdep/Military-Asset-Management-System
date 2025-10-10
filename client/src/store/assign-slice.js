@@ -6,7 +6,7 @@ const assignSlice = createSlice({
         pageState: 'assign',//expenditure,history
         selSldr: null,
         asgnAst: [],
-        expndAst:[],
+        expndAst: [],
         asgnInvntry: null
     },
     reducers: {
@@ -40,21 +40,21 @@ const assignSlice = createSlice({
         },
         setNewExpended(state, action) {
             try {
-                const { asgmtId, qty, metric,name,itemId } = action.payload
+                const { asgmtId, qty, metric, name, itemId } = action.payload
                 let ind = state.expndAst.findIndex((e) => e.asgmtId === asgmtId)
                 if (ind === -1) {
                     ind = state.asgnAst.length
-                    state.expndAst.push({ asgmtId , items: [] })
+                    state.expndAst.push({ asgmtId, items: [] })
                 }
                 console.log(ind)
-                state.expndAst[ind].items.push({ itemId, metric, qty,name })
+                state.expndAst[ind].items.push({ itemId, metric, qty, name })
             } catch (error) {
                 console.log('Error in setNewAssign' + error)
             }
         },
         updExpended(state, action) {
             try {
-                const { asgmtId,itemId,qty } = action.payload
+                const { asgmtId, itemId, qty } = action.payload
                 const ind = state.expndAst.findIndex((e) => e.asgmtId === asgmtId)
                 console.log(ind)
                 console.log(state.expndAst[ind])
@@ -74,6 +74,12 @@ const assignSlice = createSlice({
                 const ind = state.asgnAst.findIndex((e) => e.sldrId === selSldrId)
                 console.log(state.asgnAst[ind])
                 state.asgnAst[ind][type] = state.asgnAst[ind][type].filter((e) => id !== e.id)
+                if (state.asgnAst[ind].Vehicle.length === 0 &&
+                    state.asgnAst[ind].Weapons.length === 0 &&
+                    state.asgnAst[ind].Ammunition.length === 0
+                ) {
+                    state.asgnAst = state.asgnAst.filter((e, i) => i !== ind)
+                }
             } catch (error) {
                 console.log('Error in delNewAssign' + error)
             }

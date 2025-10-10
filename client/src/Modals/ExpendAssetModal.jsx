@@ -19,7 +19,7 @@ function ExpendAssetModal({ reference }) {
     name: "Vehicle",
   });
   const dispatch = useDispatch();
-  const baseId = useParams()
+  const {id:baseId} = useParams()
 
   function submitExpAst(event, metric, itemId, name, isExstng) {
     event.preventDefault();
@@ -137,9 +137,9 @@ function ExpendAssetModal({ reference }) {
           <div className="row d-flex flex-column ">
             {assignList !== null &&
               assignList.map((a) => {
-                const createdTime = new Date(a.createdAt).toISOString();
+                const createdTime = new Date(a.createdAt);
                 const timeStamp =
-                  createdTime.slice(0, 10) + " , " + createdTime.slice(11, 19);
+                  createdTime.toLocaleDateString() + " , " + createdTime.toLocaleTimeString();
                 return (
                   <div className="col d-flex gap-5 border rounded-2 mb-2 p-2 justify-content-center">
                     <p className="fw-bold">{a.sId}</p>
@@ -164,9 +164,9 @@ function ExpendAssetModal({ reference }) {
               <div className="text-center">
                 <h3 className="">{assetList[0].sId}</h3>
                 <p className="text-muted">
-                  {new Date(assetList[0].createdAt).toISOString().slice(0, 10)}{" "}
+                  {new Date(assetList[0].createdAt).toLocaleDateString()}{" "}
                   (
-                  {new Date(assetList[0].createdAt).toISOString().slice(11, 19)}
+                  {new Date(assetList[0].createdAt).toLocaleTimeString()}
                   )
                 </p>
               </div>

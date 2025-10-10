@@ -57,12 +57,8 @@ function InvntryAssetModal({
                 <div className="row d-flex justify-content-center">
                   <div className="col p-3">
                     {invtry?.[assetType.name]?.map((iv) => {
-                        console.log(asgnData?.[0]?.[keyName])
                       const ind = asgnData.findIndex(
                         (e) => {
-                             console.log(e)
-                             console.log(keyName)
-                             console.log(e?.[keyName])
                             return e[keyName] === selField.id
                         }
                       );
