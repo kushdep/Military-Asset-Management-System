@@ -1,4 +1,4 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { RouterProvider, createBrowserRouter, useSearchParams } from "react-router-dom";
 import AppLayout from "./layouts/AppLayout";
 import Dashboard from "./pages/Dashboard";
 import LoginPage from "./pages/LoginPage";
@@ -7,11 +7,13 @@ import LoginRoute from "./auth-routes/LoginRoute";
 import DashRoute from "./auth-routes/DashRoute";
 import AssignAsset from "./pages/AssignAsset";
 import TransferAsset from "./pages/TransferAssets";
+import ErrorPage from "./pages/ErrorPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <LoginRoute />,
+    errorElement:<ErrorPage/>
   },
   { path: "login", element: <LoginPage /> },
   {
@@ -21,6 +23,7 @@ const router = createBrowserRouter([
         <AppLayout />
       </DashRoute>
     ),
+    errorElement: <ErrorPage />,
     children: [
       { path: "", element: <Dashboard /> },
       {

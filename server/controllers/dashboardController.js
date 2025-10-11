@@ -7,8 +7,14 @@ import Transfer from "../models/transfer.js"
 export const getALLBaseData = async (req, res) => {
   try {
     let result = []
-    let {} = 
-    result = await Base.find().select('_id baseId baseName')
+    const {role} = req.user
+    if(role!=='AD'){
+      return res.status(403).send({
+        success: false,
+        message: 'UNAUTHORIZED'
+      })
+    }
+    let {} = result = await Base.find().select('_id baseId baseName')
     console.log(result)
     if (result.length === 0) {
       return res.status(204).send({
@@ -41,6 +47,12 @@ export const addNewPurchaseData = async (req, res) => {
         success: false,
         message: 'username or role not Found'
       });
+    }
+    if(role!=='AD' && role!=='LGOF'){
+      return res.status(403).send({
+        success: false,
+        message: 'UNAUTHORIZED'
+      })
     }
 
     const { oldAst = [], newAst = [] } = req.body;
@@ -238,6 +250,13 @@ export const addNewPurchaseData = async (req, res) => {
 export const expendBaseAst = async (req, res) => {
   try {
     const { asgmtId, items } = req.body;
+    const {role } = req.user
+       if(role!=='AD' && role!=='LGOF'){
+      return res.status(403).send({
+        success: false,
+        message: 'UNAUTHORIZED'
+      })
+    }
 
     const assignDoc = await Assign.findById({ _id: asgmtId });
     if (!assignDoc) {
@@ -404,7 +423,14 @@ export const transferBaseAst = async (req, res) => {
 export const recieveBaseAst = async (req, res) => {
   try {
     const { status } = req.query
+    const {role } = req.user
     console.log(status)
+     if(role!=='AD' && role!=='LGOF'){
+      return res.status(403).send({
+        success: false,
+        message: 'UNAUTHORIZED'
+      })
+    }
 
     if (status === 'true') {
       console.log('In Success')
@@ -721,8 +747,8 @@ export const getIdvlBaseData = async (req, res) => {
       })
     }
     if (role === 'COM' || role === 'LGF') {
-      let val = (role === "COM") ? "baseComm" : "balgstcOff";
-      if (baseDoc.val !== email) {
+      let val = (role === "COM") ? "baseComm" : "lgstcOff";
+      if (baseDoc[val] !== email) {
         return res.status(403).send({
           success: false,
           message: 'Unauthorized Access'

@@ -13,13 +13,13 @@ import TransferHistory from "../components/TransferHistory";
 
 function TransferAsset() {
   const { id } = useParams();
-  const { baseIds, TINdata, TOUTdata, invtry } = useSelector(
+  const { baseIds, TINdata, TOUTdata, invtry,baseError } = useSelector(
     (state) => state.baseData
   );
   const { pageState, selBase, trnsfrAst } = useSelector(
     (state) => state.transferData
   );
-  const { token } = useSelector((state) => state.authData);
+  const { token,role } = useSelector((state) => state.authData);
   const dispatch = useDispatch();
   const tfrAstModalRef = useRef();
   const seeAllModalRef = useRef();
@@ -35,6 +35,11 @@ function TransferAsset() {
     ) {
       dispatch(getBaseData(token, id));
     }
+     if(pageState==='' && role!=='COM'){
+    dispatch(transferActions.setPageState('transfer'))
+  }else{
+    dispatch(transferActions.setPageState('history'))
+  }
   }, []);
 
   function addAsndTfrAst(event, metric, id, name, type, isExstng) {
@@ -142,6 +147,13 @@ function TransferAsset() {
     }
   }
 
+   if(baseError!==null){
+    toast.error(baseError)
+    return 
+  }
+
+ 
+
 
   console.log(TINdata);
   console.log(TOUTdata);
@@ -175,6 +187,8 @@ function TransferAsset() {
           >
             Transfer
           </button>
+          {
+            role!=='COM' && 
           <button
             onClick={() => dispatch(transferActions.setPageState("approvals"))}
             className={`btn fw-bold p-2 ${
@@ -185,6 +199,7 @@ function TransferAsset() {
           >
             Approvals
           </button>
+}
           <button
             onClick={() => dispatch(transferActions.setPageState("history"))}
             className={`btn fw-bold p-2 ${

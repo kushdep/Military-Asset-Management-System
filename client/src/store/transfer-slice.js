@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const transferSlice = createSlice({
     name: 'transfer',
     initialState: {
-        pageState: 'transfer',//Approvals,history
+        pageState: '',//Approvals,history
         selBase: null,
         trnsfrAst: [],
         history: null

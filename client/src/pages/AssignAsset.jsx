@@ -13,8 +13,10 @@ import AsgnExpndhistory from "../components/AsgnExpndHistory";
 
 function AssignAsset() {
   const { id: baseId } = useParams();
-  const { token } = useSelector((state) => state.authData);
-  const { sldrsData, invtry, assignData } = useSelector((state) => state.baseData);
+  const { token, role } = useSelector((state) => state.authData);
+  const { sldrsData, invtry, assignData, baseError } = useSelector(
+    (state) => state.baseData
+  );
   const { pageState, asgnAst } = useSelector((state) => state.assignData);
 
   const dispatch = useDispatch();
@@ -27,6 +29,11 @@ function AssignAsset() {
       dispatch(getBaseData(token, baseId));
     }
   }, [sldrsData]);
+
+  if (baseError !== null) {
+    toast.error(baseError);
+    return;
+  }
 
   console.log(baseId);
   async function AddAsgnData(id) {
@@ -76,11 +83,13 @@ function AssignAsset() {
       }
     });
   }
+
+  console.log(pageState);
   return (
     <>
       <div className="container-fluid">
         <AssignmentModal reference={assigModalRef} />
-        <ExpendAssetModal reference={expendModalRef}/>
+        <ExpendAssetModal reference={expendModalRef} />
         <SeeAllModal
           reference={seeAllModalRef}
           dataList={asgnAst}
@@ -94,31 +103,29 @@ function AssignAsset() {
             <button
               onClick={() => dispatch(assignActions.setPageState("assign"))}
               className={`btn fw-bold p-2 ${
-                pageState === "assign"
-                  ? "active btn-dark"
-                  : "btn-outline-dark"
+                pageState === "assign" ? "active btn-dark" : "btn-outline-dark"
               }`}
             >
               Assignment
             </button>
-            <button
-              onClick={() =>
-                dispatch(assignActions.setPageState("expenditure"))
-              }
-              className={`btn fw-bold p-2 ${
-                pageState === "expenditure"
-                  ? "active btn-dark"
-                  : "btn-outline-dark"
-              }`}
-            >
-              Expenditure
-            </button>
+            {role !== "COM" && (
+              <button
+                onClick={() =>
+                  dispatch(assignActions.setPageState("expenditure"))
+                }
+                className={`btn fw-bold p-2 ${
+                  pageState === "expenditure"
+                    ? "active btn-dark"
+                    : "btn-outline-dark"
+                }`}
+              >
+                Expenditure
+              </button>
+            )}
             <button
               onClick={() => dispatch(assignActions.setPageState("history"))}
               className={`btn fw-bold p-2 ${
-                pageState === "history"
-                  ? "active btn-dark"
-                  : "btn-outline-dark"
+                pageState === "history" ? "active btn-dark" : "btn-outline-dark"
               }`}
             >
               History
@@ -138,7 +145,7 @@ function AssignAsset() {
               )}
             </div>
             {pageState === "history" ? (
-              <AsgnExpndhistory/>
+              <AsgnExpndhistory />
             ) : pageState === "assign" ? (
               <table className="table border border-black mt-3">
                 <thead>
@@ -192,8 +199,6 @@ function AssignAsset() {
                 <tbody className="table-group-divider border">
                   {assignSldr.length > 0 &&
                     assignSldr.map((s, i) => {
-                      
-
                       return (
                         <tr key={s}>
                           <th className={"col"} scope="row">

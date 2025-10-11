@@ -26,6 +26,8 @@ function Dashboard() {
         navigate('/login')
         return 
       }
+      console.log(id??actvId.id)
+      dispatch(getBaseData(token,id??actvId.id));
       navigate(`/dashboard/${id??actvId.id}`)
     }
   }, []);

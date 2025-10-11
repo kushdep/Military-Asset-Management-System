@@ -4,7 +4,7 @@ const purchaseSlice = createSlice({
     name: 'purchase',
     initialState: {
         data: null,
-        pageState: 'add',//history
+        pageState: '',//history
         showAdAs: false,
         addNewPur: {
             oldAst: [],
