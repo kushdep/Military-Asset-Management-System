@@ -250,8 +250,7 @@ export const expendBaseAst = async (req, res) => {
     items.forEach((expndItem) => {
       assignDoc.items.forEach((docItems) => {
         if (expndItem.itemId === docItems._id.toString()) {
-          if (expndItem.qty > docItems.totalQty.value ||
-            expndItem.metric !== docItems.totalQty.metric) {
+          if (expndItem.qty > docItems.totalQty.value) {
             throw Error('Expend of asset can\'t be done')
           }
           docItems.totalQty.value -= Number(expndItem.qty)
@@ -650,7 +649,9 @@ export const asgnBaseAst = async (req, res) => {
               totalQty: {
                 value: v.qty,
                 metric: v.metric
-              }
+              },
+              asgnDate:new Date(),
+              expnd:[]
             })
           } else {
             throw Error('Assignment cant be done')
