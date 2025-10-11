@@ -7,6 +7,7 @@ import Transfer from "../models/transfer.js"
 export const getALLBaseData = async (req, res) => {
   try {
     let result = []
+    let {} = 
     result = await Base.find().select('_id baseId baseName')
     console.log(result)
     if (result.length === 0) {

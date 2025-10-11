@@ -30,7 +30,7 @@ const baseSlice = createSlice({
         },
         setActId(state, action) {
             try {
-                const { id = null, name = '',_id='' } = action.payload
+                const { id = null,_id='' } = action.payload
                 state.actvId = { id, name,_id }
             } catch (error) {
                 console.error("Error in setActId() " + error)

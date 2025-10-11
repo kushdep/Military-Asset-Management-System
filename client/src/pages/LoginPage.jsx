@@ -1,9 +1,11 @@
 import { useActionState } from "react";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import axios from 'axios'
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { authActions } from "../store/auth-slice";
+import { baseActions } from "../store/base-slice";
+
 
 function LoginPage() {
   const [formState, formFn, isPending] = useActionState(action, {
@@ -13,12 +15,12 @@ function LoginPage() {
     const { isAuthenticated, token,role } = useSelector((state) => state.authData);
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const notify = (message) => toast.error(message);
 
   console.log(isAuthenticated)
   console.log(token)
   console.log(role)
    async function action(currentState, formData) {
-    try {
       const email = formData.get("email");
       const password = formData.get("password");
       const body = {
@@ -30,18 +32,37 @@ function LoginPage() {
       try {
         const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/login`,body);
         console.log(response);
-        if (response.status === 200) {
-          toast.success("Logged In");
-          dispatch(authActions.loginSuccess({ token: response.data.token,role:response.data.role,name:response.data.name }))
-          navigate("/dashboard");
+        if (response?.status === 200) {
+          const {token,role,name,baseInfo} = response.data
+          if(!token || !role){
+            notify('Something Went Wrong')
+            return 
+          }
+          if(role === 'AD'){
+            dispatch(authActions.loginSuccess({ token: token,role:role,name:name}))
+            navigate('/dashboard')
+          }
+          if(!baseInfo || Object.keys(baseInfo).length===0){
+            notify('Something went wrong')
+            return 
+          }
+          dispatch(authActions.loginSuccess({ token: token,role:role,name:name}))
+          dispatch(baseActions.setActId({_id:baseInfo._id,id:baseInfo.baseId}))
+          navigate(`/dashboard/${baseInfo.baseId}`)
         }
       } catch (error) {
         let err = [];
+        if(error.code==="ERR_NETWORK"){
+          notify('Bad gateway')
+        }
+        console.log(error)
+        console.log(error?.response?.status)
         if (error?.response?.status === 500) {
-            toast.error('Something went wrong')
+            notify('Something went wrong')
           return {
             ...currentState,
             email,
+            errors:[]
           };
         }
         if (error?.response?.status === 400) {
@@ -67,57 +88,78 @@ function LoginPage() {
           };
         }
       }
-    } catch (error) {
-      console.log(error);
-    }
   }
 
   return (
-    <div className="container w-100 border">
-      <div className="row">
-        <form action={formFn} className="col">
-          <div className="col mb-4">
-            <h2 className="fw-bold text-dark">Welcome Back 👋</h2>
-            <p className="text-muted small">
-              Please log in to continue
-            </p>
-            <p className="text-danger">{formState?.errors[0]}</p>
-          </div>
-          <div className="col mb-3">
-            <div className="form-floating">
-              <input
-                type="email"
-                name="email"
-                className="form-control rounded-3 shadow-sm"
-                id="floatingInput"
-                placeholder="name@example.com"
-                defaultValue={formState?.email}
-              />
-              <label htmlFor="floatingInput">Email address</label>
-            </div>
+    <div
+      className="min-vh-100 d-flex align-items-center justify-content-center"
+      style={{
+        background: "linear-gradient(135deg, #ffffffff 0%, #0a0a0aff 100%)",
+        padding: "20px",
+      }}
+    >
+      <Toaster/>
+      <div
+        className="card shadow-lg border-0 rounded-4 p-4 p-md-5 text-center bg-white"
+        style={{
+          maxWidth: "420px",
+          width: "100%",
+        }}
+      >
+        <div className="mb-4">
+          <img
+            src="/public/icons/logo.png"
+            alt="Logo"
+            style={{
+              width: "80px",
+              height: "80px",
+              objectFit: "contain",
+              marginBottom: "10px",
+            }}
+          />
+          <h2 className="fw-bold text-dark">MAMS</h2>
+          {formState?.errors?.length > 0 && (
+            <p className="text-danger small fw-semibold">{formState.errors[0]}</p>
+          )}
+        </div>
+
+        <form action={formFn}>
+          <div className="form-floating mb-3">
+            <input
+              type="email"
+              name="email"
+              className="form-control rounded-3 shadow-sm"
+              id="floatingInput"
+              placeholder="name@example.com"
+              defaultValue={formState?.email}
+              required
+            />
+            <label htmlFor="floatingInput">Email address</label>
           </div>
 
-          <div className="col mb-3">
-            <div className="form-floating">
-              <input
-                type="password"
-                name="password"
-                className="form-control rounded-3 shadow-sm"
-                id="floatingPassword"
-                placeholder="Password"
-              />
-              <label htmlFor="floatingPassword">Password</label>
-            </div>
+          <div className="form-floating mb-4">
+            <input
+              type="password"
+              name="password"
+              className="form-control rounded-3 shadow-sm"
+              id="floatingPassword"
+              placeholder="Password"
+              required
+            />
+            <label htmlFor="floatingPassword">Password</label>
           </div>
 
-          <div className="col mb-3">
-            <button
-              type="submit"
-              className="btn btn-primary w-100 fw-semibold py-2 rounded-3 shadow-sm"
-            >
-              Log In
-            </button>
-          </div>
+          <button
+            type="submit"
+            disabled={isPending}
+            className="btn btn-dark w-100 fw-semibold py-2 rounded-3 shadow-sm"
+            style={{
+              background: "linear-gradient(90deg, #ecececff, #1a1717ff)",
+              border: "none",
+            }}
+          >
+            {isPending ? "Logging In..." : "Log In"}
+          </button>
         </form>
       </div>
     </div>

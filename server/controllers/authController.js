@@ -1,6 +1,7 @@
 import User from '../models/user.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
+import Base from '../models/base.js'
 
 export const login = async (req, res) => {
     try {
@@ -28,8 +29,17 @@ export const login = async (req, res) => {
             message: 'Email or password incorrect'
         })
     }
+    let query={}
+    if(user.role==='COM'){
+        query['baseComm'] = email
+    }else if(user.role==='LGOF'){
+        query['lgstcOff'] = email
+    }
+    console.log(query)
+    const baseInfo = await Base.findOne(query).select('baseId')
+    console.log(baseInfo)
     const token = jwt.sign({ _id: user._id, email,username:user.username,role:user.role }, process.env.JWT_SECRET, { expiresIn: '7d' })
-    return  res.header('auth-token', token).send({token,role:user.role,name:user.username})
+    return  res.header('auth-token', token).send({token,role:user.role,name:user.username,baseInfo})
 } catch (error) {
     console.log(error)
     return  res.status(500).send({
