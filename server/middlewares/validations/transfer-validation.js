@@ -1,28 +1,20 @@
 import Joi from 'joi'
 
+const assetItemSchema = Joi.object({
+    id: Joi.string().required(),
+    name: Joi.string().required(),
+    qty: Joi.number().required(),
+    metric: Joi.string().required(),
+});
+
 export function assetTransferValidation(req, res, next) {
     try {
         const assetTransferSchema = Joi.object({
             toBaseId: Joi.string().required(),
             trnsfrAst: Joi.object({
-                Vehicle: Joi.array().items(Joi.object({
-                    id: Joi.string(),
-                    name: Joi.string(),
-                    qty: Joi.number(),
-                    metric: Joi.string()
-                })).required(),
-                Weapons: Joi.array().items(Joi.object({
-                    id: Joi.string(),
-                    name: Joi.string(),
-                    qty: Joi.number(),
-                    metric: Joi.string()
-                })).required(),
-                Ammunition: Joi.array().items(Joi.object({
-                    id: Joi.string(),
-                    name: Joi.string(),
-                    qty: Joi.number(),
-                    metric: Joi.string()
-                })).required(),
+                Vehicle: Joi.array().items(assetItemSchema).default([]),
+                Weapons: Joi.array().items(assetItemSchema).default([]),
+                Ammunition: Joi.array().items(assetItemSchema).default([]),
             })
         })
         const result = assetTransferSchema.validate(req.body)
