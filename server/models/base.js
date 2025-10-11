@@ -50,8 +50,8 @@ const baseSchema = new mongoose.Schema({
                 }
             },
             OpeningBalQty: {
-                type: Number,
-                required: true
+                type: Map,
+                of: Number
             }
         }],
         Ammunition: [{
@@ -70,8 +70,8 @@ const baseSchema = new mongoose.Schema({
                 }
             },
             OpeningBalQty: {
-                type: Number,
-                required: true
+                type: Map,
+                of: Number
             }
         }],
     },

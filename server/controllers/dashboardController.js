@@ -56,6 +56,8 @@ export const addNewPurchaseData = async (req, res) => {
       const insertedAssetDocs = await Asset.insertMany(newAssets)
       insertedAssetDocs.forEach((ele, i) => {
         const original = newAst[i];
+        const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        const month = months[new Date().getMonth()]
         if (ele.type === 'VCL') {
           newPurIdsArr.Vehicle.push({
             asset: ele._id,
@@ -63,7 +65,7 @@ export const addNewPurchaseData = async (req, res) => {
               value: original.qty,
               metric: original.metric
             },
-            OpeningBalQty: original.qty
+            OpeningBalQty: { [month]: original.qty }
           })
         }
         else if (ele.type === 'WEA') {
@@ -73,7 +75,7 @@ export const addNewPurchaseData = async (req, res) => {
               value: original.qty,
               metric: original.metric
             },
-            OpeningBalQty: original.qty
+            OpeningBalQty: { [month]: original.qty }
           })
         }
         else if (ele.type === 'AMU') {
@@ -83,11 +85,10 @@ export const addNewPurchaseData = async (req, res) => {
               value: original.qty,
               metric: original.metric
             },
-            OpeningBalQty: original.qty
+            OpeningBalQty: { [month]: original.qty }
           })
         }
       });
-
     }
 
     if (oldAst.length > 0) {
@@ -277,8 +278,12 @@ export const transferBaseAst = async (req, res) => {
   try {
     const { id: fromBaseId } = req.params;
     const { toBaseId, trnsfrAst } = req.body;
-
-
+    if(fromBaseId===toBaseId){
+      return res.status(500).send({
+        success: false,
+        message: 'Transfer can not be done on same base'
+      });
+    }
     const baseDoc = await Base.findOne({ baseId: fromBaseId });
     if (!baseDoc) {
       return res.status(500).send({
@@ -347,7 +352,7 @@ export const transferBaseAst = async (req, res) => {
     const updAstval = await Promise.all(
       items.map(ele =>
         Asset.findByIdAndUpdate(
-          {_id:ele.assetId},
+          { _id: ele.assetId },
           { $push: { tfrId: newTranferDoc._id } }
         )
       )
@@ -392,8 +397,8 @@ export const recieveBaseAst = async (req, res) => {
   try {
     const { status } = req.query
     console.log(status)
-    
-    if (status==='true') {
+
+    if (status === 'true') {
       console.log('In Success')
       const response = await setAssetRecieved(req, res)
       console.log(response)
@@ -435,6 +440,8 @@ const setAssetRecieved = async (req, res) => {
   try {
     const { tfrId } = req.body
     const { id } = req.params
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
 
     const transferDoc = await Transfer.findOne({ _id: tfrId })
     if (!transferDoc) {
@@ -457,7 +464,6 @@ const setAssetRecieved = async (req, res) => {
     }
 
     const baseDoc = await Base.findOne({ baseId: id })
-
     astDtl.forEach((asset) => {
       const invList = baseDoc.inventory[asset.category];
       console.log(invList)
@@ -466,7 +472,15 @@ const setAssetRecieved = async (req, res) => {
       if (ind > -1) {
         baseDoc.inventory[asset.category][ind].qty.value += Number(asset.totalQty.value)
       } else {
-        baseDoc.inventory[asset.category].push({ asset: asset.assetId, qty: { value: asset.totalQty.value, metric: asset.totalQty.metric }, OpeningBalQty: asset.totalQty.value })
+        const month = new Date().getMonth()
+        baseDoc.inventory[asset.category].push({
+          asset: asset.assetId,
+          qty: {
+            value: asset.totalQty.value,
+            metric: asset.totalQty.metric
+          },
+          OpeningBalQty: { [month]: asset.totalQty.value }
+        })
       }
     })
 

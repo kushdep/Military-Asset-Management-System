@@ -14,9 +14,7 @@ import AsgnExpndhistory from "../components/AsgnExpndHistory";
 function AssignAsset() {
   const { id: baseId } = useParams();
   const { token } = useSelector((state) => state.authData);
-  const { sldrsData, invtry, assignData } = useSelector(
-    (state) => state.baseData
-  );
+  const { sldrsData, invtry, assignData } = useSelector((state) => state.baseData);
   const { pageState, asgnAst } = useSelector((state) => state.assignData);
 
   const dispatch = useDispatch();
@@ -89,6 +87,7 @@ function AssignAsset() {
           btnfun={AddAsgnData}
           isBtnSecGrp={true}
           btnTitle="Assign"
+          keyName={"sldrId"}
         />
         <div className="row mt-2">
           <div className="col-1 p-2 d-flex flex-column gap-2">

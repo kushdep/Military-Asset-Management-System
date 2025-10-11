@@ -84,12 +84,12 @@ function ExpendAssetModal({ reference }) {
         dispatch(assignActions.resetExpndnData());
         dispatch(getBaseData(token,baseId));
       }
-      if (response.status === 400) {
+    } catch (error) {
+      console.log(error)
+      if (error.response.status === 400) {
         toast.error("Something went wrong");
         return;
       }
-    } catch (error) {
-        console.log(error)
       if (error.response.status === 500) {
         toast.error("Something went wrong");
       }
