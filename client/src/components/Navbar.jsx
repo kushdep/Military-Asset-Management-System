@@ -2,31 +2,32 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../store/auth-slice";
 import { Link, NavLink, useNavigate } from "react-router-dom";
+import { baseActions } from "../store/base-slice";
 
 const Navbar = () => {
-  const {actvId} = useSelector(state=>state.baseData)
+  const { actvId } = useSelector((state) => state.baseData);
+  const { role } = useSelector((state) => state.authData);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm py-3 sticky-top w-100 rounded-pill mt-1 shadow">
         <div className="container-fluid">
           <div className="row w-100">
             <div className="col-2 d-flex justify-content-center">
-                <Link
-                  className="navbar-brand d-flex align-items-center"
-                  to="/dashboard"
-                >
-                  <img
-                    src="/icons/logo.png"
-                    alt="Logo"
-                    width="40"
-                    height="40"
-                    className="d-inline-block align-top me-2 rounded-5 p-1 bg-light"
-                  />
-                  <span className="fw-bold fs-5 text-light">MAMS</span>
-                </Link>
+              <Link
+                className="navbar-brand d-flex align-items-center"
+                to="/dashboard"
+              >
+                <img
+                  src="/icons/logo.png"
+                  alt="Logo"
+                  width="40"
+                  height="40"
+                  className="d-inline-block align-top me-2 rounded-5 p-1 bg-light"
+                />
+                <span className="fw-bold fs-5 text-light">MAMS</span>
+              </Link>
             </div>
             <div
               className="collapse navbar-collapse col-8 d-flex justify-content-center"
@@ -36,13 +37,19 @@ const Navbar = () => {
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0 d-flex justify-content-around gap-3 ">
                   <li className="nav-item">
                     <NavLink
-                    end
+                      end
                       className={({ isActive }) =>
                         isActive
                           ? "nav-link fw-bold border rounded-pill bg-dark text-light shadow-lg"
                           : "nav-link fw-bold text-dark"
                       }
-                      to={"/dashboard"}
+                      to={
+                        role !== "AD"
+                          ? `/dashboard/${actvId.id}`
+                          : !!actvId.id
+                          ? `/dashboard/${actvId.id}`
+                          : "/dashboard"
+                      }
                     >
                       Dashboard
                     </NavLink>
@@ -50,11 +57,13 @@ const Navbar = () => {
                   <li className="nav-item">
                     <NavLink
                       className={({ isActive }) =>
-                        isActive
+                        isActive && !!actvId.id
                           ? "nav-link fw-bold border rounded-pill bg-dark text-light shadow-lg"
                           : "nav-link fw-bold text-dark"
                       }
-                      to={`/dashboard/${actvId.id}/purchase`}
+                      to={
+                        !!actvId.id ? `/dashboard/${actvId.id}/purchase` : "#"
+                      }
                     >
                       Purchase
                     </NavLink>
@@ -62,11 +71,11 @@ const Navbar = () => {
                   <li className="nav-item">
                     <NavLink
                       className={({ isActive }) =>
-                        isActive
+                        isActive && !!actvId.id
                           ? "nav-link fw-bold border rounded-pill bg-dark text-light shadow-lg"
                           : "nav-link fw-bold text-dark"
                       }
-                      to={`/dashboard/${actvId.id}/assign`}
+                      to={!!actvId.id ? `/dashboard/${actvId.id}/assign` : "#"}
                     >
                       Assign
                     </NavLink>
@@ -74,11 +83,11 @@ const Navbar = () => {
                   <li className="nav-item">
                     <NavLink
                       className={({ isActive }) =>
-                        isActive
+                        isActive && !!actvId.id
                           ? "nav-link fw-bold border rounded-pill bg-dark text-light shadow-lg"
                           : "nav-link fw-bold text-dark"
                       }
-                      to={`/dashboard/${actvId.id}/transfer`}
+                      to={!!actvId.id ? `/dashboard/${actvId.id}/transfer` : ""}
                     >
                       Transfer
                     </NavLink>
@@ -109,6 +118,7 @@ const Navbar = () => {
                     onClick={() => {
                       dispatch(authActions.logout());
                       navigate("/login");
+                      dispatch(baseActions.setActId({id:null,_id:null}));
                     }}
                   >
                     Logout

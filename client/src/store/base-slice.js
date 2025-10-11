@@ -30,8 +30,9 @@ const baseSlice = createSlice({
         },
         setActId(state, action) {
             try {
-                const { id = null,_id='' } = action.payload
-                state.actvId = { id, name,_id }
+                const { id = null,_id=null } = action.payload
+                state.actvId = { id,_id }
+                console.log(state.actvId)
             } catch (error) {
                 console.error("Error in setActId() " + error)
             }
@@ -144,7 +145,7 @@ export const getBaseData = (token, id) => {
                 dispatch(baseActions.resetBaseData({ id }))
                 return
             }
-            dispatch(baseActions.setActId({ id: baseData.baseId, name: baseData.baseName }))
+            dispatch(baseActions.setActId({ id: baseData.baseId, _id: baseData._id }))
             dispatch(baseActions.setAssignData({ astAssignData: baseData.asgnAst }))
             dispatch(baseActions.addInvtData({ invtry: baseData.inventory }))
             dispatch(baseActions.addTINData({ TINdata: baseData.tsfrAst.IN }))

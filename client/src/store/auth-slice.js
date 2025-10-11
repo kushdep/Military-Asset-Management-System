@@ -1,7 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
+import {jwtDecode} from "jwt-decode"
 
 const token = localStorage.getItem("token");
-const role = localStorage.getItem("role");
+
+let role = "";
+if (token) {
+  try {
+    const decoded = jwtDecode(token);
+    role = decoded.role || "";
+  } catch(error) {
+    console.log("Error in hydration",error)
+  }
+}
 
 const authSlice = createSlice({
   name: "auth",
@@ -14,7 +24,6 @@ const authSlice = createSlice({
     loginSuccess(state, action) {
       const { token, role, name } = action.payload;
       localStorage.setItem("token", token);
-      localStorage.setItem("role", role);
       localStorage.setItem("name", name);
 
       state.token = token;
@@ -23,7 +32,6 @@ const authSlice = createSlice({
     },
     logout(state) {
       localStorage.removeItem("token");
-      localStorage.removeItem("role");
 
       state.token = null;
       state.role = "";

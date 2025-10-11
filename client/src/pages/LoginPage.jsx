@@ -38,9 +38,11 @@ function LoginPage() {
             notify('Something Went Wrong')
             return 
           }
+          console.log(role)
           if(role === 'AD'){
             dispatch(authActions.loginSuccess({ token: token,role:role,name:name}))
             navigate('/dashboard')
+            return 
           }
           if(!baseInfo || Object.keys(baseInfo).length===0){
             notify('Something went wrong')
