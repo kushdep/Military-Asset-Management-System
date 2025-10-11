@@ -137,7 +137,7 @@ function ExpendAssetModal({ reference }) {
           <div className="row d-flex flex-column ">
             {assignList !== null &&
               assignList.map((a) => {
-                const createdTime = new Date(a.createdAt);
+                const createdTime = new Date(a.items[0].asgnDate);
                 const timeStamp =
                   createdTime.toLocaleDateString() + " , " + createdTime.toLocaleTimeString();
                 return (
@@ -164,9 +164,9 @@ function ExpendAssetModal({ reference }) {
               <div className="text-center">
                 <h3 className="">{assetList[0].sId}</h3>
                 <p className="text-muted">
-                  {new Date(assetList[0].createdAt).toLocaleDateString()}{" "}
+                  {new Date(assetList[0].items[0].asgnDate).toLocaleDateString()}{" "}
                   (
-                  {new Date(assetList[0].createdAt).toLocaleTimeString()}
+                  {new Date(assetList[0].items[0].asgnDate).toLocaleTimeString()}
                   )
                 </p>
               </div>

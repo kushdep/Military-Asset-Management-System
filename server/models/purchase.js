@@ -32,6 +32,10 @@ const purchaseSchema = new mongoose.Schema({
     role: {
         type: String,
         required: true,
+    },
+    purchaseDate:{
+        type:Date,
+        default:Date.now
     }
 }, { timestamps: true })
 

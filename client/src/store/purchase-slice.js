@@ -65,6 +65,16 @@ const purchaseSlice = createSlice({
                 console.log(error)
             }
         },
+        delIncOldPurchase(state, action) {
+            try {
+                const { id } = action.payload
+                console.log(id)
+                state.addNewPur.oldAst = state.addNewPur.oldAst.filter((e, i) => e._id !== id)
+
+            } catch (error) {
+                console.log('Error in addNewPurchase' + error)
+            }
+        },
         incOldPurchase(state, action) {
             try {
                 const { oldAstVal } = action.payload

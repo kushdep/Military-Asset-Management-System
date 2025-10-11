@@ -2,7 +2,7 @@ import Joi from 'joi'
 
 export function newPurchaseValidation(req, res, next) {
     try {
-        const {oldAst,newAst} = req.body
+        const {oldAst=[],newAst=[]} = req.body
         if(oldAst.length>0){
             const oldPurchaseSchema = Joi.array().items(Joi.object({
                 _id: Joi.string().required(),
@@ -41,6 +41,10 @@ export function newPurchaseValidation(req, res, next) {
         next()
     } catch (error) {
         console.log("ERROR IN newPurchaseValidation()- " + error)
+        return res.status(500).send({
+            success: false,
+            errors: error
+        })
     }
 
 } 

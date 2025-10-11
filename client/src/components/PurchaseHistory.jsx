@@ -101,7 +101,7 @@ function PurchaseHistoryTable() {
                         return;
                       }
                     }
-                    const createdAt = new Date(purchs.createdAt)
+                    const createdAt = new Date(purchs.purchaseDate)
                     const timeStamp = createdAt.toLocaleTimeString()
                     const createdTime = createdAt.toISOString();
                     const purDate = createdTime.slice(0, 10);

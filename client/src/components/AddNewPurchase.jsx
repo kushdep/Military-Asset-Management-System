@@ -56,7 +56,7 @@ function AddNewPurchase() {
     return;
   };
 
-  console.log(addNewPur.oldAst);
+  console.log(addNewPur);
   return (
     <div className="container-fluid border-start border-black">
       <div className="row">
@@ -102,12 +102,11 @@ function AddNewPurchase() {
 
                 let exstng = false;
                 if (oldAst.length !== 0) {
-                  let ind = oldAst.findIndex((e) => e._id === iv._id);
+                  let ind = oldAst.findIndex((e) => e._id === iv.asset._id);
                   if (ind > -1) {
                     exstng = true;
                   }
                 }
-                console.log(iv._id);
                 return (
                   <form
                     onSubmit={(e) =>
@@ -149,6 +148,17 @@ function AddNewPurchase() {
                         >
                           {exstng ? "Save" : "Add"}
                         </button>
+                        {exstng===true &&
+                        <button
+                          className="btn btn-danger"
+                          type="button"
+                          onClick={()=>{
+                            dispatch(purchaseActions.delIncOldPurchase({id:iv.asset._id}))
+                          }}
+                        >
+                           X
+                        </button>
+                        }
                       </div>
                     </div>
                   </form>

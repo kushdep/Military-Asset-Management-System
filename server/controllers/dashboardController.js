@@ -34,8 +34,15 @@ export const getALLBaseData = async (req, res) => {
 export const addNewPurchaseData = async (req, res) => {
   try {
     const { id } = req.params;
-    const { username, role } = req.user
-    const { oldAst, newAst } = req.body;
+    const { username = null, role = null } = req.user
+    if (!username || !role) {
+      return res.status(400).send({
+        success: false,
+        message: 'username or role not Found'
+      });
+    }
+
+    const { oldAst = [], newAst = [] } = req.body;
     let purCnt = await Purchase.countDocuments() + 1
     const base = await Base.findOne({ baseId: id })
 
@@ -48,12 +55,14 @@ export const addNewPurchaseData = async (req, res) => {
           type: n.type,
           name: n.name,
           ownedBy: base._id,
-          purchaseId: []
+          purchaseId: [],
+          assignId: [],
+          tfrId: [],
         }
         doc['purchaseId'].push({ Sno: Number(purCnt) })
         return doc
       })
-      const insertedAssetDocs = await Asset.insertMany(newAssets)
+      let insertedAssetDocs = await Asset.insertMany(newAssets)
       insertedAssetDocs.forEach((ele, i) => {
         const original = newAst[i];
         const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -166,7 +175,7 @@ export const addNewPurchaseData = async (req, res) => {
       base: base._id,
       items: itemIds,
       addedBy: username,
-      role: role
+      role: role,
     }
     console.log(newPurchase)
 
@@ -174,7 +183,7 @@ export const addNewPurchaseData = async (req, res) => {
     if (!purchDoc) {
       return res.status(400).send({
         success: false,
-        message: 'Base Not Found'
+        message: 'Purchase Not Done'
       });
     }
 
@@ -278,7 +287,7 @@ export const transferBaseAst = async (req, res) => {
   try {
     const { id: fromBaseId } = req.params;
     const { toBaseId, trnsfrAst } = req.body;
-    if(fromBaseId===toBaseId){
+    if (fromBaseId === toBaseId) {
       return res.status(500).send({
         success: false,
         message: 'Transfer can not be done on same base'
