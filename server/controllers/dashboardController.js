@@ -322,8 +322,7 @@ export const transferBaseAst = async (req, res) => {
           if (ind > -1) {
             console.log("3")
             const item = invList[ind];
-            if (item.qty.metric !== v.metric ||
-              item.qty.value < Number(v.qty)) {
+            if (item.qty.value < Number(v.qty)) {
               throw Error('Transfer cant be done')
             }
             console.log("4")
@@ -450,7 +449,6 @@ const setAssetRecieved = async (req, res) => {
     const { id } = req.params
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-
     const transferDoc = await Transfer.findOne({ _id: tfrId })
     if (!transferDoc) {
       return {
@@ -480,7 +478,7 @@ const setAssetRecieved = async (req, res) => {
       if (ind > -1) {
         baseDoc.inventory[asset.category][ind].qty.value += Number(asset.totalQty.value)
       } else {
-        const month = new Date().getMonth()
+        const month = months[new Date().getMonth()]
         baseDoc.inventory[asset.category].push({
           asset: asset.assetId,
           qty: {
@@ -502,7 +500,7 @@ const setAssetRecieved = async (req, res) => {
     }
 
     transferDoc.status = 'RECEIVED'
-    transferDoc.TINdate = new Date()
+    transferDoc.TINdate = new Date('2025-09-20')
 
     const updTfr = await transferDoc.save()
     if (!updTfr) {

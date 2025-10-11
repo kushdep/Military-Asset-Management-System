@@ -94,13 +94,14 @@ function TransferAsset() {
         toast.success("Asset Transferred Successfully");
         dispatch(transferActions.resetTfrAsgnData({ sel: selBaseId }));
         dispatch(getBaseData(token, id));
-      }
-      if (response.status === 400) {
-        toast.error("Transfer Not possible");
-        return;
+        dispatch(transferActions.setSelBase('history'));
       }
     } catch (error) {
       console.log(error);
+      if (error.response.status === 400) {
+        toast.error("Transfer Not possible");
+        return;
+      }
       if (error.response.status === 500) {
         toast.error("Something went wrong");
       }
@@ -125,15 +126,15 @@ function TransferAsset() {
       );
       if (response.status === 200) {
         toast.success("Status Updated Successfully");
-        dispatch(transferActions.resetTfrAsgnData({ sel: selBaseId }));
+        dispatch(transferActions.setSelBase('history'));
         dispatch(getBaseData(token, id));
-      }
-      if (response.status === 400) {
-        toast.error("Something went wrong");
-        return;
       }
     } catch (error) {
       console.log(error);
+      if (error.response.status === 400) {
+        toast.error("Something went wrong");
+        return;
+      }
       if (error.response.status === 500) {
         toast.error("Something went wrong");
       }
