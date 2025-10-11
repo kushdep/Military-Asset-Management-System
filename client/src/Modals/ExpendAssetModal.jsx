@@ -121,7 +121,7 @@ function ExpendAssetModal({ reference }) {
         >
           {listModalStt !== "" ? "Back" : "close"}
         </button>
-        {expndAst.length > 0 && (
+        {expndAst.length > 0 && listModalStt!=='all'&&(
           <button
             className="btn text-success fw-bold text-decoration-underline"
             onClick={() => setModalStt("all")}
@@ -232,10 +232,20 @@ function ExpendAssetModal({ reference }) {
                               if (it.category !== assetType.name || it.totalQty.value<1) {
                                 return;
                               }
+                              
+                              let expQty = 0
+                              if(it?.expnd.length>0){
+                                expQty = it.expnd.reduce((sum,exp)=>{
+                                  console.log(exp)
+                                  console.log(sum)
+                                  return sum+exp.qty.value},expQty) }
 
-                              const ind = expndAst.findIndex(
-                                (e) => e.asgmtId === listModalStt
-                              );
+                              const availQty = Number(it.totalQty.value) - Number(expQty)
+                              if(availQty<1){
+                                return 
+                              }
+                              console.log(expQty)
+                              const ind = expndAst.findIndex((e) => e.asgmtId === listModalStt);
                               console.log(ind);
                               let exstng = false;
                               if (ind > -1) {
@@ -253,7 +263,7 @@ function ExpendAssetModal({ reference }) {
                                   <div>
                                     <p className="fw-bold mb-1">{it.name}</p>
                                     <small className="text-muted">
-                                      Assigned: {it.totalQty.value}{" "}
+                                      Assigned: {Number(it.totalQty.value) - Number(expQty)}{" "}
                                       {it.totalQty.metric}
                                     </small>
                                   </div>
@@ -277,7 +287,7 @@ function ExpendAssetModal({ reference }) {
                                       >
                                         <option value="">Select</option>
                                         {Array.from(
-                                          { length: it.totalQty.value },
+                                          { length: availQty },
                                           (_, i) => i + 1
                                         ).map((n) => (
                                           <option key={n} value={n}>
@@ -301,10 +311,8 @@ function ExpendAssetModal({ reference }) {
                                           className="btn btn-secondary"
                                           onClick={() =>
                                             dispatch(
-                                              assignActions.delNewAssign({
-                                                id: iv._id,
-                                                type: assetType.name,
-                                                selSldrId: selSldr.id,
+                                              assignActions.delNewExpnd({
+                                                id: it._id,
                                               })
                                             )
                                           }

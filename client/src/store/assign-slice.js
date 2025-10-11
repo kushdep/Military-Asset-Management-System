@@ -52,6 +52,14 @@ const assignSlice = createSlice({
                 console.log('Error in setNewAssign' + error)
             }
         },
+        delNewExpnd(state, action) {
+            try {
+                const { id,  } = action.payload
+                state.expndAst[0].items = state.expndAst[0].items.filter((e) => id !== e.itemId)
+            } catch (error) {
+                console.log('Error in delNewAssign' + error)
+            }
+        },
         updExpended(state, action) {
             try {
                 const { asgmtId, itemId, qty } = action.payload
