@@ -101,17 +101,18 @@ function AddNewPurchase() {
                 const { oldAst } = addNewPur;
 
                 let exstng = false;
+                let ind = -1;
                 if (oldAst.length !== 0) {
-                  let ind = oldAst.findIndex((e) => e._id === iv.asset._id);
+                  ind = oldAst.findIndex((e) => e._id === iv.asset._id);
                   if (ind > -1) {
                     exstng = true;
                   }
                 }
                 return (
                   <form
-                    onSubmit={(e) =>
+                    onSubmit={(e) =>{
                       handleSubmit(e, iv.asset._id, assetType.code, iv.asset.name,exstng)
-                    }
+                    }}
                   >
                     <div
                       key={iv.asset._id}
@@ -129,6 +130,9 @@ function AddNewPurchase() {
                           type="number"
                           name="assetQty"
                           className="rounded-3 w-25"
+                          max={iv.qty.value}
+                          defaultValue={ind!==-1&&oldAst[ind].qty}
+                          required
                         />
                         <div className="form-floating">
                           <select className="form-select" name="metric">
