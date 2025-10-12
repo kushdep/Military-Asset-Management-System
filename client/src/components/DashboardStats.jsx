@@ -377,7 +377,7 @@ function DashboardStats() {
 
     console.log(dataListBtn);
 
-    setBtnHisState(dataListBtn);
+    setBtnHisState(()=>[...dataListBtn]);
 
     hisModalRef.current.showModal();
   }
@@ -394,7 +394,6 @@ function DashboardStats() {
         reference={hisModalRef}
         dataList={btnHisState}
         btnTitle={"Close"}
-        title="Purchase History"
         btnfun={() => hisModalRef.current.close()}
         keyDate={"date"}
       />
