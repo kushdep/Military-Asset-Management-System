@@ -13,20 +13,15 @@ function SeeAllModal({
 }) {
   const [selSldrList, setSelSldrList] = useState([]);
   const [selSldrId, setSldrId] = useState("");
-  console.log(keyName);
-  console.log(dataList)
-  console.log(selSldrList)
 
   useEffect(() => {
-    if (!isBtnSecGrp){
-        setSelSldrList((prev)=>[...dataList]);
-      } 
+    if (!isBtnSecGrp) {
+      setSelSldrList([...dataList]);
+    }
   }, [isBtnSecGrp, dataList]);
 
   function handleSelSldr(id) {
-    console.log(id);
     const selList = dataList.find((e) => e[keyName] === id);
-    console.log(selList);
     if (selList) {
       setSelSldrList([
         ...(selList.Vehicle || []),
@@ -36,43 +31,36 @@ function SeeAllModal({
       setSldrId(selList[keyName]);
     }
   }
-  console.log(dataList);
 
   return createPortal(
-    <dialog ref={reference} className="shadow rounded-4 p-4">
-      <button
-        type="submit"
-        className="btn-close mb-3"
-        data-bs-dismiss="modal"
-        aria-label="Close"
-        onClick={() => reference.current.close()}
-      ></button>
+    <dialog
+      ref={reference}
+      className="w-100 w-md-75 w-lg-50 p-3 p-md-4 rounded-4 shadow border-0"
+      style={{ maxWidth: "700px" }}
+    >
+      <div className="d-flex justify-content-end mb-3">
+        <button
+          type="button"
+          className="btn-close"
+          onClick={() => reference.current.close()}
+          aria-label="Close"
+        ></button>
+      </div>
+
       {isBtnSecGrp ? (
-        <div
-          className="btn-group"
-          role="group"
-          aria-label="Button group with nested dropdown"
-        >
-          {dataList.slice(0, 2).map((e) => {
-            console.log(e);
-            console.log(e[keyName]);
-            return (
-              <button
-                key={e[keyName]}
-                className={`btn ${
-                  selSldrId === e[keyName]
-                    ? "btn-primary"
-                    : " btn-outline-primary"
-                }`}
-                onClick={() => handleSelSldr(e[keyName])}
-              >
-                {e[keyName]}
-              </button>
-            );
-          })}
+        <div className="mb-3 d-flex flex-wrap gap-2 justify-content-center">
+          {dataList.slice(0, 2).map((e) => (
+            <button
+              key={e[keyName]}
+              className={`btn ${selSldrId === e[keyName] ? "btn-primary" : "btn-outline-primary"}`}
+              onClick={() => handleSelSldr(e[keyName])}
+            >
+              {e[keyName]}
+            </button>
+          ))}
 
           {dataList.length > 2 && (
-            <div className="btn-group" role="group">
+            <div className="btn-group">
               <button
                 type="button"
                 className="btn btn-outline-primary dropdown-toggle"
@@ -83,11 +71,7 @@ function SeeAllModal({
                 {dataList.slice(2).map((item) => (
                   <li key={item[keyName]}>
                     <button
-                      className={`btn ${
-                        selSldrId === item[keyName]
-                          ? "btn-primary"
-                          : " btn-outline-primary"
-                      } dropdown-item`}
+                      className={`btn ${selSldrId === item[keyName] ? "btn-primary" : "btn-outline-primary"} dropdown-item`}
                       onClick={() => handleSelSldr(item[keyName])}
                     >
                       {item[keyName]}
@@ -99,40 +83,43 @@ function SeeAllModal({
           )}
         </div>
       ) : (
-        <h3>{title}</h3>
+        <h3 className="text-center mb-3">{title}</h3>
       )}
 
-      <div className="container p-4 border rounded-4">
-        <div className="row mb-2 d-flex flex-column">
-          <h4 className="fw-bold text-center text-decoration-underline">
-            {selSldrId !== "" && selSldrId}
-          </h4>
+      <div
+        className="container p-3 border rounded-4"
+        style={{ maxHeight: "300px", overflowY: "auto" }}
+      >
+        <h4 className="fw-bold text-center text-decoration-underline mb-3">
+          {selSldrId || ""}
+        </h4>
+        <div className="row g-2">
           {selSldrList?.length > 0 ? (
-            selSldrList.map((d) => {
-              return (
-                <div className="col border rounded-3 mb-3">
-                  <div className="d-flex flex-row gap-5 p-2">
-                    <p className="fw-bold">{d.name}</p>
-                    <p className="text-muted">
-                      {d.qty} ({d.metric}){" "}
-                      {keyDate!==undefined && keyDate!==null  &&
-                        "-" + " " + new Date(d[keyDate]).toLocaleDateString()}
-                    </p>
-                  </div>
+            selSldrList.map((d, idx) => (
+              <div key={idx} className="col-12 col-sm-6 col-md-4">
+                <div className="border rounded-3 p-2 d-flex flex-column gap-1">
+                  <p className="fw-bold mb-0">{d.name}</p>
+                  <small className="text-muted">
+                    {d.qty} ({d.metric})
+                    {keyDate && d[keyDate] && " - " + new Date(d[keyDate]).toLocaleDateString()}
+                  </small>
                 </div>
-              );
-            })
+              </div>
+            ))
           ) : (
-            <div className="col border rounded-3 mb-3">
-              {isBtnSecGrp ? "Choose any id to see assets" : "No data"}
+            <div className="col">
+              <div className="border rounded-3 p-2 text-center text-muted">
+                {isBtnSecGrp ? "Choose any id to see assets" : "No data"}
+              </div>
             </div>
           )}
         </div>
       </div>
-      <div className="col text-center mt-3">
+
+      <div className="text-center mt-3">
         <button
           className="btn btn-success w-50 fw-bold"
-          disabled={isBtnSecGrp ? (selSldrId !== "" ? false : true) : false}
+          disabled={isBtnSecGrp ? !selSldrId : false}
           onClick={() => {
             if (isBtnSecGrp) {
               btnfun(selSldrId);

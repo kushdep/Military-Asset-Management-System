@@ -23,18 +23,10 @@ function AddPurchaseModal({ reference }) {
           val.metric === "NS" ||
           val.type === "NS"
         ) {
-          if (val.name === "") {
-            message += " name";
-          }
-          if (val.qty === null) {
-            message += " Qty";
-          }
-          if (val.metric === "NS") {
-            message += " metric";
-          }
-          if (val.type === "NS") {
-            message += " type";
-          }
+          if (val.name === "") message += " name";
+          if (val.qty === null) message += " Qty";
+          if (val.metric === "NS") message += " metric";
+          if (val.type === "NS") message += " type";
           newPurErr.push({ ind, message });
         }
       }
@@ -42,149 +34,123 @@ function AddPurchaseModal({ reference }) {
 
     if (newPurErr.length > 0) {
       dispatch(purchaseActions.updErrState({ newAstErr: newPurErr }));
-    }else{
+    } else {
       dispatch(purchaseActions.updErrState({ newAstErr: [] }));
     }
     reference.current.close();
   }
 
   async function addNewPurchase() {
-    const body = {
-      ...addNewPur,
-    };
+    const body = { ...addNewPur };
 
-    const response = await axios.post(
-      `${import.meta.env.VITE_SERVER_URL}/dashboard/${id}/new-purchase`,
-      body,
-      {
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_SERVER_URL}/dashboard/${id}/new-purchase`,
+        body,
+        { headers: { authorization: `Bearer ${token}` } }
+      );
+
+      if (response.status === 200) {
+        toast.success("New Purchases Added Successfully");
+        dispatch(purchaseActions.resetPurchaseData());
+        reference.current.close();
+      } else {
+        toast.error("Something went wrong");
       }
-    );
-
-    if (response.status === 400) {
-      toast.error('Bad Gateway')
-      return 
-    }
-    if (response.status === 500) {
-      toast.error('Something went wrong')
-      return 
-    }
-    if (response.status === 200) {
-      toast.success('New Purchases Added Successfully')
-      dispatch(purchaseActions.resetPurchaseData())
-      reference.current.close()
-      return 
+    } catch (err) {
+      toast.error("Failed to add new purchase");
     }
   }
 
   return createPortal(
-    <dialog ref={reference} className=" shadow rounded-4 p-4 ">
-      <form method="dialog" className="d-flex gap-5">
+    <dialog
+      ref={reference}
+      className="shadow rounded-4 p-3 p-sm-4 w-100 w-sm-75 w-md-50"
+      style={{
+        maxWidth: "90vw",
+        border: "none",
+        overflowY: "auto",
+        maxHeight: "85vh",
+      }}
+    >
+      <form method="dialog" className="d-flex justify-content-end mb-2">
         <button
           type="submit"
-          className="btn-close mb-3"
-          data-bs-dismiss="modal"
+          className="btn-close"
           aria-label="Close"
           onClick={chkFields}
         ></button>
       </form>
+
       {showAdAs ? (
-        <div className="container p-2">
-          <div className="row">
-            <div className="col">
-              {addNewPur.oldAst.length > 0 && (
-                <p className="fw-bolder fs-4 text-center">Old Assets</p>
-              )}
-              {addNewPur.oldAst.length > 0 &&
-                addNewPur.oldAst.map((iv) => {
-                  return (
-                    <div className="container">
-                      <div className="row">
-                        <div className="col border rounded-3">
-                          <div
-                            key={iv._id}
-                            className="d-flex flex-row justify-content-between"
-                          >
-                            <p className="fw-semibold mb-1" name="assetName">
-                              {iv.name}
-                            </p>
-                            <small className="text-muted">
-                              Qty : {iv.qty} {iv.metric}
-                            </small>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-            </div>
-          </div>
-          <div className="row">
-            <div className="col">
-              {addNewPur.newAst.length > 0 && (
-                <p className="fw-bolder fs-4 text-center mt-2">New Assets</p>
-              )}
-              {addNewPur.newAst.length > 0 &&
-                addNewPur.newAst.map((iv) => {
-                  return (
-                    <div className="container mt ">
-                      <div className="row">
-                        <div className="col border rounded-3">
-                          <div
-                            key={iv._id}
-                            className="p-3 mb-3 d-flex align-items-center justify-content-between"
-                          >
-                            <div>
-                              <p className="fw-bold mb-1" name="assetName">
-                                {iv.name}
-                              </p>
-                            </div>
-                            <small className="text-muted">
-                              Qty : {iv.qty} {iv.metric}
-                            </small>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-            </div>
-          </div>
-        </div>
-      ) : (
-        <div className="container p-2">
-          <div className="row">
-            <div className="col">
-              <div className="modal-dialog-scrollable">
-                <div className="container mb-3 ">
-                  <div className="row">
-                    <div className="col">
-                      {addNewPur.newAst.length !== 0 &&
-                        addNewPur.newAst.map((e, i) => {
-                          const val = addNewPur.err.newAstErr?.find(
-                            (e) => e.ind === i
-                          );
-                          console.log(val?.message);
-                          return (
-                            <AddNewAsset
-                              errMsg={val?.message}
-                              addBloc={e}
-                              index={i}
-                            />
-                          );
-                        })}
+        <div className="container-fluid">
+          {addNewPur.oldAst.length > 0 && (
+            <>
+              <p className="fw-bold fs-5 text-center mb-3 text-secondary">
+                Old Assets
+              </p>
+              <div className="row g-2">
+                {addNewPur.oldAst.map((iv) => (
+                  <div key={iv._id} className="col-12">
+                    <div className="border rounded-3 p-2 p-md-3 d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center">
+                      <p className="fw-semibold mb-1">{iv.name}</p>
+                      <small className="text-muted">
+                        Qty: {iv.qty} {iv.metric}
+                      </small>
                     </div>
                   </div>
-                </div>
+                ))}
+              </div>
+            </>
+          )}
+
+          {addNewPur.newAst.length > 0 && (
+            <>
+              <p className="fw-bold fs-5 text-center mt-3 text-secondary">
+                New Assets
+              </p>
+              <div className="row g-2">
+                {addNewPur.newAst.map((iv) => (
+                  <div key={iv._id} className="col-12">
+                    <div className="border rounded-3 p-2 p-md-3 d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center">
+                      <p className="fw-semibold mb-1">{iv.name}</p>
+                      <small className="text-muted">
+                        Qty: {iv.qty} {iv.metric}
+                      </small>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
+        </div>
+      ) : (
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col">
+              <div className="overflow-auto" style={{ maxHeight: "50vh" }}>
+                {addNewPur.newAst.length !== 0 &&
+                  addNewPur.newAst.map((e, i) => {
+                    const val = addNewPur.err.newAstErr?.find(
+                      (er) => er.ind === i
+                    );
+                    return (
+                      <AddNewAsset
+                        key={i}
+                        errMsg={val?.message}
+                        addBloc={e}
+                        index={i}
+                      />
+                    );
+                  })}
               </div>
             </div>
           </div>
+
           {addNewPur.newAst.length < 4 && (
-            <div className="d-flex justify-content-center">
+            <div className="d-flex justify-content-center mt-2">
               <button
-                className="btn border-0 w-50"
+                className="btn border-0 w-75 w-sm-50 btn-light"
                 onClick={() => {
                   const addNewRow = {
                     name: "",
@@ -197,20 +163,21 @@ function AddPurchaseModal({ reference }) {
                   );
                 }}
               >
-                {addNewPur.newAst.length === 0 ? "+ Add" : " + Add more"}
+                {addNewPur.newAst.length === 0 ? "+ Add" : "+ Add More"}
               </button>
             </div>
           )}
         </div>
       )}
-      <div className="text-center">
+
+      <div className="text-center mt-3">
         <button
-          className={`btn w-50 fw-semibold rounded-pill shadow-sm mt-2 ${
+          className={`btn w-75 w-sm-50 fw-semibold rounded-pill shadow-sm ${
             showAdAs ? "btn-success" : "btn-outline-success"
           }`}
           onClick={showAdAs ? addNewPurchase : chkFields}
         >
-          {showAdAs ? "Submit" : "DONE"}
+          {showAdAs ? "Submit" : "Done"}
         </button>
       </div>
     </dialog>,

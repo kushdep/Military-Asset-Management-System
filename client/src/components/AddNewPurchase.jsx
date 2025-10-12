@@ -11,9 +11,9 @@ import AssetTypeBtnGroup from "./AssetTypeBtnGroup";
 
 function AddNewPurchase() {
   const { invtry } = useSelector((state) => state.baseData);
-  const {  addNewPur } = useSelector((state) => state.purchaseData);
+  const { addNewPur } = useSelector((state) => state.purchaseData);
   const { token } = useSelector((state) => state.authData);
-  const { assetType, handleAssetType } = useFilter({code:'VCL',name:'Vehicle'});
+  const { assetType, handleAssetType } = useFilter({ code: "VCL", name: "Vehicle" });
   const { id } = useParams();
   const addNewRef = useRef();
   const dispatch = useDispatch();
@@ -25,151 +25,131 @@ function AddNewPurchase() {
   }, []);
 
   const metricInd = itemType.findIndex((e) => e.code === assetType.code);
-  const handleSubmit = (e, id, type, name,isExstng = false) => {
-    console.log(e);
+
+  const handleSubmit = (e, id, type, name, isExstng = false) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const value = formData.get("assetQty");
     const metric = formData.get("metric");
-    if (value < 1) {
-      toast.error("Enter Valid Qty");
-      return;
-    }
-    if (metric === "NS") {
-      toast.error("Enter Valid Metric");
-      return;
-    }
-    let oldAstVal = {
-      _id: id,
-      name,
-      type,
-      qty: value,
-      metric,
-    };
-    console.log(oldAstVal);
+
+    if (value < 1) return toast.error("Enter Valid Qty");
+    if (metric === "NS") return toast.error("Enter Valid Metric");
+
+    const oldAstVal = { _id: id, name, type, qty: value, metric };
+
     if (isExstng) {
       dispatch(purchaseActions.updOldPurchase({ oldAstVal, id }));
       toast.success("Value updated");
     } else {
       dispatch(purchaseActions.incOldPurchase({ oldAstVal }));
     }
-    return;
   };
 
-  console.log(addNewPur);
   return (
-    <div className="container-fluid border-start border-black">
-      <div className="row">
-        <div className="col">
-          <div className="container p-0 w-50">
-            <div className="row mb-2">
-              <div className="col btn-group gap-1" role="group">
-                <AssetTypeBtnGroup fun={handleAssetType} val={assetType.code}/>
-              </div>
-            </div>
+    <div className="container-fluid border-start border-black p-3">
+      <div className="row mb-3 align-items-center">
+        <div className="col-12 col-lg-6">
+          <div className="btn-group d-flex flex-wrap gap-2" role="group">
+            <AssetTypeBtnGroup fun={handleAssetType} val={assetType.code} />
           </div>
-          <div className="row p-0">
-            <div className="col d-flex justify-content-between">
-              <AddPurchaseModal reference={addNewRef} />
+        </div>
+      </div>
+
+      <div className="row mb-3">
+        <div className="col d-flex flex-wrap justify-content-between gap-2">
+          <AddPurchaseModal reference={addNewRef} />
+          <button
+            className="btn btn-secondary flex-grow-1 flex-sm-grow-0"
+            onClick={() => {
+              dispatch(purchaseActions.setAddModalState(false));
+              addNewRef.current.showModal();
+            }}
+          >
+            + New
+          </button>
+
+          {(addNewPur.newAst.length > 0 || addNewPur.oldAst.length > 0) &&
+            addNewPur.err.newAstErr.length === 0 && (
               <button
-                className="btn btn-secondary"
+                className="btn fw-bold text-success text-decoration-underline flex-grow-1 flex-sm-grow-0"
                 onClick={() => {
-                  dispatch(purchaseActions.setAddModalState(false));
+                  dispatch(purchaseActions.setAddModalState(true));
                   addNewRef.current.showModal();
                 }}
               >
-                + New
+                See Added Assets
               </button>
-              {(addNewPur.newAst.length > 0 ||
-                addNewPur.oldAst.length > 0) &&
-                  (addNewPur.err.newAstErr.length === 0 && (
-                    <button
-                      className="btn fw-bold text-success text-decoration-underline"
-                      onClick={() => {
-                        dispatch(purchaseActions.setAddModalState(true));
-                        addNewRef.current.showModal();
-                      }}
-                    >
-                      See Added Assets
-                    </button>
-                  ))}
-            </div>
-          </div>
-          <div className="row mt-2">
-            <div className="col">
-              {invtry[assetType.name]?.map((iv) => {
-                const { oldAst } = addNewPur;
+            )}
+        </div>
+      </div>
 
-                let exstng = false;
-                let ind = -1;
-                if (oldAst.length !== 0) {
-                  ind = oldAst.findIndex((e) => e._id === iv.asset._id);
-                  if (ind > -1) {
-                    exstng = true;
-                  }
+      <div className="row">
+        <div className="col">
+          {invtry[assetType.name]?.map((iv) => {
+            const { oldAst } = addNewPur;
+            let exstng = false;
+            let ind = -1;
+
+            if (oldAst.length !== 0) {
+              ind = oldAst.findIndex((e) => e._id === iv.asset._id);
+              if (ind > -1) exstng = true;
+            }
+
+            return (
+              <form
+                key={iv.asset._id}
+                onSubmit={(e) =>
+                  handleSubmit(e, iv.asset._id, assetType.code, iv.asset.name, exstng)
                 }
-                return (
-                  <form
-                    onSubmit={(e) =>{
-                      handleSubmit(e, iv.asset._id, assetType.code, iv.asset.name,exstng)
-                    }}
-                  >
-                    <div
-                      key={iv.asset._id}
-                      className="border rounded-3 p-3 mb-3 d-flex align-items-center justify-content-between"
-                    >
-                      <div>
-                        <p className="fw-bold mb-1" name="assetName">{iv.asset.name}</p>
-                      </div>
-                      <small className="text-muted">
-                        Available Qty : {iv.qty.value} {iv.qty.metric}
-                      </small>
+                className="border rounded-3 p-3 mb-3"
+              >
+                <div className="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
+                  <div className="flex-grow-1">
+                    <p className="fw-bold mb-1">{iv.asset.name}</p>
+                    <small className="text-muted">
+                      Available Qty: {iv.qty.value} {iv.qty.metric}
+                    </small>
+                  </div>
 
-                      <div className="form-floating ms-3 d-flex flex-row gap-2">
-                        <input
-                          type="number"
-                          name="assetQty"
-                          className="rounded-3 w-25"
-                          max={iv.qty.value}
-                          defaultValue={ind!==-1&&oldAst[ind].qty}
-                          required
-                        />
-                        <div className="form-floating">
-                          <select className="form-select" name="metric">
-                            {itemType[metricInd].metrics.map((i) => {
-                              return (
-                                <option key={i} value={i.code}>
-                                  {i}
-                                </option>
-                              );
-                            })}
-                          </select>
-                          <label className="p-2">metric</label>
-                        </div>
-                        <button
-                          className="btn btn-success"
-                          type="submit"
-                        >
-                          {exstng ? "Save" : "Add"}
-                        </button>
-                        {exstng===true &&
-                        <button
-                          className="btn btn-danger"
-                          type="button"
-                          onClick={()=>{
-                            dispatch(purchaseActions.delIncOldPurchase({id:iv.asset._id}))
-                          }}
-                        >
-                           X
-                        </button>
+                  <div className="d-flex flex-wrap align-items-center gap-2">
+                    <input
+                      type="number"
+                      name="assetQty"
+                      className="form-control form-control-sm"
+                      style={{ maxWidth: "100px" }}
+                      max={iv.qty.value}
+                      defaultValue={ind !== -1 && oldAst[ind].qty}
+                      required
+                    />
+
+                    <select className="form-select form-select-sm" name="metric">
+                      {itemType[metricInd].metrics.map((i) => (
+                        <option key={i} value={i}>
+                          {i}
+                        </option>
+                      ))}
+                    </select>
+
+                    <button className="btn btn-success btn-sm" type="submit">
+                      {exstng ? "Save" : "Add"}
+                    </button>
+
+                    {exstng && (
+                      <button
+                        className="btn btn-danger btn-sm"
+                        type="button"
+                        onClick={() =>
+                          dispatch(purchaseActions.delIncOldPurchase({ id: iv.asset._id }))
                         }
-                      </div>
-                    </div>
-                  </form>
-                );
-              })}
-            </div>
-          </div>
+                      >
+                        X
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </form>
+            );
+          })}
         </div>
       </div>
     </div>

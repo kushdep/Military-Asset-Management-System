@@ -24,9 +24,9 @@ function PurchaseHistoryTable() {
   }, [purchaseHistory]);
 
   return (
-    <div className="container">
-      <div className="row mt-2">
-        <div className="col-2">
+    <div className="container-fluid p-3">
+      <div className="row gy-3 align-items-end">
+        <div className="col-12 col-md-3">
           <div className="form-floating">
             <select
               className="form-select"
@@ -38,107 +38,102 @@ function PurchaseHistoryTable() {
               <option value="NF" selected>
                 No Type Filter
               </option>
-              {itemType.map((i) => {
-                return (
-                  <option value={i.code} className="dropdown-item">
-                    {i.name}
-                  </option>
-                );
-              })}
+              {itemType.map((i) => (
+                <option value={i.code} key={i.code}>
+                  {i.name}
+                </option>
+              ))}
             </select>
-            <label for="floatingSelectGrid">Works with selects</label>
+            <label htmlFor="floatingSelectGrid">Asset Type</label>
           </div>
         </div>
-        <div className="col d-flex p-2">
-          <div className="col-md-3">
-            <label className="form-label fw-bold">From:</label>
-            <input type="date" ref={fromInp} className="form-control" />
-          </div>
 
-          <div className="col-md-3">
-            <label className="form-label fw-bold">To:</label>
-            <input ref={toInp} type="date" className="form-control" />
-          </div>
-          <div className="col-md-2 d-flex align-items-end">
-            <button
-              className="btn btn-success w-100"
-              onClick={() => {
-                if (
-                  new Date(fromInp.current?.value) >
-                  new Date(toInp.current?.value)
-                ) {
-                  toast.error("Wrong Dates");
-                  return;
-                }
-                handleDateRange(fromInp.current?.value, toInp.current?.value);
-              }}
-            >
-              Filter
-            </button>
-          </div>
+        <div className="col-6 col-md-3">
+          <label className="form-label fw-bold">From:</label>
+          <input type="date" ref={fromInp} className="form-control" />
+        </div>
+
+        <div className="col-6 col-md-3">
+          <label className="form-label fw-bold">To:</label>
+          <input ref={toInp} type="date" className="form-control" />
+        </div>
+
+        <div className="col-12 col-md-2">
+          <button
+            className="btn btn-success w-100"
+            onClick={() => {
+              if (
+                new Date(fromInp.current?.value) >
+                new Date(toInp.current?.value)
+              ) {
+                toast.error("Wrong Dates");
+                return;
+              }
+              handleDateRange(fromInp.current?.value, toInp.current?.value);
+            }}
+          >
+            Filter
+          </button>
         </div>
       </div>
-      <div className="row mt-2">
-        <div className="col">
-          <table className="table border border-black">
-            <thead>
-              <tr>
-                <th scope="col">Sno</th>
-                <th scope="col">Item</th>
-                <th scope="col">Type</th>
-                <th scope="col">Qty</th>
-                <th scope="col">Added By</th>
-                <th scope="col">Purchase Date</th>
-                <th scope="col">Purchase Time</th>
-              </tr>
-            </thead>
-            <tbody className="table-group-divider border">
-              {purchaseHistory?.length ? (
-                purchaseHistory.map((purchs) =>
-                  purchs.items.map((i) => {
-                    if (assetType.code !== "NF") {
-                      if (assetType.code !== i.asset.type) {
-                        return;
-                      }
-                    }
-                    const createdAt = new Date(purchs.purchaseDate)
-                    const timeStamp = createdAt.toLocaleTimeString()
-                    const createdTime = createdAt.toISOString();
-                    const purDate = createdTime.slice(0, 10);
-                    if (dateRange.from !== "" && dateRange.to !== "") {
-                      const purchaseDate = new Date(purDate).getTime();
-                      const fromFilDate = new Date(dateRange.from).getTime();
-                      const toFilDate = new Date(dateRange.to).getTime();
-                      if (
-                        !(
-                          purchaseDate >= fromFilDate &&
-                          purchaseDate <= toFilDate
-                        )
-                      ) {
-                        console.log("return ");
-                        return;
-                      }
-                    }
-                    return (
-                      <tr key={i.asset._id}>
-                        <th scope="row">{sno++}</th>
-                        <td>{i.asset.name}</td>
-                        <td>{i.asset.type}</td>
-                        <td>{i.qty}</td>
-                        <td>{purchs.addedBy}</td>
-                        <td>{purDate}</td>
-                        <td>{timeStamp}</td>
-                      </tr>
-                    );
-                  })
-                )
-              ) : (
+
+      <div className="row mt-4">
+        <div className="col-12">
+          <div className="table-responsive shadow-sm rounded-3 border border-light">
+            <table className="table table-striped table-hover align-middle mb-0">
+              <thead className="table-dark text-center">
                 <tr>
-                  <td colSpan={8}>No data</td>
+                  <th scope="col">S.No</th>
+                  <th scope="col">Item</th>
+                  <th scope="col">Type</th>
+                  <th scope="col">Qty</th>
+                  <th scope="col">Added By</th>
+                  <th scope="col">Purchase Date</th>
+                  <th scope="col">Purchase Time</th>
                 </tr>
-              )}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {purchaseHistory?.length ? (
+                  purchaseHistory.map((purchs) =>
+                    purchs.items.map((i) => {
+                      if (assetType.code !== "NF" && assetType.code !== i.asset.type)
+                        return;
+
+                      const createdAt = new Date(purchs.purchaseDate);
+                      const timeStamp = createdAt.toLocaleTimeString();
+                      const createdTime = createdAt.toISOString();
+                      const purDate = createdTime.slice(0, 10);
+
+                      if (dateRange.from !== "" && dateRange.to !== "") {
+                        const purchaseDate = new Date(purDate).getTime();
+                        const fromFilDate = new Date(dateRange.from).getTime();
+                        const toFilDate = new Date(dateRange.to).getTime();
+                        if (!(purchaseDate >= fromFilDate && purchaseDate <= toFilDate)) {
+                          return;
+                        }
+                      }
+
+                      return (
+                        <tr key={i.asset._id} className="text-center">
+                          <th scope="row">{sno++}</th>
+                          <td>{i.asset.name}</td>
+                          <td>{i.asset.type}</td>
+                          <td>{i.qty}</td>
+                          <td>{purchs.addedBy}</td>
+                          <td>{purDate}</td>
+                          <td>{timeStamp}</td>
+                        </tr>
+                      );
+                    })
+                  )
+                ) : (
+                  <tr className="text-center">
+                    <td colSpan={7}>No data available</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

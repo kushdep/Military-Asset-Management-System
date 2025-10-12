@@ -1,22 +1,17 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 
 function TransferHistory({ TINhis, TOUThis }) {
   const [hisState, selHisState] = useState("IN");
-  let hisData = [];
-
-  hisData = hisState === "IN" ? TINhis : TOUThis;
-
-  console.log(hisData);
+  const hisData = hisState === "IN" ? TINhis : TOUThis;
 
   return (
-    <div className="container-fluid">
-      <div className="row">
+    <div className="container-fluid py-3">
+      <div className="row mb-3">
         <div className="col text-center">
           <div
-            className="btn-group w-50 gap-1"
+            className="btn-group w-75 gap-1"
             role="group"
-            aria-label="Basic outlined example"
+            aria-label="Transfer Type Switch"
           >
             <button
               type="button"
@@ -39,92 +34,95 @@ function TransferHistory({ TINhis, TOUThis }) {
           </div>
         </div>
       </div>
-      <div className="row mt-3">
-        <table className="table border border-black mt-3 text-center">
-          <thead>
-            <tr>
-              <th scope="col">Transfer Date</th>
-              <th scope="col">Transfer {hisState === "IN" ? "By" : "To"}</th>
-              <th scope="col">Assets</th>
-              <th scope="col">Recieve Status</th>
-              <th scope="col">Recieved Date</th>
-            </tr>
-          </thead>
-          <tbody className="table-group-divider border">
-            {hisData.length > 0 ? (
-              hisData.map((t, i) => {
-                return (
-                  <React.Fragment key={t._id}>
-                    <tr>
-                      <th scope="row">
-                        {new Date(t.TOUTdate).toLocaleDateString()}
-                      </th>
-                      <td>{hisState === "IN" ? `${t.by}` : `${t.to}`}</td>
-                      <td>
-                        <button
-                          className="btn btn-light fw-semibold"
-                          type="button"
-                          data-bs-toggle="collapse"
-                          data-bs-target={`#collapse-${t._id}`}
-                          aria-expanded="false"
-                          aria-controls={`collapse-${t._id}`}
-                        >
-                          See Transferred Assets
-                        </button>
-                      </td>
-                      <td className="p-3 d-flex justify-content-around">
-                        <span
-                          class={`badge p-2 text-light ${
-                            t.status === "PENDING"
-                              ? "text-bg-info"
-                              : t.status === "RECEIVED"
-                              ? "text-bg-success"
-                              : "text-bg-danger"
-                          }`}
-                        >
-                          {t.status}
-                        </span>
-                      </td>
-                      <td>
-                        {t.status !== "PENDING"
-                          ? t.status !== "CANCELLED"?`${new Date(
-                              t.TINdate
-                            ).toLocaleDateString()} (${new Date(
-                              t.TINdate
-                            ).toLocaleTimeString()})`:'-'
-                          : "-"}
-                      </td>
-                    </tr>
 
-                    <tr className="collapse" id={`collapse-${t._id}`}>
-                      <td colSpan="4">
-                        <div className="card card-body border-0 container p-2">
-                          <div className="row row-cols-3">
-                            {t.astDtl.map((d) => {
-                              return (
-                                <div className="col border d-flex rounded-3 justify-content-around">
-                                  <span className="fw-bold text-primary">
-                                    {d.name}
-                                  </span>{" "}
+      <div className="row">
+        <div className="col-12">
+          <div className="table-responsive shadow-sm rounded-3">
+            <table className="table table-striped table-hover align-middle text-center">
+              <thead className="table-dark">
+                <tr>
+                  <th scope="col">Transfer Date</th>
+                  <th scope="col">Transfer {hisState === "IN" ? "By" : "To"}</th>
+                  <th scope="col">Assets</th>
+                  <th scope="col">Receive Status</th>
+                  <th scope="col">Received Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {hisData.length > 0 ? (
+                  hisData.map((t) => (
+                    <React.Fragment key={t._id}>
+                      <tr>
+                        <td>{new Date(t.TOUTdate).toLocaleDateString()}</td>
+                        <td>{hisState === "IN" ? t.by : t.to}</td>
+                        <td>
+                          <button
+                            className="btn btn-sm btn-outline-primary fw-semibold"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target={`#collapse-${t._id}`}
+                            aria-expanded="false"
+                            aria-controls={`collapse-${t._id}`}
+                          >
+                            See Assets
+                          </button>
+                        </td>
+                        <td>
+                          <span
+                            className={`badge p-2 ${
+                              t.status === "PENDING"
+                                ? "bg-info"
+                                : t.status === "RECEIVED"
+                                ? "bg-success"
+                                : "bg-danger"
+                            }`}
+                          >
+                            {t.status}
+                          </span>
+                        </td>
+                        <td>
+                          {t.status !== "PENDING"
+                            ? t.status !== "CANCELLED"
+                              ? `${new Date(t.TINdate).toLocaleDateString()} (${new Date(
+                                  t.TINdate
+                                ).toLocaleTimeString()})`
+                              : "-"
+                            : "-"}
+                        </td>
+                      </tr>
+
+                      <tr className="collapse" id={`collapse-${t._id}`}>
+                        <td colSpan="5" className="p-0">
+                          <div className="card card-body border-0">
+                            <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-2">
+                              {t.astDtl.map((d, index) => (
+                                <div
+                                  key={index}
+                                  className="col border rounded-3 d-flex flex-column align-items-center justify-content-center p-2 bg-light"
+                                >
+                                  <span className="fw-bold text-primary">{d.name}</span>
                                   <span className="fw-semibold">
-                                    Qty - {d.totalQty.value}
-                                    {d.totalQty.metric}
+                                    Qty: {d.totalQty.value} {d.totalQty.metric}
                                   </span>
                                 </div>
-                              );
-                            })}
+                              ))}
+                            </div>
                           </div>
-                        </div>
-                      </td>
-                    </tr>
-                  </React.Fragment>
-                );
-              })
-            ) : (
-              <h3 className="text-center text-muted">No data</h3>
-            )}
-          </tbody>
-        </table>
+                        </td>
+                      </tr>
+                    </React.Fragment>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="5" className="text-center py-4 text-muted">
+                      No data available
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   );

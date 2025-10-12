@@ -662,8 +662,7 @@ export const asgnBaseAst = async (req, res) => {
           const ind = invList.findIndex((e) => e.asset.toString() === v.id);
           if (ind > -1) {
             const item = invList[ind];
-            if (item.qty.metric !== v.metric ||
-              item.qty.value < Number(v.qty)) {
+            if (item.qty.value < Number(v.qty)) {
               throw Error('Assignment cant be done')
             }
             invList[ind].qty.value -= Number(v.qty)
@@ -683,7 +682,7 @@ export const asgnBaseAst = async (req, res) => {
           }
         });
       }
-    });
+    }); 
 
     let newAssign = {
       sId: sldrId,
@@ -734,12 +733,10 @@ export const asgnBaseAst = async (req, res) => {
 export const getIdvlBaseData = async (req, res) => {
   try {
     const { id } = req.params
-    console.log(id)
     const { role, email } = req.user
-    console.log(role)
-    console.log(email)
+
     const baseDoc = await Base.findOne({ baseId: id }).populate([{ path: 'purchase', populate: { path: 'items.asset' } }, { path: 'inventory.Vehicle.asset' }, { path: 'inventory.Weapons.asset' }, { path: 'inventory.Ammunition.asset' }, { path: 'asgnAst' }, { path: 'tsfrAst.IN' }, { path: 'tsfrAst.OUT' }])
-    console.log(baseDoc)
+    
     if (baseDoc === null) {
       return res.status(400).send({
         success: false,
