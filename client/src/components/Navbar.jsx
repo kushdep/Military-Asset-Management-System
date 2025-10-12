@@ -45,9 +45,9 @@ const Navbar = () => {
                       }
                       to={
                         role !== "AD"
-                          ? `/dashboard/${actvId.id}`
-                          : !!actvId.id
-                          ? `/dashboard/${actvId.id}`
+                          ? `/dashboard/${actvId?.id}`
+                          : !!actvId?.id
+                          ? `/dashboard/${actvId?.id}`
                           : "/dashboard"
                       }
                     >
@@ -57,12 +57,12 @@ const Navbar = () => {
                   <li className="nav-item">
                     <NavLink
                       className={({ isActive }) =>
-                        isActive && !!actvId.id
+                        isActive && !!actvId?.id
                           ? "nav-link fw-bold border rounded-pill bg-dark text-light shadow-lg"
                           : "nav-link fw-bold text-dark"
                       }
                       to={
-                        !!actvId.id ? `/dashboard/${actvId.id}/purchase` : "#"
+                        !!actvId?.id ? `/dashboard/${actvId?.id}/purchase` : "#"
                       }
                     >
                       Purchase
@@ -71,11 +71,11 @@ const Navbar = () => {
                   <li className="nav-item">
                     <NavLink
                       className={({ isActive }) =>
-                        isActive && !!actvId.id
+                        isActive && !!actvId?.id
                           ? "nav-link fw-bold border rounded-pill bg-dark text-light shadow-lg"
                           : "nav-link fw-bold text-dark"
                       }
-                      to={!!actvId.id ? `/dashboard/${actvId.id}/assign` : "#"}
+                      to={!!actvId?.id ? `/dashboard/${actvId?.id}/assign` : "#"}
                     >
                       Assign
                     </NavLink>
@@ -83,11 +83,11 @@ const Navbar = () => {
                   <li className="nav-item">
                     <NavLink
                       className={({ isActive }) =>
-                        isActive && !!actvId.id
+                        isActive && !!actvId?.id
                           ? "nav-link fw-bold border rounded-pill bg-dark text-light shadow-lg"
                           : "nav-link fw-bold text-dark"
                       }
-                      to={!!actvId.id ? `/dashboard/${actvId.id}/transfer` : ""}
+                      to={!!actvId?.id ? `/dashboard/${actvId?.id}/transfer` : ""}
                     >
                       Transfer
                     </NavLink>

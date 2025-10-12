@@ -30,10 +30,10 @@ function AssignAsset() {
     }
   }, [sldrsData]);
 
-  if (baseError !== null) {
-    toast.error(baseError);
-    return;
-  }
+  // if (baseError !== null) {
+  //   toast.error(baseError);
+  //   return;
+  // }
 
   console.log(baseId);
   async function AddAsgnData(id) {

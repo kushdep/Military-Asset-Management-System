@@ -746,15 +746,6 @@ export const getIdvlBaseData = async (req, res) => {
         message: 'Base Not Found'
       })
     }
-    if (role === 'COM' || role === 'LGF') {
-      let val = (role === "COM") ? "baseComm" : "lgstcOff";
-      if (baseDoc[val] !== email) {
-        return res.status(403).send({
-          success: false,
-          message: 'Unauthorized Access'
-        })
-      }
-    }
     return res.status(200).send({
       success: true,
       data: baseDoc,

@@ -8,30 +8,31 @@ function SeeAllModal({
   title,
   btnTitle,
   isBtnSecGrp,
-  keyName
+  keyName,
+  keyDate,
 }) {
   const [selSldrList, setSelSldrList] = useState([]);
   const [selSldrId, setSldrId] = useState("");
-  console.log(keyName)
+  console.log(keyName);
 
   useEffect(() => {
     if (!isBtnSecGrp) setSelSldrList(dataList);
   }, [isBtnSecGrp, dataList]);
 
   function handleSelSldr(id) {
-    console.log(id)
+    console.log(id);
     const selList = dataList.find((e) => e[keyName] === id);
-    console.log(selList)
-    if (selList){
+    console.log(selList);
+    if (selList) {
       setSelSldrList([
         ...(selList.Vehicle || []),
         ...(selList.Ammunition || []),
         ...(selList.Weapons || []),
       ]);
-    setSldrId(selList[keyName]);
+      setSldrId(selList[keyName]);
     }
   }
-  console.log(dataList)
+  console.log(dataList);
 
   return createPortal(
     <dialog ref={reference} className="shadow rounded-4 p-4">
@@ -49,18 +50,22 @@ function SeeAllModal({
           aria-label="Button group with nested dropdown"
         >
           {dataList.slice(0, 2).map((e) => {
-            console.log(e)
-            console.log(e[keyName])
-            return <button
-              key={e[keyName]}
-              className={`btn ${
-                selSldrId === e[keyName] ? "btn-primary" : " btn-outline-primary"
-              }`}
-              onClick={() => handleSelSldr(e[keyName])}
-            >
-              {e[keyName]}
-            </button>
-})}
+            console.log(e);
+            console.log(e[keyName]);
+            return (
+              <button
+                key={e[keyName]}
+                className={`btn ${
+                  selSldrId === e[keyName]
+                    ? "btn-primary"
+                    : " btn-outline-primary"
+                }`}
+                onClick={() => handleSelSldr(e[keyName])}
+              >
+                {e[keyName]}
+              </button>
+            );
+          })}
 
           {dataList.length > 2 && (
             <div className="btn-group" role="group">
@@ -98,14 +103,16 @@ function SeeAllModal({
           <h4 className="fw-bold text-center text-decoration-underline">
             {selSldrId !== "" && selSldrId}
           </h4>
-          {selSldrId !== "" && selSldrList?.length !== 0 ? (
+          {selSldrList?.length > 0 ? (
             selSldrList.map((d) => {
               return (
                 <div className="col border rounded-3 mb-3">
                   <div className="d-flex flex-row gap-5 p-2">
                     <p className="fw-bold">{d.name}</p>
                     <p className="text-muted">
-                      {d.qty} ({d.metric})
+                      {d.qty} ({d.metric}){" "}
+                      {keyDate!==undefined && keyDate!==null  &&
+                        "-" + " " + new Date(keyDate).toLocaleDateString()}
                     </p>
                   </div>
                 </div>
@@ -121,11 +128,11 @@ function SeeAllModal({
       <div className="col text-center mt-3">
         <button
           className="btn btn-success w-50 fw-bold"
-          disabled={isBtnSecGrp ? (selSldrId!==''?false:true):false}
+          disabled={isBtnSecGrp ? (selSldrId !== "" ? false : true) : false}
           onClick={() => {
             if (isBtnSecGrp) {
               btnfun(selSldrId);
-              setSldrId("")
+              setSldrId("");
             } else {
               btnfun();
             }

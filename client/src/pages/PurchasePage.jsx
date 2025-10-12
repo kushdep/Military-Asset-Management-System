@@ -26,10 +26,10 @@ function PurchasePage() {
   }
   }, []);
 
-  if(baseError!==null){
-    toast.error(error)
-    return 
-  }
+  // if(baseError!==null){
+  //   toast.error(error)
+  //   return 
+  // }
 
 
     

@@ -23,7 +23,7 @@ const router = createBrowserRouter([
         <AppLayout />
       </DashRoute>
     ),
-    errorElement: <ErrorPage />,
+    // errorElement: <ErrorPage />,
     children: [
       { path: "", element: <Dashboard /> },
       {

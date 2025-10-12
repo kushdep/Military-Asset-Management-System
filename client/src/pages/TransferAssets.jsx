@@ -147,10 +147,10 @@ function TransferAsset() {
     }
   }
 
-   if(baseError!==null){
-    toast.error(baseError)
-    return 
-  }
+  //  if(baseError!==null){
+  //   toast.error(baseError)
+  //   return 
+  // }
 
  
 
