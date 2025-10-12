@@ -337,19 +337,51 @@ function DashboardStats() {
     })
   );
 
-  console.log(expndAst);
-  console.log(purchaseHistory)
+  console.log(TINdata);
+  console.log(TOUTdata);
 
   function handleHisStt(btnVal) {
     if (btnVal === "Purchase") {
-      purchaseHistory
-    }else if(btnVal === "tin"){
-
-    }else if(btnVal === "tout"){
-
+      let fmapVal = purchaseHistory.flatMap((v) =>
+        v.items.flatMap((e) => {
+          let metric =
+            e.asset.type === "VCL"
+              ? "val"
+              : e.asset.type === "WEA"
+              ? "psc"
+              : "boxes";
+          return {
+            date: v.purchaseDate,
+            name: e.asset.name,
+            qty: e.qty,
+            metric,
+          };
+        })
+      );
+      setBtnHisState((prev) => {
+        return [...fmapVal];
+      });
     }
-  }
+    let val = btnVal === "tin" ? TINdata : TOUTdata;
 
+    let dataListBtn = val
+      .filter((v) => v.status === "RECEIVED")
+      .flatMap((v) =>
+        v.astDtl.map((f) => ({
+          name: f.name,
+          qty: f.totalQty.value,
+          metric: f.totalQty.metric,
+          date: v.TOUTdate || v.TINdate,
+        }))
+      );
+
+    console.log(dataListBtn);
+
+    setBtnHisState(dataListBtn);
+
+    hisModalRef.current.showModal();
+  }
+  console.log(btnHisState);
   return (
     <div
       className="container-fluid py-3"
@@ -358,7 +390,14 @@ function DashboardStats() {
         minHeight: "100vh",
       }}
     >
-      <SeeAllModal reference={hisModalRef} />
+      <SeeAllModal
+        reference={hisModalRef}
+        dataList={btnHisState}
+        btnTitle={"Close"}
+        title="Purchase History"
+        btnfun={() => hisModalRef.current.close()}
+        keyDate={"date"}
+      />
       <form
         className="row gy-3 align-items-end border rounded-4 p-3 bg-white shadow-sm"
         action={formAcn}
@@ -446,7 +485,7 @@ function DashboardStats() {
               <div className="d-flex flex-wrap justify-content-center align-items-center gap-2">
                 <button
                   className="btn btn-outline-success border-2 fw-bold"
-                  onClick={() => handleHisStt("purchase")}
+                  onClick={() => handleHisStt("Purchase")}
                 >
                   Purchase
                 </button>

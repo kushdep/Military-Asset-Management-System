@@ -14,9 +14,13 @@ function SeeAllModal({
   const [selSldrList, setSelSldrList] = useState([]);
   const [selSldrId, setSldrId] = useState("");
   console.log(keyName);
+  console.log(dataList)
+  console.log(selSldrList)
 
   useEffect(() => {
-    if (!isBtnSecGrp) setSelSldrList(dataList);
+    if (!isBtnSecGrp){
+        setSelSldrList((prev)=>[...dataList]);
+      } 
   }, [isBtnSecGrp, dataList]);
 
   function handleSelSldr(id) {
@@ -112,7 +116,7 @@ function SeeAllModal({
                     <p className="text-muted">
                       {d.qty} ({d.metric}){" "}
                       {keyDate!==undefined && keyDate!==null  &&
-                        "-" + " " + new Date(keyDate).toLocaleDateString()}
+                        "-" + " " + new Date(d[keyDate]).toLocaleDateString()}
                     </p>
                   </div>
                 </div>
