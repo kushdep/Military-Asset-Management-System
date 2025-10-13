@@ -34,8 +34,13 @@ const baseSlice = createSlice({
       closingBal: null,
       NetMvmnt: null
     },
-    baseError: null,
-    loading:true
+    baseError: {
+      base:'',
+      purchase:'',
+      assign:'',
+      transfer:''
+    },
+    loading:false
   },
   reducers: {
     addIds(state, action) {
@@ -183,9 +188,16 @@ export const getBaseData = (token, id) => {
         const resData = response.data.data
         return resData
       } 
+      if (response.status === 204) {
+        return {}
+      } 
         
       } catch (error) {
       if (error?.response.status === 400) {
+      dispatch(baseActions.setErrorState({errMsg:'BAD REQUEST'}))
+      return {};
+    }
+      if (error?.response.status === 401) {
       dispatch(baseActions.setErrorState({errMsg:'BAD REQUEST'}))
       return {};
     }
@@ -236,6 +248,14 @@ export const getBaseIds = (token) => {
         
       } catch (error) {
         if (error?.response.status === 400) {
+          dispatch(baseActions.setErrorState({errMsg:'BAD REQUEST'}))
+          return [];
+        }
+        if (error?.response.status === 401) {
+          dispatch(baseActions.setErrorState({errMsg:'BAD REQUEST'}))
+          return [];
+        }
+        if (error?.response.status === 403) {
           dispatch(baseActions.setErrorState({errMsg:'BAD REQUEST'}))
           return [];
         }

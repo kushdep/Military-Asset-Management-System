@@ -305,7 +305,7 @@ function DashboardStats() {
     }
   };
 
-  console.log(assignData);
+  // console.log(assignData);
   let asgnData =
     assignData?.flatMap(
       (e) =>
@@ -337,69 +337,89 @@ function DashboardStats() {
         }
         return true;
       });
-      console.log({ ...item[0], name: a.name });
+      // console.log({ ...item[0], name: a.name });
       if (item.length === 0) return null;
       return { ...item[0], name: a.name };
     })
   );
 
   console.log(purchaseHistory);
-  console.log(TINdata);
-  console.log(TOUTdata);
+  // console.log(TINdata);
+  // console.log(TOUTdata);
 
   function handleHisStt(btnVal) {
     if (btnVal === "Purchase") {
-      let fmapVal = purchaseHistory.flatMap((v) =>
-        v.items.flatMap((e) => {
+      const fromDate = new Date(formStt.from);
+      const toDate = new Date(formStt.to);
 
-          v.purchaseDate >= new Date(formStt.from) &&
-          v.purchaseDate <= new Date(formStt.to) &&
-          !(formStt.category !== "all" && formStt.category !== e.asset.type)
+      const fmapVal = purchaseHistory.flatMap((v) => {
+        const purDate = new Date(v.purchaseDate);
 
-          let metric =
-            e.asset.type === "VCL"
-              ? "val"
-              : e.asset.type === "WEA"
-              ? "psc"
-              : "boxes";
-          return {
-            date: v.purchaseDate,
-            name: e.asset.name,
-            qty: e.qty,
-            metric,
-          };
-        })
-      );
-      setBtnHisState((prev) => {
-        return [...fmapVal];
+        const inRange = purDate >= fromDate && purDate <= toDate;
+
+        if (!inRange) return [];
+
+        return v.items
+          .filter((e) => {
+            if (formStt.category === "all") return true;
+            const type = e.asset.type==='VCL'?"Vehicle":(e.asset.type==='WEA'?"Weapons":"Ammunition")
+            return type === formStt.category;
+          })
+          .map((e) => {
+            const metric =
+              e.asset.type === "VCL"
+                ? "val"
+                : e.asset.type === "WEA"
+                ? "psc"
+                : "boxes";
+
+            return {
+              date: v.purchaseDate,
+              name: e.asset.name,
+              qty: e.qty,
+              metric,
+            };
+          });
       });
+      console.log(fmapVal);
+      setBtnHisState(fmapVal);
     }
-    let val = btnVal === "tin" ? TINdata : TOUTdata;
+    if (btnVal !== "Purchase") {
+      let val = btnVal === "tin" ? TINdata : TOUTdata;
 
-    let dataListBtn = val
-      .filter(
-        (v) =>{
-          if(v.status!=='RECEIVED') return false
-          const expDate = btnVal==='tin'?v.TINdate:v.TOUTdate
+      let dataListBtn = val
+        .filter((v) => {
+          if (v.status !== "RECEIVED") return false;
 
-          return expDate >= new Date(formStt.from) &&
-          expDate <= new Date(formStt.to) &&
-          !(formStt.category !== "all" && formStt.category !== a.category)
-        }
-      )
-      .flatMap((v) =>
-        v.astDtl.map((f) => ({
-          name: f.name,
-          qty: f.totalQty.value,
-          metric: f.totalQty.metric,
-          date: v.TOUTdate || v.TINdate,
-        }))
-      );
+          const expDate = new Date(btnVal === "tin" ? v.TINdate : v.TOUTdate);
+          const fromDate = new Date(formStt.from);
+          const toDate = new Date(formStt.to);
+          const inRange = expDate >= fromDate && expDate <= toDate;
+          
+          if (!inRange) return false;
 
-    console.log(dataListBtn);
+          if (formStt.category !== "all") {
+            return v.astDtl.some((f) => f.category === formStt.category);
+          }
 
-    setBtnHisState(() => [...dataListBtn]);
+          return true;
+        })
+        .flatMap((v) =>
+          v.astDtl
+            .filter(
+              (f) =>
+                formStt.category === "all" || f.category === formStt.category
+            )
+            .map((f) => ({
+              name: f.name,
+              qty: f.totalQty.value,
+              metric: f.totalQty.metric,
+              date: v.TOUTdate || v.TINdate,
+            }))
+        );
 
+      setBtnHisState(dataListBtn);
+    }
     hisModalRef.current.showModal();
   }
 
