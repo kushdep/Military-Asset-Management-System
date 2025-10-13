@@ -1,95 +1,96 @@
 import { useActionState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import axios from 'axios'
+import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { authActions } from "../store/auth-slice";
-import { baseActions } from "../store/base-slice";
-
+import { baseActions, getBaseIds } from "../store/base-slice";
 
 function LoginPage() {
   const [formState, formFn, isPending] = useActionState(action, {
     email: null,
-    errors:[]
+    errors: [],
   });
-    const { isAuthenticated, token,role } = useSelector((state) => state.authData);
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const notify = (message) => toast.error(message);
 
-  console.log(isAuthenticated)
-  console.log(token)
-  console.log(role)
-   async function action(currentState, formData) {
-      const email = formData.get("email");
-      const password = formData.get("password");
-      const body = {
-        email,
-        password,
-      };
+  async function action(currentState, formData) {
+    const email = formData.get("email");
+    const password = formData.get("password");
+    const body = {
+      email,
+      password,
+    };
 
-      console.log(body);
-      try {
-        const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/login`,body);
-        console.log(response);
-        if (response?.status === 200) {
-          const {token,role,name,baseInfo} = response.data
-          if(!token || !role){
-            notify('Something Went Wrong')
-            return 
-          }
-          console.log(role)
-          if(role === 'AD'){
-            dispatch(authActions.loginSuccess({ token: token,role:role,name:name}))
-            navigate('/dashboard')
-            return 
-          }
-          if(!baseInfo || Object.keys(baseInfo).length===0){
-            notify('Something went wrong')
-            return 
-          }
-          dispatch(authActions.loginSuccess({ token: token,role:role,name:name}))
-          dispatch(baseActions.setActId({_id:baseInfo._id,id:baseInfo.baseId}))
-          navigate(`/dashboard/${baseInfo.baseId}`)
+    console.log(body);
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_SERVER_URL}/login`,
+        body
+      );
+      console.log(response);
+      if (response?.status === 200) {
+        const { token, role, name, baseInfo } = response.data;
+        if (!token || !role) {
+          notify("Something Went Wrong");
+          return;
         }
-      } catch (error) {
-        let err = [];
-        if(error.code==="ERR_NETWORK"){
-          notify('Bad gateway')
+        if (role === "AD") {
+          dispatch(
+            authActions.loginSuccess({ token: token, role: role, name: name })
+          );
+          dispatch(getBaseIds(token));
+          navigate("/dashboard");
+          return;
         }
-        console.log(error)
-        console.log(error?.response?.status)
-        if (error?.response?.status === 500) {
-            notify('Something went wrong')
-          return {
-            ...currentState,
-            email,
-            errors:[]
-          };
+
+        if (!baseInfo || Object.keys(baseInfo).length === 0) {
+          notify("Something went wrong");
+          return;
         }
-        if (error?.response?.status === 400) {
-          err.push(error?.response?.data?.message);
-          return {
-            ...currentState,
-            email,
-            errors: err,
-          };
-        }
-        if (error?.response?.status === 401) {
-          err.push(error?.response?.data?.message);
-          return {
-            ...currentState,
-            errors: err,
-          };
-        }
-        if (error?.response?.status === 402) {
-          err.push(error?.response?.data?.message);
-          return {
-            ...currentState,
-            errors: err,
-          };
-        }
+        dispatch(baseActions.setActId({id:baseInfo.id,_id:baseInfo._id}))
+        dispatch(authActions.loginSuccess({ token: token, role: role, name: name }));
+        navigate(`/dashboard/${baseInfo.baseId}`);
       }
+    } catch (error) {
+      let err = [];
+      if (error.code === "ERR_NETWORK") {
+        notify("Bad gateway");
+      }
+      console.log(error);
+      console.log(error?.response?.status);
+      if (error?.response?.status === 500) {
+        notify("Something went wrong");
+        return {
+          ...currentState,
+          email,
+          errors: [],
+        };
+      }
+      if (error?.response?.status === 400) {
+        err.push(error?.response?.data?.message);
+        return {
+          ...currentState,
+          email,
+          errors: err,
+        };
+      }
+      if (error?.response?.status === 401) {
+        err.push(error?.response?.data?.message);
+        return {
+          ...currentState,
+          errors: err,
+        };
+      }
+      if (error?.response?.status === 402) {
+        err.push(error?.response?.data?.message);
+        return {
+          ...currentState,
+          errors: err,
+        };
+      }
+    }
   }
 
   return (
@@ -100,7 +101,7 @@ function LoginPage() {
         padding: "20px",
       }}
     >
-      <Toaster/>
+      <Toaster />
       <div
         className="card shadow-lg border-0 rounded-4 p-4 p-md-5 text-center bg-white"
         style={{
@@ -121,7 +122,9 @@ function LoginPage() {
           />
           <h2 className="fw-bold text-dark">MAMS</h2>
           {formState?.errors?.length > 0 && (
-            <p className="text-danger small fw-semibold">{formState.errors[0]}</p>
+            <p className="text-danger small fw-semibold">
+              {formState.errors[0]}
+            </p>
           )}
         </div>
 

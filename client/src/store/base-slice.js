@@ -1,14 +1,28 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import {jwtDecode} from "jwt-decode"
 
-const baseId = localStorage.getItem('baseId')
-const base_Id = localStorage.getItem('base_Id')
+const token = localStorage.getItem("token");
+
+let baseId = null
+let base_id = null
+
+if (token) {
+  try {
+    const decoded = jwtDecode(token);
+    console.log(token)
+    baseId = decoded.baseId;
+    base_id = decoded.base_id;
+  } catch(error) {
+    console.log("Error in hydration",error)
+  }
+}
 
 const baseSlice = createSlice({
   name: 'base',
   initialState: {
     baseIds: [],
-    actvId: {id:baseId,base_id:base_Id}||{},
+    actvId: {id:baseId||'',base_id:base_id||''},
     invtry: {},
     purchaseHistory: null,
     sldrsData: null,
@@ -35,10 +49,11 @@ const baseSlice = createSlice({
     },
     setActId(state, action) {
       try {
-        const { id = null, _id = null } = action.payload
-        state.actvId = { id, _id }
-        localStorage.setItem('baseId',id)
-        localStorage.setItem('base_Id',_id)
+        console.log(action.payload)
+        const { id, _id } = action.payload
+        state.actvId.id = id
+        state.actvId.base_id = _id
+
         console.log(state.actvId)
       } catch (error) {
         console.error("Error in setActId() " + error)
@@ -222,10 +237,6 @@ export const getBaseIds = (token) => {
       } catch (error) {
         if (error?.response.status === 400) {
           dispatch(baseActions.setErrorState({errMsg:'BAD REQUEST'}))
-          return [];
-        }
-        if (error?.response.status === 403) {
-          dispatch(baseActions.setErrorState({errMsg:'UNAUTHORIZED'}))
           return [];
         }
         if (error?.response.status === 500) {

@@ -1,7 +1,7 @@
 import { itemType, months } from "../../config";
 import { useActionState } from "react";
 import toast from "react-hot-toast";
-import { useDispatch, useSelector, useStore } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { baseActions } from "../store/base-slice";
 import SeeAllModal from "../Modals/SeeAllModal";
 import { useState } from "react";
@@ -19,25 +19,34 @@ function DashboardStats() {
   } = useSelector((state) => state.baseData);
   const [btnHisState, setBtnHisState] = useState([]);
   const [formStt, formAcn, isPending] = useActionState(action, {
-    from: null,
-    to: null,
+    from: "",
+    to: "",
     category: "",
+    err: "",
   });
 
   const dispatch = useDispatch();
   const hisModalRef = useRef();
 
   function action(prevStt, formData) {
-    const category = formData.get("category");
+    let category = formData.get("category");
     const fromDate = formData.get("fromDate");
     const toDate = formData.get("toDate");
 
-    if (!category || !fromDate || !toDate) {
+    console.log(category);
+    if (category === "") {
+      category = "all";
+    }
+
+    console.log(category);
+
+    if (fromDate === "" || toDate === "") {
       toast.error("Please fill all fields");
       return {
-        from: fromDate ?? null,
-        to: toDate ?? null,
-        category: category ?? "",
+        from: fromDate,
+        to: toDate,
+        category: category,
+        err: "Invalid Dates",
       };
     }
 
@@ -50,6 +59,7 @@ function DashboardStats() {
         from: fromDate ?? null,
         to: toDate ?? null,
         category: category ?? "",
+        err: "Invalid Dates",
       };
     }
 
@@ -59,6 +69,7 @@ function DashboardStats() {
         from: fromDate ?? null,
         to: toDate ?? null,
         category: category ?? "",
+        err: "Invalid Dates",
       };
     }
 
@@ -68,9 +79,10 @@ function DashboardStats() {
     ) {
       toast.error("Stats can be analyzed only till yesterday");
       return {
-        from: fromDate ?? null,
-        to: toDate ?? null,
-        category: category ?? "",
+        from: fromDate,
+        to: toDate,
+        category: category,
+        err: "Invalid Dates",
       };
     }
 
@@ -115,6 +127,7 @@ function DashboardStats() {
       from: fromDate,
       to: toDate,
       category: category,
+      err: "",
     };
   }
 
@@ -128,11 +141,7 @@ function DashboardStats() {
   ) => {
     try {
       console.log(fltrType);
-      console.log(from);
-      console.log(inventory);
-      console.log(outAst);
-      console.log(asgnAst);
-      console.log(baseId);
+
       let openingBal = 0;
       const dateObj = new Date(from);
       const month = months[dateObj.getMonth()];
@@ -322,9 +331,6 @@ function DashboardStats() {
           return false;
         const expDate = new Date(exp.expndDate);
         if (formStt.from && formStt.to) {
-          console.log(
-            expDate >= new Date(formStt.from) && expDate <= new Date(formStt.to)
-          );
           return (
             expDate >= new Date(formStt.from) && expDate <= new Date(formStt.to)
           );
@@ -337,6 +343,7 @@ function DashboardStats() {
     })
   );
 
+  console.log(purchaseHistory);
   console.log(TINdata);
   console.log(TOUTdata);
 
@@ -344,6 +351,11 @@ function DashboardStats() {
     if (btnVal === "Purchase") {
       let fmapVal = purchaseHistory.flatMap((v) =>
         v.items.flatMap((e) => {
+
+          v.purchaseDate >= new Date(formStt.from) &&
+          v.purchaseDate <= new Date(formStt.to) &&
+          !(formStt.category !== "all" && formStt.category !== e.asset.type)
+
           let metric =
             e.asset.type === "VCL"
               ? "val"
@@ -365,7 +377,16 @@ function DashboardStats() {
     let val = btnVal === "tin" ? TINdata : TOUTdata;
 
     let dataListBtn = val
-      .filter((v) => v.status === "RECEIVED")
+      .filter(
+        (v) =>{
+          if(v.status!=='RECEIVED') return false
+          const expDate = btnVal==='tin'?v.TINdate:v.TOUTdate
+
+          return expDate >= new Date(formStt.from) &&
+          expDate <= new Date(formStt.to) &&
+          !(formStt.category !== "all" && formStt.category !== a.category)
+        }
+      )
       .flatMap((v) =>
         v.astDtl.map((f) => ({
           name: f.name,
@@ -377,10 +398,11 @@ function DashboardStats() {
 
     console.log(dataListBtn);
 
-    setBtnHisState(()=>[...dataListBtn]);
+    setBtnHisState(() => [...dataListBtn]);
 
     hisModalRef.current.showModal();
   }
+
   console.log(btnHisState);
   return (
     <div
@@ -404,15 +426,14 @@ function DashboardStats() {
         <div className="col-12 col-md-3">
           <div className="form-floating">
             <select
+              key={formStt?.category}
               className="form-select"
               id="floatingSelectGrid"
               name="category"
             >
-              <option value="all" defaultValue>
-                ALL
-              </option>
+              <option value="all">ALL</option>
               {itemType.map((i) => (
-                <option key={i.code} value={i.code}>
+                <option key={i.code} value={i.name}>
                   {i.name}
                 </option>
               ))}
@@ -426,13 +447,19 @@ function DashboardStats() {
           <input
             type="date"
             name="fromDate"
+            defaultValue={formStt?.from}
             className="form-control shadow-sm"
           />
         </div>
 
         <div className="col-12 col-md-3">
           <label className="form-label fw-bold">To</label>
-          <input type="date" name="toDate" className="form-control shadow-sm" />
+          <input
+            type="date"
+            name="toDate"
+            defaultValue={formStt?.to}
+            className="form-control shadow-sm"
+          />
         </div>
 
         <div className="col-12 col-md-3 d-grid">
@@ -446,9 +473,10 @@ function DashboardStats() {
         </div>
       </form>
 
-      {formStt?.from !== null &&
-      formStt?.to !== null &&
-      formStt?.category !== "" ? (
+      {formStt?.from !== "" &&
+      formStt?.to !== "" &&
+      formStt?.category !== "" &&
+      formStt?.err === "" ? (
         <div className="mt-4">
           <div className="row gy-3">
             <div className="col-12 col-md-6">

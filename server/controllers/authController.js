@@ -5,8 +5,6 @@ import Base from '../models/base.js'
 
 export const login = async (req, res) => {
     try {
-    console.log(req)
-    console.log(req.body)
     const { email, password } = req.body
     if (!email || !password) {
         res.status(400).send({
@@ -15,7 +13,6 @@ export const login = async (req, res) => {
         })
     }
     const user = await User.findOne({ email })
-    console.log(user)
     if (!user) {
         return res.status(401).send({
             success: false,
@@ -29,16 +26,28 @@ export const login = async (req, res) => {
             message: 'Email or password incorrect'
         })
     }
+
     let query={}
     if(user.role==='COM'){
         query['baseComm'] = email
     }else if(user.role==='LGOF'){
         query['lgstcOff'] = email
     }
-    console.log(query)
-    const baseInfo = await Base.findOne(query).select('baseId')
+    
+    const baseInfo = await Base.findOne(query).select('_id baseId')
+    console.log("in au8thcontroller")
     console.log(baseInfo)
-    const token = jwt.sign({ _id: user._id, email,username:user.username,role:user.role }, process.env.JWT_SECRET, { expiresIn: '7d' })
+    
+    let tokenPayload = { _id: user._id, email,username:user.username,role:user.role }
+    
+    
+    if(user.role!=='AD'){
+        tokenPayload['baseId'] = baseInfo.baseId.toString()
+        tokenPayload['base_id'] = baseInfo._id.toString()
+    }
+    console.log(tokenPayload)
+
+    const token = jwt.sign(tokenPayload, process.env.JWT_SECRET, { expiresIn: '7d' })
     return  res.header('auth-token', token).send({token,role:user.role,name:user.username,baseInfo})
 } catch (error) {
     console.log(error)

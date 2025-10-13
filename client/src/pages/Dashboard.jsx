@@ -7,41 +7,36 @@ import DashboardStats from "../components/DashboardStats";
 function Dashboard() {
   const dispatch = useDispatch();
   const { token, role } = useSelector((state) => state.authData);
-  const { baseIds, actvId, assignData } = useSelector(
-    (state) => state.baseData
-  );
-
+  const { baseIds, actvId } = useSelector((state) => state.baseData);
   const navigate = useNavigate();
+  const { id } = useParams();
 
-  const { id = null } = useParams();
   useEffect(() => {
-    if (
-      role === "AD" &&
-      Object.keys(actvId).length === 0 && !actvId.id && baseIds?.length === 0
-    ) {
+    if (role === "AD" && baseIds.length === 0) {
       dispatch(getBaseIds(token));
-      navigate('/dashboard')
-    } else if(role!=='AD') {
-      if(!id && !!actvId.id){
-        navigate('/login')
-        return 
+    } else if (role !== "AD") {
+      const baseIdToUse = id ?? actvId.id;
+
+      console.log(id)
+      console.log(actvId.id)
+      if (!baseIdToUse) {
+        navigate("/login");
+        return;
       }
-      console.log(id??actvId.id)
-      dispatch(getBaseData(token,id??actvId.id));
-      navigate(`/dashboard/${id??actvId.id}`)
+    
+      console.log(baseIdToUse)
+      dispatch(getBaseData(token, baseIdToUse));
+      navigate(`/dashboard/${baseIdToUse}`);
     }
-  }, []);
-  console.log(baseIds);
-  console.log(assignData);
-  console.log(id);
-  console.log(role)
-  console.log(actvId)
+
+  }, [role, id, actvId, baseIds, token, navigate]);
+
   return (
     <>
       <div className="container-fluid">
         <div className="row">
           <div className="col-3">
-            {role === 'AD'&& (
+            {role === "AD" && (
               <div className="form-floating">
                 <select
                   className="form-select mt-2"
@@ -49,10 +44,15 @@ function Dashboard() {
                   aria-label="Floating label select example"
                   disabled={baseIds.length === 0}
                   onChange={(e) => {
-                    if (e.target.value !== '') {
-                      console.log("calling");
-                      dispatch(getBaseData(token, e.target.value));
-                      navigate(`/dashboard/${e.target.value}/purchase`);
+                    if (e.target.value !== "") {
+                      const base = baseIds.find(
+                        (f) => f.baseId === e.target.value
+                      );
+                      dispatch(getBaseData(token, base.baseId));
+                      dispatch(
+                        baseActions.setActId({ id: base.baseId, _id: base._id })
+                      );
+                      navigate(`/dashboard/${base.baseId}`);
                     }
                   }}
                 >
@@ -72,10 +72,11 @@ function Dashboard() {
           <div className="col"></div>
         </div>
       </div>
-      {
-        !!actvId.id ?
-      <DashboardStats />:<h1 className="text-muted text-center">Select Base</h1>
-      }
+      {actvId?.id !== "" ? (
+        <DashboardStats />
+      ) : (
+        <h1 className="text-muted text-center">Select Base</h1>
+      )}
     </>
   );
 }
