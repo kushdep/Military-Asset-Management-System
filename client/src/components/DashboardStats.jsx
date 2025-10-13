@@ -33,12 +33,10 @@ function DashboardStats() {
     const fromDate = formData.get("fromDate");
     const toDate = formData.get("toDate");
 
-    console.log(category);
     if (category === "") {
       category = "all";
     }
 
-    console.log(category);
 
     if (fromDate === "" || toDate === "") {
       toast.error("Please fill all fields");
@@ -94,7 +92,6 @@ function DashboardStats() {
       assignData,
       actvId
     );
-    console.log(openingBal);
     const closingBal = calcClosingBal(
       category,
       fromDate,
@@ -104,7 +101,6 @@ function DashboardStats() {
       assignData,
       actvId
     );
-    console.log(closingBal);
     const netMovement = calcNetMvmntBal(
       category,
       fromDate,
@@ -114,7 +110,6 @@ function DashboardStats() {
       TOUTdata,
       actvId
     );
-    console.log(netMovement);
 
     dispatch(
       baseActions.setDashboardMetrics({
@@ -140,7 +135,6 @@ function DashboardStats() {
     baseId
   ) => {
     try {
-      console.log(fltrType);
 
       let openingBal = 0;
       const dateObj = new Date(from);
@@ -157,7 +151,6 @@ function DashboardStats() {
         );
         openingBal += sum;
       });
-      console.log(openingBal);
       if (isFirstDay) return openingBal;
 
       const m = dateObj.getMonth() + 1;
@@ -195,7 +188,6 @@ function DashboardStats() {
       let totalExpnd = 0;
       const fromEpch = new Date(from);
       const clsngEpch = new Date(closingDate);
-      console.log(baseId);
 
       itemType.forEach((t) => {
         if (fltrType !== "all" && t.name !== fltrType) return;
@@ -286,7 +278,7 @@ function DashboardStats() {
 
       inAst.forEach((i) => {
         if (
-          i.to === baseId &&
+          i.to === baseId.id &&
           i.status === "RECEIVED" &&
           new Date(i.TINdate) >= fromEpch &&
           new Date(i.TINdate) <= toEpch
@@ -297,15 +289,13 @@ function DashboardStats() {
           }, 0);
         }
       });
-
       return totalPur + totalTin - totalTout;
     } catch (error) {
-      console.error("calcNetMvmntBal error:", error);
+      console.error(error)
       return null;
     }
   };
 
-  // console.log(assignData);
   let asgnData =
     assignData?.flatMap(
       (e) =>
@@ -337,15 +327,11 @@ function DashboardStats() {
         }
         return true;
       });
-      // console.log({ ...item[0], name: a.name });
       if (item.length === 0) return null;
       return { ...item[0], name: a.name };
     })
   );
 
-  console.log(purchaseHistory);
-  // console.log(TINdata);
-  // console.log(TOUTdata);
 
   function handleHisStt(btnVal) {
     if (btnVal === "Purchase") {
@@ -381,7 +367,6 @@ function DashboardStats() {
             };
           });
       });
-      console.log(fmapVal);
       setBtnHisState(fmapVal);
     }
     if (btnVal !== "Purchase") {
@@ -423,7 +408,6 @@ function DashboardStats() {
     hisModalRef.current.showModal();
   }
 
-  console.log(btnHisState);
   return (
     <div
       className="container-fluid py-3"

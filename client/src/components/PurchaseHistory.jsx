@@ -4,22 +4,25 @@ import useFilter from "../hooks/useFilter";
 import { useEffect, useRef } from "react";
 import { getBaseData } from "../store/base-slice";
 import toast from "react-hot-toast";
+import { useParams } from "react-router-dom";
 
 function PurchaseHistoryTable() {
-  const { purchaseHistory } = useSelector((state) => state.baseData);
-  const { dateRange, handleDateRange, assetType, handleAssetType } =
-    useFilter({
-      code: "NF",
-      name: "",
-    });
+  const { purchaseHistory, actvId } = useSelector((state) => state.baseData);
+  const { token } = useSelector((state) => state.authData);
+  const { dateRange, handleDateRange, assetType, handleAssetType } = useFilter({
+    code: "NF",
+    name: "",
+  });
   let sno = 1;
   const dispatch = useDispatch();
   const fromInp = useRef();
   const toInp = useRef();
+  const { id } = useParams();
 
   useEffect(() => {
     if (purchaseHistory === null) {
-      dispatch(getBaseData());
+      const baseIdToUse = id ?? actvId.id;
+      dispatch(getBaseData(token, baseIdToUse));
     }
   }, [purchaseHistory]);
 
@@ -34,6 +37,7 @@ function PurchaseHistoryTable() {
               onChange={(e) =>
                 handleAssetType({ code: e.target.value, name: e.target.value })
               }
+              value={assetType?.code}
             >
               <option value="NF" selected>
                 No Type Filter
@@ -50,17 +54,27 @@ function PurchaseHistoryTable() {
 
         <div className="col-6 col-md-3">
           <label className="form-label fw-bold">From:</label>
-          <input type="date" ref={fromInp} className="form-control" />
+          <input
+            type="date"
+            ref={fromInp}
+            className="form-control"
+            defaultValue={dateRange.from}
+          />
         </div>
 
         <div className="col-6 col-md-3">
           <label className="form-label fw-bold">To:</label>
-          <input ref={toInp} type="date" className="form-control" />
+          <input
+            ref={toInp}
+            type="date"
+            className="form-control"
+            defaultValue={dateRange.to}
+          />
         </div>
 
-        <div className="col-12 col-md-2">
+        <div className="col-12 col-md-2 d-flex">
           <button
-            className="btn btn-success w-100"
+            className="btn btn-success fw-semibold w-100"
             onClick={() => {
               if (
                 new Date(fromInp.current?.value) >
@@ -73,6 +87,15 @@ function PurchaseHistoryTable() {
             }}
           >
             Filter
+          </button>
+          <button
+            className="btn btn-outline-dark fw-semibold w-100 ms-2"
+            onClick={() => {
+              handleDateRange("", "");
+              handleAssetType({ code: "NF", name: "" });
+            }}
+          >
+            Reset
           </button>
         </div>
       </div>
@@ -96,7 +119,10 @@ function PurchaseHistoryTable() {
                 {purchaseHistory?.length ? (
                   purchaseHistory.map((purchs) =>
                     purchs.items.map((i) => {
-                      if (assetType.code !== "NF" && assetType.code !== i.asset.type)
+                      if (
+                        assetType.code !== "NF" &&
+                        assetType.code !== i.asset.type
+                      )
                         return;
 
                       const createdAt = new Date(purchs.purchaseDate);
@@ -108,7 +134,12 @@ function PurchaseHistoryTable() {
                         const purchaseDate = new Date(purDate).getTime();
                         const fromFilDate = new Date(dateRange.from).getTime();
                         const toFilDate = new Date(dateRange.to).getTime();
-                        if (!(purchaseDate >= fromFilDate && purchaseDate <= toFilDate)) {
+                        if (
+                          !(
+                            purchaseDate >= fromFilDate &&
+                            purchaseDate <= toFilDate
+                          )
+                        ) {
                           return;
                         }
                       }

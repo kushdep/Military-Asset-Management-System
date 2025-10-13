@@ -117,7 +117,6 @@ function AddNewPurchase() {
                       name="assetQty"
                       className="form-control form-control-sm"
                       style={{ maxWidth: "100px" }}
-                      max={iv.qty.value}
                       defaultValue={ind !== -1 && oldAst[ind].qty}
                       required
                     />

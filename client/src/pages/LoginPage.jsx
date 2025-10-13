@@ -23,13 +23,11 @@ function LoginPage() {
       password,
     };
 
-    console.log(body);
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_SERVER_URL}/login`,
         body
       );
-      console.log(response);
       if (response?.status === 200) {
         const { token, role, name, baseInfo } = response.data;
         if (!token || !role) {
@@ -58,8 +56,6 @@ function LoginPage() {
       if (error.code === "ERR_NETWORK") {
         notify("Bad gateway");
       }
-      console.log(error);
-      console.log(error?.response?.status);
       if (error?.response?.status === 500) {
         notify("Something went wrong");
         return {

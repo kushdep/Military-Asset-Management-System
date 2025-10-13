@@ -6,7 +6,6 @@ function ErrorPage() {
   const { token } = useSelector((state) => state.authData);
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  console.log(token)
   return (
     <>
       <div className="container">

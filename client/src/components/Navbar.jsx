@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../store/auth-slice";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { baseActions } from "../store/base-slice";
+import { purchaseActions } from "../store/purchase-slice";
 
 const Navbar = () => {
   const { actvId } = useSelector((state) => state.baseData);
@@ -106,7 +107,9 @@ const Navbar = () => {
                 onClick={() => {
                   dispatch(authActions.logout());
                   navigate("/login");
-                  dispatch(baseActions.setActId({ id: null, _id: null }));
+                  dispatch(baseActions.setActId({ id: '', _id: '' }));
+                  dispatch(baseActions.resetBaseData());
+                  dispatch(purchaseActions.resetPurchaseData());
                 }}
               >
                 Logout

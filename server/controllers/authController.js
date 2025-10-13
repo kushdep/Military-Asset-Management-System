@@ -35,8 +35,6 @@ export const login = async (req, res) => {
     }
     
     const baseInfo = await Base.findOne(query).select('_id baseId')
-    console.log("in au8thcontroller")
-    console.log(baseInfo)
     
     let tokenPayload = { _id: user._id, email,username:user.username,role:user.role }
     
@@ -45,12 +43,11 @@ export const login = async (req, res) => {
         tokenPayload['baseId'] = baseInfo.baseId.toString()
         tokenPayload['base_id'] = baseInfo._id.toString()
     }
-    console.log(tokenPayload)
 
     const token = jwt.sign(tokenPayload, process.env.JWT_SECRET, { expiresIn: '7d' })
     return  res.header('auth-token', token).send({token,role:user.role,name:user.username,baseInfo})
 } catch (error) {
-    console.log(error)
+    console.error(error)
     return  res.status(500).send({
         success: false,
         message: 'Something went wrong'

@@ -1,3 +1,4 @@
+import Asset from "../models/asset.js";
 import Base from "../models/base.js";
 import Transfer from "../models/transfer.js";
 
@@ -27,24 +28,18 @@ export const transferBaseAst = async (req, res) => {
       });
     }
 
-    console.log(Object.entries(trnsfrAst))
 
     let items = []
     Object.entries(trnsfrAst).forEach(([key, arr]) => {
       if (arr.length > 0) {
-        console.log("2")
         arr.forEach((v) => {
           const invList = baseDoc.inventory[key];
-          console.log(invList)
           const ind = invList.findIndex((e) => e.asset.toString() === v.id);
-          console.log(ind)
           if (ind > -1) {
-            console.log("3")
             const item = invList[ind];
             if (item.qty.value < Number(v.qty)) {
               throw Error('Transfer cant be done')
             }
-            console.log("4")
             invList[ind].qty.value -= Number(v.qty)
             items.push({
               category: key,
@@ -56,7 +51,6 @@ export const transferBaseAst = async (req, res) => {
               },
             })
           } else {
-            console.log("4")
             throw Error('Transfer cant be done')
           }
         });
@@ -70,11 +64,8 @@ export const transferBaseAst = async (req, res) => {
       astDtl: items,
       TOUTdate: new Date(),
     }
-    console.log(newTranfer)
 
     const newTranferDoc = await Transfer.create(newTranfer)
-    console.log("------------")
-    console.log(newTranferDoc)
     const updAstval = await Promise.all(
       items.map(ele =>
         Asset.findByIdAndUpdate(
@@ -111,7 +102,7 @@ export const transferBaseAst = async (req, res) => {
     });
 
   } catch (error) {
-    console.log(error);
+    console.error("Error in TransferBaseAst"+error);
     return res.status(500).send({
       success: false,
       message: error.message
@@ -123,7 +114,6 @@ export const recieveBaseAst = async (req, res) => {
   try {
     const { status } = req.query
     const {role } = req.user
-    console.log(status)
      if(role!=='AD' && role!=='LGOF'){
       return res.status(403).send({
         success: false,
@@ -132,9 +122,7 @@ export const recieveBaseAst = async (req, res) => {
     }
 
     if (status === 'true') {
-      console.log('In Success')
       const response = await setAssetRecieved(req, res)
-      console.log(response)
       if (!response.success) {
         return res.status(response.status).send({
           success: false,
@@ -146,9 +134,7 @@ export const recieveBaseAst = async (req, res) => {
         message: response.message
       })
     } else {
-      console.log('In Fail')
       const response = await setAssetCancelled(req, res)
-      console.log(response)
       if (!response.success) {
         return res.status(response.status).send({
           success: false,
@@ -161,7 +147,7 @@ export const recieveBaseAst = async (req, res) => {
       })
     }
   } catch (error) {
-    console.log(error);
+    console.error("Error in RecieveAst"+error);
     return res.status(500).send({
       success: false,
       message: error.message
@@ -184,7 +170,6 @@ const setAssetRecieved = async (req, res) => {
       }
     }
 
-    console.log(transferDoc)
     const { astDtl } = transferDoc
 
     if (astDtl.length === 0) {
@@ -198,9 +183,7 @@ const setAssetRecieved = async (req, res) => {
     const baseDoc = await Base.findOne({ baseId: id })
     astDtl.forEach((asset) => {
       const invList = baseDoc.inventory[asset.category];
-      console.log(invList)
       const ind = invList.findIndex((e) => e.asset.toString() === asset.assetId.toString());
-      console.log(ind)
       if (ind > -1) {
         baseDoc.inventory[asset.category][ind].qty.value += Number(asset.totalQty.value)
       } else {
@@ -244,7 +227,7 @@ const setAssetRecieved = async (req, res) => {
     }
 
   } catch (error) {
-    console.log(error);
+    console.error("Error in SetAssetRecieved "+error);
     return {
       success: false,
       status: 500,
@@ -265,7 +248,6 @@ const setAssetCancelled = async (req, res) => {
       };
     }
 
-    console.log(transferDoc)
     const { astDtl } = transferDoc
 
     if (astDtl.length === 0) {
@@ -277,13 +259,10 @@ const setAssetCancelled = async (req, res) => {
     }
 
     const baseDoc = await Base.findOne({ baseId: transferDoc.by })
-    console.log(baseDoc)
 
     astDtl.forEach((asset) => {
       const invList = baseDoc.inventory[asset.category];
-      console.log(invList)
       const ind = invList.findIndex((e) => e.asset.toString() === asset.assetId.toString());
-      console.log(ind)
       if (ind > -1) {
         baseDoc.inventory[asset.category][ind].qty.value += Number(asset.totalQty.value)
       } else {
@@ -318,7 +297,7 @@ const setAssetCancelled = async (req, res) => {
     }
 
   } catch (error) {
-    console.log(error);
+    console.error("Error in SetAssetCancelled "+error);
     return {
       success: false,
       status: 500,

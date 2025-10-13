@@ -19,7 +19,7 @@ export function assetTransferValidation(req, res, next) {
         })
         const result = assetTransferSchema.validate(req.body)
         if (result.error) {
-            console.log(result.error)
+            console.error(result.error)
             return res.status(400).send({
                 success: false,
                 errors: result.error.details
@@ -28,7 +28,7 @@ export function assetTransferValidation(req, res, next) {
 
         next()
     } catch (error) {
-        console.log("ERROR IN assetTransferValidation()- " + error)
+        console.error("ERROR IN assetTransferValidation()- " + error)
         return res.status(400).send({
             success: false,
             message: 'Validation failed'

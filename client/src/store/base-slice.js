@@ -10,11 +10,10 @@ let base_id = null
 if (token) {
   try {
     const decoded = jwtDecode(token);
-    console.log(token)
     baseId = decoded.baseId;
     base_id = decoded.base_id;
   } catch(error) {
-    console.log("Error in hydration",error)
+    console.error("Error in hydration "+error)
   }
 }
 
@@ -48,12 +47,9 @@ const baseSlice = createSlice({
     },
     setActId(state, action) {
       try {
-        console.log(action.payload)
         const { id, _id } = action.payload
         state.actvId.id = id
         state.actvId.base_id = _id
-
-        console.log(state.actvId)
       } catch (error) {
         console.error("Error in setActId() " + error)
       }
@@ -61,8 +57,6 @@ const baseSlice = createSlice({
     setAssignData(state, action) {
       try {
         const { astAssignData } = action.payload
-        console.log(astAssignData)
-        console.log(astAssignData)
         state.assignData = astAssignData
       } catch (error) {
         console.error("Error in setAssignData() " + error)
@@ -80,7 +74,6 @@ const baseSlice = createSlice({
       try {
         const { TINdata = [] } = action.payload
         state.TINdata = TINdata
-        console.log(state.TINdata)
       } catch (error) {
         console.error("Error in addIds() " + error)
       }
@@ -96,28 +89,21 @@ const baseSlice = createSlice({
     addSldrData(state, action) {
       try {
         const { sldrsData = null } = action.payload
-        console.log(sldrsData)
         state.sldrsData = sldrsData
-        console.log(state.sldrsData)
       } catch (error) {
         console.error("Error in addIds() " + error)
       }
     },
     addPurcData(state, action) {
       try {
-        console.log(action.payload)
         const { purchsData } = action.payload
-        console.log(purchsData)
         state.purchaseHistory = purchsData
-        console.log(state.purchaseHistory)
       } catch (error) {
         console.error("Error in addPurcData() " + error)
       }
     },
     resetBaseData(state, action) {
       try {
-        const { id = null } = action.payload
-        state.actvId = id
         state.TINdata = []
         state.TOUTdata = []
         state.invtry = [],
@@ -129,7 +115,6 @@ const baseSlice = createSlice({
     },
     setDashboardMetrics(state, action) {
       try {
-        console.log(action.payload)
         const { opening, closing, netMovement } = action.payload
         state.dashMetric.openingBal = opening
         state.dashMetric.closingBal = closing
@@ -143,7 +128,7 @@ const baseSlice = createSlice({
         const { errMsg } = action.payload
         state.baseError = errMsg
       } catch (error) {
-        console.log(error)
+        console.error("Error in setErrorState"+error)
       }
     },
     setLoadingState(state, action) {
@@ -151,7 +136,7 @@ const baseSlice = createSlice({
         const { isLoading } = action.payload
         state.loading = isLoading
       } catch (error) {
-        console.log(error)
+        console.error("Error in setLoadingState"+error)
       }
     }
   }
@@ -166,7 +151,6 @@ export const getBaseData = (token, id) => {
             authorization: `Bearer ${token}`
           }
         });
-        console.log(response)
       if (response.status === 200) {
         const resData = response.data.data
         return resData
@@ -196,7 +180,6 @@ export const getBaseData = (token, id) => {
     }
     try {
       const baseData = await getData()
-      console.log(baseData)
       if (Object.keys(baseData).length === 0) {
         return
       }
@@ -248,7 +231,6 @@ export const getBaseIds = (token) => {
     }
     try {
       const ids = await getIds()
-      console.log(ids)
       dispatch(baseActions.addIds({ ids }))
     } catch (error) {
       console.error("Error while Getting Data")

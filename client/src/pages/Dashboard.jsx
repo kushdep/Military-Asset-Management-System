@@ -18,14 +18,11 @@ function Dashboard() {
     } else if (role !== "AD") {
       const baseIdToUse = id ?? actvId.id;
 
-      console.log(id)
-      console.log(actvId.id)
       if (!baseIdToUse) {
         navigate("/login");
         return;
       }
     
-      console.log(baseIdToUse)
       dispatch(getBaseData(token, baseIdToUse));
       navigate(`/dashboard/${baseIdToUse}`);
     }
@@ -62,7 +59,7 @@ function Dashboard() {
                     }
                   }}
                 >
-                  <option value="" selected>
+                  <option value="">
                     Choose Base name
                   </option>
                   {baseIds.map((e) => {

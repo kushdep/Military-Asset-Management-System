@@ -13,7 +13,7 @@ export function assetExpendValidation(req, res, next) {
             })
             const result = expendAssetSchema.validate(req.body)
             if (result.error) {
-                console.log(result.error)
+                console.error(result.error)
                 return res.status(400).send({
                     success: false,
                     errors: result.error.details
@@ -22,7 +22,7 @@ export function assetExpendValidation(req, res, next) {
 
         next()
     } catch (error) {
-        console.log("ERROR IN assetExpendValidation()- " + error)
+        console.error("ERROR IN assetExpendValidation()- " + error)
         return res.status(400).send({
             success:false,
             message:'Validation failed'

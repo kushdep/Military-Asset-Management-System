@@ -1,3 +1,4 @@
+import Asset from "../models/asset.js";
 import Assign from "../models/assign.js";
 import Base from "../models/base.js";
 
@@ -19,7 +20,6 @@ export const expendBaseAst = async (req, res) => {
         message: 'Assignment Not Found'
       });
     }
-    console.log(assignDoc)
 
     items.forEach((expndItem) => {
       assignDoc.items.forEach((docItems) => {
@@ -27,12 +27,10 @@ export const expendBaseAst = async (req, res) => {
           if (expndItem.qty > docItems.totalQty.value) {
             throw Error('Expend of asset can\'t be done')
           }
-          docItems.totalQty.value -= Number(expndItem.qty)
           docItems.expnd.push({ qty: { value: expndItem.qty, metric: expndItem.metric }, expndDate: new Date() })
         }
       })
     })
-    console.log(assignDoc)
 
     const updExpndAst = await assignDoc.save()
     if (!updExpndAst) {
@@ -48,7 +46,7 @@ export const expendBaseAst = async (req, res) => {
     });
 
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return res.status(500).send({
       success: false,
       message: error.message
@@ -69,8 +67,6 @@ export const asgnBaseAst = async (req, res) => {
       });
     }
 
-    console.log(asgnAst)
-    console.log(baseDoc)
     if (asgnAst?.Vehicle.length > 0 && baseDoc?.inventory?.Vehicle.length == 0 ||
       asgnAst?.Ammunition.length > 0 && baseDoc?.inventory?.Ammunition.length == 0 ||
       asgnAst?.Weapons.length > 0 && baseDoc?.inventory?.Weapons.length == 0) {
@@ -83,7 +79,6 @@ export const asgnBaseAst = async (req, res) => {
     let items = []
 
     Object.entries(asgnAst).forEach(([key, arr]) => {
-      console.log(arr)
       if (arr.length > 0) {
         arr.forEach((v) => {
           const invList = baseDoc.inventory[key];
@@ -117,7 +112,6 @@ export const asgnBaseAst = async (req, res) => {
       baseId: baseDoc._id,
       items
     }
-    console.log(newAssign)
 
     const newAssignDoc = await Assign.create(newAssign)
     const updAstval = await Promise.all(
@@ -150,7 +144,7 @@ export const asgnBaseAst = async (req, res) => {
     });
 
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return res.status(500).send({
       success: false,
       message: error.message

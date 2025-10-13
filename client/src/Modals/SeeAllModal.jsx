@@ -124,6 +124,7 @@ function SeeAllModal({
             if (isBtnSecGrp) {
               btnfun(selSldrId);
               setSldrId("");
+              setSelSldrList([])
             } else {
               btnfun();
             }

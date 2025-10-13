@@ -14,7 +14,7 @@ const assignSlice = createSlice({
             try {
                 state.pageState = action.payload
             } catch (error) {
-                console.log('Error in Set page State' + error)
+                console.error('Error in Set page State' + error)
             }
         },
         setSelSldr(state, action) {
@@ -22,7 +22,7 @@ const assignSlice = createSlice({
                 const { id, name } = action.payload
                 state.selSldr = { id, name }
             } catch (error) {
-                console.log('Error in Set page State' + error)
+                console.error('Error in Set page State' + error)
             }
         },
         setNewAssign(state, action) {
@@ -35,7 +35,7 @@ const assignSlice = createSlice({
                 }
                 state.asgnAst[ind][type].push({ id, qty, name, metric })
             } catch (error) {
-                console.log('Error in setNewAssign' + error)
+                console.error('Error in setNewAssign' + error)
             }
         },
         setNewExpended(state, action) {
@@ -46,10 +46,9 @@ const assignSlice = createSlice({
                     ind = state.asgnAst.length
                     state.expndAst.push({ asgmtId, items: [] })
                 }
-                console.log(ind)
                 state.expndAst[ind].items.push({ itemId, metric, qty, name })
             } catch (error) {
-                console.log('Error in setNewAssign' + error)
+                console.error('Error in setNewAssign' + error)
             }
         },
         delNewExpnd(state, action) {
@@ -57,15 +56,13 @@ const assignSlice = createSlice({
                 const { id,  } = action.payload
                 state.expndAst[0].items = state.expndAst[0].items.filter((e) => id !== e.itemId)
             } catch (error) {
-                console.log('Error in delNewAssign' + error)
+                console.error('Error in delNewAssign' + error)
             }
         },
         updExpended(state, action) {
             try {
                 const { asgmtId, itemId, qty } = action.payload
                 const ind = state.expndAst.findIndex((e) => e.asgmtId === asgmtId)
-                console.log(ind)
-                console.log(state.expndAst[ind])
                 state.expndAst[ind].items = state.expndAst[ind].items.map((e) => {
                     if (e.itemId === itemId) {
                         e.qty = qty
@@ -73,14 +70,13 @@ const assignSlice = createSlice({
                     return e
                 })
             } catch (error) {
-                console.log('Error in updAsndAst' + error)
+                console.error('Error in updAsndAst' + error)
             }
         },
         delNewAssign(state, action) {
             try {
                 const { id, type, selSldrId } = action.payload
                 const ind = state.asgnAst.findIndex((e) => e.sldrId === selSldrId)
-                console.log(state.asgnAst[ind])
                 state.asgnAst[ind][type] = state.asgnAst[ind][type].filter((e) => id !== e.id)
                 if (state.asgnAst[ind].Vehicle.length === 0 &&
                     state.asgnAst[ind].Weapons.length === 0 &&
@@ -89,7 +85,7 @@ const assignSlice = createSlice({
                     state.asgnAst = state.asgnAst.filter((e, i) => i !== ind)
                 }
             } catch (error) {
-                console.log('Error in delNewAssign' + error)
+                console.error('Error in delNewAssign' + error)
             }
         },
         updAsndAst(state, action) {
@@ -103,7 +99,7 @@ const assignSlice = createSlice({
                     return e
                 })
             } catch (error) {
-                console.log('Error in updAsndAst' + error)
+                console.error('Error in updAsndAst' + error)
             }
         },
         updErrState(state, action) {
@@ -116,7 +112,7 @@ const assignSlice = createSlice({
                     state.addNewPur.err.newAstErr = newAstErr
                 }
             } catch (error) {
-                console.log('Error in addNewPurchase' + error)
+                console.error('Error in addNewPurchase' + error)
             }
         },
         resetAssgnData(state, action) {
@@ -124,14 +120,14 @@ const assignSlice = createSlice({
                 const { selSldrId } = action.payload
                 state.asgnAst = state.asgnAst.filter((e) => e.sldrId !== selSldrId)
             } catch (error) {
-                console.log('Error in resetAssgnData' + error)
+                console.error('Error in resetAssgnData' + error)
             }
         },
         resetExpndnData(state, action) {
             try {
                 state.expndAst = []
             } catch (error) {
-                console.log('Error in resetExpndnData' + error)
+                console.error('Error in resetExpndnData' + error)
             }
         }
     }

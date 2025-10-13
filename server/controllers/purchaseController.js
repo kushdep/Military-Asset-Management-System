@@ -154,7 +154,6 @@ export const addNewPurchaseData = async (req, res) => {
       addedBy: username,
       role: role,
     }
-    console.log(newPurchase)
 
     const purchDoc = await Purchase.create(newPurchase)
     if (!purchDoc) {
@@ -203,7 +202,7 @@ export const addNewPurchaseData = async (req, res) => {
     });
 
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return res.status(500).send({
       success: false,
       message: error.message

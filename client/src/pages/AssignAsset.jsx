@@ -13,7 +13,9 @@ import AsgnExpndhistory from "../components/AsgnExpndHistory";
 function AssignAsset() {
   const { id: baseId } = useParams();
   const { token, role } = useSelector((state) => state.authData);
-  const { sldrsData, invtry, assignData,baseError } = useSelector((state) => state.baseData);
+  const { sldrsData, invtry, assignData, baseError } = useSelector(
+    (state) => state.baseData
+  );
   const { pageState, asgnAst } = useSelector((state) => state.assignData);
 
   const dispatch = useDispatch();
@@ -28,7 +30,9 @@ function AssignAsset() {
   }, [sldrsData]);
 
   async function AddAsgnData(id) {
-    const { Vehicle, Ammunition, Weapons } = asgnAst.find(e => e.sldrId === id);
+    const { Vehicle, Ammunition, Weapons } = asgnAst.find(
+      (e) => e.sldrId === id
+    );
     const body = { sldrId: id, asgnAst: { Vehicle, Ammunition, Weapons } };
     try {
       const response = await axios.post(
@@ -54,13 +58,15 @@ function AssignAsset() {
 
   const assignSldr = [];
   if (pageState === "expenditure" && assignData) {
-    assignData.forEach(el => {
-      if (!assignSldr.includes(el.sId)) assignSldr.push(el.sId);
+    assignData.forEach((el) => {
+      if (!assignSldr.includes(el.sId)) {
+        assignSldr.push(el.sId);
+      }
     });
   }
-    if(baseError!==''){
-    toast.error(baseError)
-    dispatch(baseActions.setErrorState({errMsg:''}))
+  if (baseError !== "") {
+    toast.error(baseError);
+    dispatch(baseActions.setErrorState({ errMsg: "" }));
   }
 
   return (
@@ -81,15 +87,21 @@ function AssignAsset() {
           <div className="col-12 col-md-2 mb-3 mb-md-0 d-flex flex-row flex-md-column gap-2">
             <button
               onClick={() => dispatch(assignActions.setPageState("assign"))}
-              className={`btn fw-bold w-100 ${pageState === "assign" ? "btn-dark" : "btn-outline-dark"}`}
+              className={`btn fw-bold w-100 ${
+                pageState === "assign" ? "btn-dark" : "btn-outline-dark"
+              }`}
             >
               Assignment
             </button>
 
             {role !== "COM" && (
               <button
-                onClick={() => dispatch(assignActions.setPageState("expenditure"))}
-                className={`btn fw-bold w-100 ${pageState === "expenditure" ? "btn-dark" : "btn-outline-dark"}`}
+                onClick={() =>
+                  dispatch(assignActions.setPageState("expenditure"))
+                }
+                className={`btn fw-bold w-100 ${
+                  pageState === "expenditure" ? "btn-dark" : "btn-outline-dark"
+                }`}
               >
                 Expenditure
               </button>
@@ -97,7 +109,9 @@ function AssignAsset() {
 
             <button
               onClick={() => dispatch(assignActions.setPageState("history"))}
-              className={`btn fw-bold w-100 ${pageState === "history" ? "btn-dark" : "btn-outline-dark"}`}
+              className={`btn fw-bold w-100 ${
+                pageState === "history" ? "btn-dark" : "btn-outline-dark"
+              }`}
             >
               History
             </button>
@@ -130,7 +144,7 @@ function AssignAsset() {
                     </tr>
                   </thead>
                   <tbody>
-                    {sldrsData?.map(s => (
+                    {sldrsData?.map((s) => (
                       <tr key={s._id}>
                         <th scope="row">{s.sId}</th>
                         <td>{s.name}</td>
@@ -141,7 +155,12 @@ function AssignAsset() {
                             className="btn btn-success btn-sm"
                             disabled={!Object.keys(invtry).length}
                             onClick={() => {
-                              dispatch(assignActions.setSelSldr({ id: s.sId, name: s.name }));
+                              dispatch(
+                                assignActions.setSelSldr({
+                                  id: s.sId,
+                                  name: s.name,
+                                })
+                              );
                               assigModalRef.current.showModal();
                             }}
                           >
@@ -163,14 +182,16 @@ function AssignAsset() {
                     </tr>
                   </thead>
                   <tbody>
-                    {assignSldr.map(s => (
+                    {assignSldr.map((s) => (
                       <tr key={s}>
                         <th scope="row">{s}</th>
                         <td>
                           <button
                             className="btn btn-outline-success btn-sm fw-bold"
                             onClick={() => {
-                              dispatch(assignActions.setSelSldr({ id: s, name: "" }));
+                              dispatch(
+                                assignActions.setSelSldr({ id: s, name: "" })
+                              );
                               expendModalRef.current.showModal();
                             }}
                           >

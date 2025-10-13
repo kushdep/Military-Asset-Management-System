@@ -13,16 +13,15 @@ const transferSlice = createSlice({
             try {
                 state.pageState = action.payload
             } catch (error) {
-                console.log('Error in Set page State' + error)
+                console.error('Error in Set page State' + error)
             }
         },
         setSelBase(state, action) {
             try {
                 const { id, name } = action.payload
-                console.log(action.payload)
                 state.selBase = { id, name }
             } catch (error) {
-                console.log('Error in Set page State' + error)
+                console.error('Error in Set page State' + error)
             }
         },
         setNewAssign(state, action) {
@@ -35,14 +34,13 @@ const transferSlice = createSlice({
                 }
                 state.trnsfrAst[ind][type].push({ id, qty, name, metric })
             } catch (error) {
-                console.log('Error in setNewAssign' + error)
+                console.error('Error in setNewAssign' + error)
             }
         },
         delNewAssign(state, action) {
             try {
                 const { id, type, sel } = action.payload
                 const ind = state.trnsfrAst.findIndex((e) => e.baseId === sel)
-                console.log(state.trnsfrAst[ind])
                 state.trnsfrAst[ind][type] = state.trnsfrAst[ind][type].filter((e) => id !== e.id)
                 if (state.trnsfrAst[ind].Vehicle.length === 0 &&
                     state.trnsfrAst[ind].Weapons.length === 0 &&
@@ -51,7 +49,7 @@ const transferSlice = createSlice({
                     state.trnsfrAst = state.trnsfrAst.filter((e, i) => i !== ind)
                 }
             } catch (error) {
-                console.log('Error in delNewAssign' + error)
+                console.error('Error in delNewAssign' + error)
             }
         },
         updAsndAst(state, action) {
@@ -65,7 +63,7 @@ const transferSlice = createSlice({
                     return e
                 })
             } catch (error) {
-                console.log('Error in updAsndAst' + error)
+                console.error('Error in updAsndAst' + error)
             }
         },
         updErrState(state, action) {
@@ -78,7 +76,7 @@ const transferSlice = createSlice({
                     state.addNewPur.err.newAstErr = newAstErr
                 }
             } catch (error) {
-                console.log('Error in addNewPurchase' + error)
+                console.error('Error in addNewPurchase' + error)
             }
         },
         resetTfrAsgnData(state, action) {
@@ -86,7 +84,7 @@ const transferSlice = createSlice({
                 const { sel } = action.payload
                 state.trnsfrAst = state.trnsfrAst.filter((e) => e.baseId !== sel)
             } catch (error) {
-                console.log('Error in resetTfrAsgnData' + error)
+                console.error('Error in resetTfrAsgnData' + error)
             }
         }
     }

@@ -1,7 +1,6 @@
 import { useState } from "react"
 
 function useFilter(assetTypeInit) {
-    console.log(assetTypeInit)
     const [assetType, setAssetType] = useState({ code: assetTypeInit.code, name: assetTypeInit.name })
     const [dateRange, setDateRange] = useState({ from: '', to: '' })
     const [fltrErr, setFltrErr] = useState([])

@@ -20,14 +20,14 @@ const purchaseSlice = createSlice({
             try {
                 state.pageState = action.payload
             } catch (error) {
-                console.log('Error in Set page State' + error)
+                console.error('Error in Set page State' + error)
             }
         },
         setAddModalState(state, action) {
             try {
                 state.showAdAs = action.payload
             } catch (error) {
-                console.log('Error in setAddModalState' + error)
+                console.error('Error in setAddModalState' + error)
             }
         },
         addNewPurchase(state, action) {
@@ -35,7 +35,7 @@ const purchaseSlice = createSlice({
                 const { newAstVal } = action.payload
                 state.addNewPur.newAst.push(newAstVal)
             } catch (error) {
-                console.log('Error in addNewPurchase')
+                console.error('Error in addNewPurchase'+error)
             }
         },
         delNewPurchase(state, action) {
@@ -43,7 +43,7 @@ const purchaseSlice = createSlice({
                 const { index } = action.payload
                 state.addNewPur.newAst = state.addNewPur.newAst.filter((e, i) => index !== i)
             } catch (error) {
-                console.log('Error in delNewPurchase')
+                console.error('Error in delNewPurchase'+error)
             }
         },
         addnewPurcDtl(state, action) {
@@ -62,32 +62,29 @@ const purchaseSlice = createSlice({
                     state.addNewPur.newAst[index].metric = metric
                 }
             } catch (error) {
-                console.log(error)
+                console.error("Error in addNewPurcDtl"+error)
             }
         },
         delIncOldPurchase(state, action) {
             try {
                 const { id } = action.payload
-                console.log(id)
                 state.addNewPur.oldAst = state.addNewPur.oldAst.filter((e, i) => e._id !== id)
 
             } catch (error) {
-                console.log('Error in addNewPurchase' + error)
+                console.error('Error in addNewPurchase' + error)
             }
         },
         incOldPurchase(state, action) {
             try {
                 const { oldAstVal } = action.payload
-                console.log(oldAstVal)
                 state.addNewPur.oldAst.push(oldAstVal)
             } catch (error) {
-                console.log('Error in addNewPurchase' + error)
+                console.error('Error in addNewPurchase' + error)
             }
         },
         updOldPurchase(state, action) {
             try {
                 const { oldAstVal, id } = action.payload
-                console.log(oldAstVal)
                 state.addNewPur.oldAst = state.addNewPur.oldAst.map((e) => {
                     if (e._id === id) {
                         e = oldAstVal
@@ -95,7 +92,7 @@ const purchaseSlice = createSlice({
                     return e
                 })
             } catch (error) {
-                console.log('Error in updOldPurchase' + error)
+                console.error('Error in updOldPurchase' + error)
             }
         },
         updErrState(state, action) {
@@ -108,7 +105,7 @@ const purchaseSlice = createSlice({
                     state.addNewPur.err.newAstErr = newAstErr
                 }
             } catch (error) {
-                console.log('Error in addNewPurchase' + error)
+                console.error('Error in updErrState' + error)
             }
         },
         resetPurchaseData(state, action) {
@@ -118,7 +115,7 @@ const purchaseSlice = createSlice({
                 state.addNewPur.err.oldAstErr = []
                 state.addNewPur.err.newAstErr = []
             } catch (error) {
-                console.log('Error in addNewPurchase' + error)
+                console.error('Error in resetPurchaseData' + error)
             }
         }
     }

@@ -39,7 +39,6 @@ function ExpendAssetModal({ reference }) {
 
   let assignList = selSldr ? assignData.filter((f) => f.sId === selSldr.id) : [];
   let assetList = listModalStt ? assignData.filter((a) => a._id === listModalStt) : [];
-
   async function submitExpendedAssets() {
     const body = { asgmtId: expndAst[0].asgmtId, items: expndAst[0].items };
     try {

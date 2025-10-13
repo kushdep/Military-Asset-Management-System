@@ -13,7 +13,7 @@ export function newPurchaseValidation(req, res, next) {
             })).required()
             const result = oldPurchaseSchema.validate(oldAst)
             if (result.error) {
-                console.log(result.error)
+                console.error(result.error)
                 return res.status(400).send({
                     success: false,
                     errors: result.error.details
@@ -30,7 +30,7 @@ export function newPurchaseValidation(req, res, next) {
             })).required()
             const result = newPurchaseSchema.validate(newAst)
             if (result.error) {
-                console.log(result.error)
+                console.error(result.error)
                 return res.status(400).send({
                     success: false,
                     errors: result.error.details
@@ -40,7 +40,7 @@ export function newPurchaseValidation(req, res, next) {
 
         next()
     } catch (error) {
-        console.log("ERROR IN newPurchaseValidation()- " + error)
+        console.error("ERROR IN newPurchaseValidation()- " + error)
         return res.status(500).send({
             success: false,
             errors: error

@@ -5,10 +5,12 @@ import { purchaseActions } from "../store/purchase-slice";
 import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import axios from "axios";
+import { getBaseData } from "../store/base-slice";
 
 function AddPurchaseModal({ reference }) {
   const { addNewPur, showAdAs } = useSelector((state) => state.purchaseData);
   const { token } = useSelector((state) => state.authData);
+  const { actvId } = useSelector((state) => state.baseData);
   const { id } = useParams();
   const dispatch = useDispatch();
 
@@ -44,8 +46,12 @@ function AddPurchaseModal({ reference }) {
     const body = { ...addNewPur };
 
     try {
+      const baseIdToUse = id ?? actvId.id;
+
       const response = await axios.post(
-        `${import.meta.env.VITE_SERVER_URL}/dashboard/${id}/new-purchase`,
+        `${
+          import.meta.env.VITE_SERVER_URL
+        }/dashboard/${baseIdToUse}/new-purchase`,
         body,
         { headers: { authorization: `Bearer ${token}` } }
       );
@@ -53,21 +59,32 @@ function AddPurchaseModal({ reference }) {
       if (response.status === 200) {
         toast.success("New Purchases Added Successfully");
         dispatch(purchaseActions.resetPurchaseData());
+        dispatch(getBaseData(token, id));
         reference.current.close();
-      } else {
-        toast.error("Something went wrong");
       }
-    } catch (err) {
+    } catch (error) {
       toast.error("Failed to add new purchase");
+      if (error?.response.status === 400) {
+        toast.error("Bad Request");
+      }
+      if (error?.response.status === 401) {
+        toast.error("Permission Denied");
+      }
+      if (error?.response.status === 400) {
+        toast.error("Unauthorize");
+      }
+      if (error?.response.status === 500) {
+        toast.success("Something went wrong");
+      }
     }
   }
 
   return createPortal(
     <dialog
       ref={reference}
-      className="shadow rounded-4 p-3 p-sm-4 w-100 w-sm-75 w-md-50"
+      className="shadow rounded-4 p-3 p-sm-4 w-25"
       style={{
-        maxWidth: "90vw",
+        maxWidth: "70vw",
         border: "none",
         overflowY: "auto",
         maxHeight: "85vh",

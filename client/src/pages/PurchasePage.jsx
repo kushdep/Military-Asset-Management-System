@@ -9,14 +9,15 @@ import toast from "react-hot-toast";
 
 function PurchasePage() {
   const { data, pageState } = useSelector((state) => state.purchaseData);
-  const { baseError } = useSelector((state) => state.baseData);
+  const { baseError,actvId } = useSelector((state) => state.baseData);
   const { token, role } = useSelector((state) => state.authData);
   const { id } = useParams();
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (data === null) {
-      dispatch(getBaseData(token, id));
+      const baseIdToUse = id ?? actvId.id;
+      dispatch(getBaseData(token, baseIdToUse));
     }
 
     if (pageState === "" && role !== "COM") {
@@ -26,9 +27,9 @@ function PurchasePage() {
     }
   }, []);
 
-  if(baseError!==''){
-    toast.error(baseError)
-    dispatch(baseActions.setErrorState({errMsg:''}))
+  if (baseError !== "") {
+    toast.error(baseError);
+    dispatch(baseActions.setErrorState({ errMsg: "" }));
   }
 
   return (
