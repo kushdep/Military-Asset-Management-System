@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
 import AssignmentModal from "../Modals/AssignmentModal";
-import { getBaseData } from "../store/base-slice";
+import { baseActions, getBaseData } from "../store/base-slice";
 import { assignActions } from "../store/assign-slice";
 import SeeAllModal from "../Modals/SeeAllModal";
 import axios from "axios";
@@ -13,7 +13,7 @@ import AsgnExpndhistory from "../components/AsgnExpndHistory";
 function AssignAsset() {
   const { id: baseId } = useParams();
   const { token, role } = useSelector((state) => state.authData);
-  const { sldrsData, invtry, assignData } = useSelector((state) => state.baseData);
+  const { sldrsData, invtry, assignData,baseError } = useSelector((state) => state.baseData);
   const { pageState, asgnAst } = useSelector((state) => state.assignData);
 
   const dispatch = useDispatch();
@@ -57,6 +57,10 @@ function AssignAsset() {
     assignData.forEach(el => {
       if (!assignSldr.includes(el.sId)) assignSldr.push(el.sId);
     });
+  }
+    if(baseError!==''){
+    toast.error(baseError)
+    dispatch(baseActions.setErrorState({errMsg:''}))
   }
 
   return (

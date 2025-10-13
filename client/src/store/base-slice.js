@@ -34,12 +34,7 @@ const baseSlice = createSlice({
       closingBal: null,
       NetMvmnt: null
     },
-    baseError: {
-      base:'',
-      purchase:'',
-      assign:'',
-      transfer:''
-    },
+    baseError:"",
     loading:false
   },
   reducers: {
@@ -49,7 +44,6 @@ const baseSlice = createSlice({
         state.baseIds = ids
       } catch (error) {
         console.error("Error in addIds() " + error)
-        state.baseError="Something went wrong"
       }
     },
     setActId(state, action) {
@@ -62,7 +56,6 @@ const baseSlice = createSlice({
         console.log(state.actvId)
       } catch (error) {
         console.error("Error in setActId() " + error)
-        state.baseError="Something went wrong"
       }
     },
     setAssignData(state, action) {
@@ -73,7 +66,6 @@ const baseSlice = createSlice({
         state.assignData = astAssignData
       } catch (error) {
         console.error("Error in setAssignData() " + error)
-        state.baseError="Something went wrong"
       }
     },
     addInvtData(state, action) {
@@ -82,7 +74,6 @@ const baseSlice = createSlice({
         state.invtry = invtry
       } catch (error) {
         console.error("Error in addIds() " + error)
-        state.baseError="Something went wrong"
       }
     },
     addTINData(state, action) {
@@ -92,7 +83,6 @@ const baseSlice = createSlice({
         console.log(state.TINdata)
       } catch (error) {
         console.error("Error in addIds() " + error)
-        state.baseError="Something went wrong"
       }
     },
     addTOUTData(state, action) {
@@ -101,7 +91,6 @@ const baseSlice = createSlice({
         state.TOUTdata = TOUTdata
       } catch (error) {
         console.error("Error in addIds() " + error)
-        state.baseError="Something went wrong"
       }
     },
     addSldrData(state, action) {
@@ -112,7 +101,6 @@ const baseSlice = createSlice({
         console.log(state.sldrsData)
       } catch (error) {
         console.error("Error in addIds() " + error)
-        state.baseError="Something went wrong"
       }
     },
     addPurcData(state, action) {
@@ -124,7 +112,6 @@ const baseSlice = createSlice({
         console.log(state.purchaseHistory)
       } catch (error) {
         console.error("Error in addPurcData() " + error)
-        state.baseError="Something went wrong"
       }
     },
     resetBaseData(state, action) {
@@ -138,7 +125,6 @@ const baseSlice = createSlice({
         state.sldrsData = []
       } catch (error) {
         console.error("Error in addIds() " + error)
-        state.baseError="Something went wrong"
       }
     },
     setDashboardMetrics(state, action) {
@@ -150,7 +136,6 @@ const baseSlice = createSlice({
         state.dashMetric.NetMvmnt = netMovement
       } catch (error) {
         console.error("Error in setDashboardMetrics() " + error)
-        state.baseError = "Something went wrong"
       }
     },
     setErrorState(state, action) {
@@ -159,7 +144,6 @@ const baseSlice = createSlice({
         state.baseError = errMsg
       } catch (error) {
         console.log(error)
-        state.baseError = "Something went wrong"
       }
     },
     setLoadingState(state, action) {
@@ -168,7 +152,6 @@ const baseSlice = createSlice({
         state.loading = isLoading
       } catch (error) {
         console.log(error)
-        state.baseError = "Something went wrong"
       }
     }
   }
@@ -215,12 +198,10 @@ export const getBaseData = (token, id) => {
       const baseData = await getData()
       console.log(baseData)
       if (Object.keys(baseData).length === 0) {
-        dispatch(baseActions.resetBaseData({ id }))
         return
       }
       dispatch(baseActions.setActId({ id: baseData.baseId, _id: baseData._id }))
       dispatch(baseActions.setAssignData({ astAssignData: baseData.asgnAst }))
-      console.log(baseData.asgnAst)
       dispatch(baseActions.addInvtData({ invtry: baseData.inventory }))
       dispatch(baseActions.addTINData({ TINdata: baseData.tsfrAst.IN }))
       dispatch(baseActions.addTOUTData({ TOUTdata: baseData.tsfrAst.OUT }))

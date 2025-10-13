@@ -3,11 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { baseActions, getBaseData, getBaseIds } from "../store/base-slice";
 import { useNavigate, useParams } from "react-router-dom";
 import DashboardStats from "../components/DashboardStats";
+import toast from "react-hot-toast";
 
 function Dashboard() {
   const dispatch = useDispatch();
   const { token, role } = useSelector((state) => state.authData);
-  const { baseIds, actvId } = useSelector((state) => state.baseData);
+  const { baseIds, actvId,baseError } = useSelector((state) => state.baseData);
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -30,6 +31,11 @@ function Dashboard() {
     }
 
   }, [role, id, actvId, baseIds, token, navigate]);
+
+    if(baseError!==''){
+      toast.error(baseError)
+      dispatch(baseActions.setErrorState({errMsg:''}))
+    }
 
   return (
     <>

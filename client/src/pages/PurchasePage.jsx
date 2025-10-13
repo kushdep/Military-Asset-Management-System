@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getBaseData } from "../store/base-slice";
+import { baseActions, getBaseData } from "../store/base-slice";
 import { purchaseActions } from "../store/purchase-slice";
 import AddNewPurchase from "../components/AddNewPurchase";
 import PurchaseHistoryTable from "../components/PurchaseHistory";
@@ -25,6 +25,11 @@ function PurchasePage() {
       dispatch(purchaseActions.setPageState("history"));
     }
   }, []);
+
+  if(baseError!==''){
+    toast.error(baseError)
+    dispatch(baseActions.setErrorState({errMsg:''}))
+  }
 
   return (
     <div className="container-fluid py-3 h-100">

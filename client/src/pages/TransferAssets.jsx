@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { transferActions } from "../store/transfer-slice";
 import { useEffect, useRef } from "react";
-import { getBaseData, getBaseIds } from "../store/base-slice";
+import { baseActions, getBaseData, getBaseIds } from "../store/base-slice";
 import { useParams } from "react-router-dom";
 import InvntryAssetModal from "../Modals/InvntryAssetModal";
 import SeeAllModal from "../Modals/SeeAllModal";
@@ -12,7 +12,7 @@ import React from "react";
 
 function TransferAsset() {
   const { id } = useParams();
-  const { baseIds, TINdata, TOUTdata, invtry } = useSelector((state) => state.baseData);
+  const { baseIds, TINdata, TOUTdata, invtry,baseError } = useSelector((state) => state.baseData);
   const { pageState, selBase, trnsfrAst } = useSelector((state) => state.transferData);
   const { token, role } = useSelector((state) => state.authData);
   const dispatch = useDispatch();
@@ -99,6 +99,11 @@ function TransferAsset() {
     } catch {
       toast.error("Something went wrong");
     }
+  }
+
+  if(baseError!==''){
+    toast.error(baseError)
+    dispatch(baseActions.setErrorState({errMsg:''}))
   }
 
   return (
