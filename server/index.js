@@ -1,4 +1,5 @@
 import cors from 'cors'
+import './scheduler.js'
 import dotenv from 'dotenv'
 import express from 'express'
 import ConnectDB from './ConnectDB.js'
@@ -13,7 +14,7 @@ const app = express()
 dotenv.config()
 ConnectDB()
 
-// app.use(requestLogger);
+app.use(requestLogger);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
