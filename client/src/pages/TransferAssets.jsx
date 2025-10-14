@@ -126,7 +126,7 @@ function TransferAsset() {
       />
 
       <div className="row">
-        <div className="col-12 col-md-2 mb-3 d-flex flex-md-column flex-row justify-content-around gap-2">
+        <div className="col-12 col-md-2 mb-3 d-flex flex-md-column flex-row gap-2">
           <button
             onClick={() => dispatch(transferActions.setPageState("transfer"))}
             className={`btn fw-bold ${pageState === "transfer" ? "btn-dark" : "btn-outline-dark"}`}

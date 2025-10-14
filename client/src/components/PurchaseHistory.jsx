@@ -76,11 +76,14 @@ function PurchaseHistoryTable() {
           <button
             className="btn btn-success fw-semibold w-100"
             onClick={() => {
-              if (
-                new Date(fromInp.current?.value) >
-                new Date(toInp.current?.value)
-              ) {
+              const from = new Date(fromInp.current?.value)
+              const to = new Date(toInp.current?.value)
+              if ( from>to) {
                 toast.error("Wrong Dates");
+                return;
+              }
+              if ( from===to) {
+                toast.error("Same day not allowed");
                 return;
               }
               handleDateRange(fromInp.current?.value, toInp.current?.value);
