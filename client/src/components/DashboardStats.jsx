@@ -37,7 +37,6 @@ function DashboardStats() {
       category = "all";
     }
 
-
     if (fromDate === "" || toDate === "") {
       toast.error("Please fill all fields");
       return {
@@ -88,8 +87,10 @@ function DashboardStats() {
       category,
       fromDate,
       invtry,
+      TINdata,
       TOUTdata,
       assignData,
+      purchaseHistory,
       actvId
     );
     const closingBal = calcClosingBal(
@@ -97,8 +98,10 @@ function DashboardStats() {
       fromDate,
       toDate,
       openingBal,
+      TINdata,
       TOUTdata,
       assignData,
+      purchaseHistory,
       actvId
     );
     const netMovement = calcNetMvmntBal(
@@ -130,12 +133,13 @@ function DashboardStats() {
     fltrType,
     from,
     inventory,
+    inAst,
     outAst,
     asgnAst,
+    purchase,
     baseId
   ) => {
     try {
-
       let openingBal = 0;
       const dateObj = new Date(from);
       const month = months[dateObj.getMonth()];
@@ -162,8 +166,10 @@ function DashboardStats() {
         firstDate,
         from,
         openingBal,
+        inAst,
         outAst,
         asgnAst,
+        purchase,
         baseId
       );
 
@@ -179,13 +185,17 @@ function DashboardStats() {
     from,
     closingDate,
     opnngBal,
+    inAst,
     outAst,
     asgnAst,
+    purchase,
     baseId
   ) => {
     try {
       let totalTout = 0;
+      let totalPur = 0;
       let totalExpnd = 0;
+      let totalTin = 0;
       const fromEpch = new Date(from);
       const clsngEpch = new Date(closingDate);
 
@@ -223,9 +233,41 @@ function DashboardStats() {
             return sum + expSum;
           }, 0);
         });
+
+        inAst.forEach((i) => {
+          if (
+            i.to === baseId.id &&
+            i.status === "RECEIVED" &&
+            new Date(i.TINdate) >= fromEpch &&
+            new Date(i.TINdate) <= clsngEpch
+          ) {
+            totalTin += i.astDtl.reduce((sum, ast) => {
+              if (fltrType !== "all" && ast.category !== fltrType) return sum;
+              return sum + (ast.totalQty?.value || 0);
+            }, 0);
+          }
+        });
+
+        purchase.forEach((p) => {
+          if (p.base !== baseId.base_id) return;
+          if (
+            !(
+              new Date(p.purchaseDate) >= fromEpch &&
+              new Date(p.purchaseDate) <= clsngEpch
+            )
+          ) {
+            return;
+          }
+
+          totalPur += p.items.reduce((sum, item) => {
+            if (fltrType !== "all" && item.asset.type !== fltrType) return sum;
+            return sum + (item.qty || 0);
+          }, 0);
+        });
       });
 
-      return opnngBal - totalTout - totalExpnd;
+
+      return opnngBal + totalPur + totalTin - totalTout - totalExpnd;
     } catch (error) {
       console.error("calcClosingBal error:", error);
       return null;
@@ -249,22 +291,24 @@ function DashboardStats() {
       let totalTin = 0;
 
       purchaseList.forEach((p) => {
-        if (p.base !== baseId._id) return;
+        if (p.base !== baseId.base_id) return;
         if (
-          p.date &&
-          (new Date(p.date) < fromEpch || new Date(p.date) > toEpch)
-        )
+          !(
+            new Date(p.purchaseDate) >= fromEpch &&
+            new Date(p.purchaseDate) <= toEpch
+          )
+        ) {
           return;
+        }
 
         totalPur += p.items.reduce((sum, item) => {
           if (fltrType !== "all" && item.asset.type !== fltrType) return sum;
           return sum + (item.qty || 0);
         }, 0);
       });
-
       outAst.forEach((o) => {
         if (
-          o.by === baseId &&
+          o.by === baseId.id &&
           o.status === "RECEIVED" &&
           new Date(o.TOUTdate) >= fromEpch &&
           new Date(o.TOUTdate) <= toEpch
@@ -289,9 +333,10 @@ function DashboardStats() {
           }, 0);
         }
       });
-      return totalPur + totalTin - totalTout;
+      const bal = totalPur + totalTin - totalTout;
+      return bal;
     } catch (error) {
-      console.error(error)
+      console.error(error);
       return null;
     }
   };
@@ -332,7 +377,6 @@ function DashboardStats() {
     })
   );
 
-
   function handleHisStt(btnVal) {
     if (btnVal === "Purchase") {
       const fromDate = new Date(formStt.from);
@@ -348,7 +392,12 @@ function DashboardStats() {
         return v.items
           .filter((e) => {
             if (formStt.category === "all") return true;
-            const type = e.asset.type==='VCL'?"Vehicle":(e.asset.type==='WEA'?"Weapons":"Ammunition")
+            const type =
+              e.asset.type === "VCL"
+                ? "Vehicle"
+                : e.asset.type === "WEA"
+                ? "Weapons"
+                : "Ammunition";
             return type === formStt.category;
           })
           .map((e) => {
@@ -380,7 +429,7 @@ function DashboardStats() {
           const fromDate = new Date(formStt.from);
           const toDate = new Date(formStt.to);
           const inRange = expDate >= fromDate && expDate <= toDate;
-          
+
           if (!inRange) return false;
 
           if (formStt.category !== "all") {
