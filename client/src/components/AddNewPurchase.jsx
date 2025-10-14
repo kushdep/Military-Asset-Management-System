@@ -68,8 +68,7 @@ function AddNewPurchase() {
             + New
           </button>
 
-          {(addNewPur.newAst.length > 0 || addNewPur.oldAst.length > 0) &&
-            addNewPur.err.newAstErr.length === 0 && (
+          {(addNewPur.newAst.length > 0 || addNewPur.oldAst.length > 0) &&(
               <button
                 className="btn fw-bold text-success text-decoration-underline flex-grow-1 flex-sm-grow-0"
                 onClick={() => {

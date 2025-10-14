@@ -47,9 +47,10 @@ function AddPurchaseModal({ reference }) {
 
     try {
       const baseIdToUse = id ?? actvId.id;
-
+      const url = `${import.meta.env.VITE_SERVER_URL}/dashboard/${baseIdToUse}/new-purchase`
+      console.log(url)
       const response = await axios.post(
-        `${import.meta.env.VITE_URL}/dashboard/${baseIdToUse}/new-purchase`,
+        url,
         body,
         { headers: { authorization: `Bearer ${token}` } }
       );
@@ -80,7 +81,7 @@ function AddPurchaseModal({ reference }) {
   return createPortal(
     <dialog
       ref={reference}
-      className="shadow rounded-4 p-3 p-sm-4 w-100 w-sm-75 w-md-50"
+      className="shadow rounded-4 p-3 p-sm-4 w-25 w-sm-50 w-md-25"
       style={{
         maxWidth: "90vw",
         border: "none",
@@ -190,6 +191,7 @@ function AddPurchaseModal({ reference }) {
           className={`btn w-75 w-sm-50 fw-semibold rounded-pill shadow-sm ${
             showAdAs ? "btn-success" : "btn-outline-success"
           }`}
+          disabled={addNewPur.err.newAstErr.length>0}
           onClick={showAdAs ? addNewPurchase : chkFields}
         >
           {showAdAs ? "Submit" : "Done"}
