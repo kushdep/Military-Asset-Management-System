@@ -22,7 +22,7 @@ export const authorize = async (req, res, next) => {
 export const authorizeBase = async (req, res, next) => {
     try {
         const { role, baseId, base_id, email } = req.user
-        if (role !== 'AD') {
+        if (role && role !== 'AD') {
             const { id } = req.params
             if (id !== baseId) {
                 return res.status(401).send({
