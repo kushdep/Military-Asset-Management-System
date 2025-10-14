@@ -20,18 +20,15 @@ const logger = winston.createLogger({
 
     new winston.transports.File({ filename: "logs/combined.log" }),
 
-    /**
-     * TO SAVE LOGS IN  TO DATABASE
+    // TO SAVE LOGS IN  TO DATABASE
      new winston.transports.MongoDB({    
-       level: "info",
+       level: "error",
        db: process.env.MONGO_URI,
        options: { useUnifiedTopology: true },
        collection: "app_logs",
        tryReconnect: true,
        format: combine(timestamp(), logFormat),
      }),
-     * 
-     */
   ],
 });
 

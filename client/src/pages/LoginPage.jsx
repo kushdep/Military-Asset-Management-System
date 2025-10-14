@@ -25,7 +25,7 @@ function LoginPage() {
 
     try {
       const response = await axios.post(
-        `https://military-asset-management-system-68gp.onrender.com/login`,
+        `${import.meta.env.VITE_SERVER_URL}/login`,
         body
       );
       if (response?.status === 200) {
