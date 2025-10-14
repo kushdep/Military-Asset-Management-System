@@ -24,6 +24,7 @@ function LoginPage() {
     };
 
     try {
+      console.log("URL:= "+import.meta.env.VITE_SERVER_URL)
       const response = await axios.post(
         `${import.meta.env.VITE_SERVER_URL}/login`,
         body
