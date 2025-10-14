@@ -204,7 +204,7 @@ function DashboardStats() {
 
         outAst.forEach((o) => {
           if (
-            o.by === baseId._id &&
+            o.by === baseId.id &&
             o.status === "RECEIVED" &&
             new Date(o.TOUTdate) >= fromEpch &&
             new Date(o.TOUTdate) <= clsngEpch
@@ -217,7 +217,7 @@ function DashboardStats() {
         });
 
         asgnAst.forEach((a) => {
-          if (a.baseId !== baseId._id) return;
+          if (a.baseId !== baseId.base_id) return;
 
           totalExpnd += a.items.reduce((sum, item) => {
             if (fltrType !== "all" && item.category !== fltrType) return sum;
@@ -260,12 +260,12 @@ function DashboardStats() {
           }
 
           totalPur += p.items.reduce((sum, item) => {
-            if (fltrType !== "all" && item.asset.type !== fltrType) return sum;
+            const type = itemType.find((i) => i.code === item.asset.type);
+            if (fltrType !== "all" && type.name !== fltrType) return sum;
             return sum + (item.qty || 0);
           }, 0);
         });
       });
-
 
       return opnngBal + totalPur + totalTin - totalTout - totalExpnd;
     } catch (error) {
@@ -302,10 +302,14 @@ function DashboardStats() {
         }
 
         totalPur += p.items.reduce((sum, item) => {
-          if (fltrType !== "all" && item.asset.type !== fltrType) return sum;
+          const type = itemType.find((i) => i.code === item.asset.type);
+          if (fltrType !== "all" && type.name !== fltrType) {
+            return sum;
+          }
           return sum + (item.qty || 0);
         }, 0);
       });
+
       outAst.forEach((o) => {
         if (
           o.by === baseId.id &&
@@ -314,7 +318,7 @@ function DashboardStats() {
           new Date(o.TOUTdate) <= toEpch
         ) {
           totalTout += o.astDtl.reduce((sum, ast) => {
-            if (fltrType !== "all" && ast.category !== fltrType) return sum;
+            if (fltrType !== "all" && fltrType !== ast.category) return sum;
             return sum + (ast.totalQty?.value || 0);
           }, 0);
         }
@@ -483,6 +487,7 @@ function DashboardStats() {
               className="form-select"
               id="floatingSelectGrid"
               name="category"
+              defaultValue={formStt?.category}
             >
               <option value="all">ALL</option>
               {itemType.map((i) => (
@@ -598,17 +603,20 @@ function DashboardStats() {
                   <h4 className="fw-bold text-secondary mb-3">
                     Assigned Assets
                   </h4>
-                  {asgnData && asgnData.map((a) => {
-                    return (
-                      <div key={a._id} className="text-muted mb-1">
-                        <span className="fw-semibold text-dark">{a.name}</span>{" "}
-                        — Qty:{" "}
-                        <span className="fw-bold">{a.totalQty.value}</span>{" "}
-                        {a.totalQty.metric} on{" "}
-                        {new Date(a.asgnDate).toLocaleDateString()}
-                      </div>
-                    );
-                  })}
+                  {asgnData &&
+                    asgnData.map((a) => {
+                      return (
+                        <div key={a._id} className="text-muted mb-1">
+                          <span className="fw-semibold text-dark">
+                            {a.name}
+                          </span>{" "}
+                          — Qty:{" "}
+                          <span className="fw-bold">{a.totalQty.value}</span>{" "}
+                          {a.totalQty.metric} on{" "}
+                          {new Date(a.asgnDate).toLocaleDateString()}
+                        </div>
+                      );
+                    })}
                 </div>
               </div>
             </div>
@@ -619,21 +627,26 @@ function DashboardStats() {
                   <h4 className="fw-bold text-secondary mb-3">
                     Expended Assets
                   </h4>
-                  {expndAst && expndAst.map((exp) => {
-                    if (exp === null) return;
-                    return (
-                      <div key={exp._id} className="text-muted fst-italic mb-1">
-                        <span className="fw-semibold text-dark">
-                          {exp.name}
-                        </span>{" "}
-                        — Used <span className="fw-bold">{exp.qty.value}</span>{" "}
-                        {exp.qty.metric} on{" "}
-                        <span className="text-secondary">
-                          {new Date(exp.expndDate).toLocaleDateString()}
-                        </span>
-                      </div>
-                    );
-                  })}
+                  {expndAst &&
+                    expndAst.map((exp) => {
+                      if (exp === null) return;
+                      return (
+                        <div
+                          key={exp._id}
+                          className="text-muted fst-italic mb-1"
+                        >
+                          <span className="fw-semibold text-dark">
+                            {exp.name}
+                          </span>{" "}
+                          — Used{" "}
+                          <span className="fw-bold">{exp.qty.value}</span>{" "}
+                          {exp.qty.metric} on{" "}
+                          <span className="text-secondary">
+                            {new Date(exp.expndDate).toLocaleDateString()}
+                          </span>
+                        </div>
+                      );
+                    })}
                 </div>
               </div>
             </div>
