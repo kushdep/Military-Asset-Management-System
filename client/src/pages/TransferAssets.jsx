@@ -67,7 +67,7 @@ function TransferAsset() {
 
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_SERVER_URL}/dashboard/${id}/transfer-asset`,
+        `${import.meta.env.https://military-asset-management-system-68gp.onrender.com/}/dashboard/${id}/transfer-asset`,
         body,
         { headers: { authorization: `Bearer ${token}` } }
       );
@@ -86,7 +86,7 @@ function TransferAsset() {
   async function setTFrStts(isRcvd, tfrId) {
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_SERVER_URL}/dashboard/${id}/recieve-asset?status=${isRcvd}`,
+        `${import.meta.env.https://military-asset-management-system-68gp.onrender.com/}/dashboard/${id}/recieve-asset?status=${isRcvd}`,
         { tfrId },
         { headers: { authorization: `Bearer ${token}` } }
       );

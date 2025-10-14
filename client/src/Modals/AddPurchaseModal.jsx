@@ -50,7 +50,7 @@ function AddPurchaseModal({ reference }) {
 
       const response = await axios.post(
         `${
-          import.meta.env.VITE_SERVER_URL
+          import.meta.env.https://military-asset-management-system-68gp.onrender.com/
         }/dashboard/${baseIdToUse}/new-purchase`,
         body,
         { headers: { authorization: `Bearer ${token}` } }
