@@ -17,7 +17,7 @@ function AsgnExpndhistory() {
 
   return (
     <div className="container mt-3">
-      {asgnExpndHistory.length > 0 ? (
+      {asgnExpndHistory?.length > 0 ? (
         asgnExpndHistory.map((asgnHis) => (
           <div className="row mt-3" key={asgnHis.sId}>
             <div className="col">

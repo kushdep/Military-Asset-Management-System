@@ -107,7 +107,6 @@ const Navbar = () => {
                 onClick={() => {
                   dispatch(authActions.logout());
                   navigate("/login");
-                  dispatch(baseActions.setActId({ id: '', _id: '' }));
                   dispatch(baseActions.resetBaseData());
                   dispatch(purchaseActions.resetPurchaseData());
                 }}

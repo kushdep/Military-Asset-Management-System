@@ -598,7 +598,7 @@ function DashboardStats() {
                   <h4 className="fw-bold text-secondary mb-3">
                     Assigned Assets
                   </h4>
-                  {asgnData.map((a) => {
+                  {asgnData && asgnData.map((a) => {
                     return (
                       <div key={a._id} className="text-muted mb-1">
                         <span className="fw-semibold text-dark">{a.name}</span>{" "}
@@ -619,7 +619,7 @@ function DashboardStats() {
                   <h4 className="fw-bold text-secondary mb-3">
                     Expended Assets
                   </h4>
-                  {expndAst.map((exp) => {
+                  {expndAst && expndAst.map((exp) => {
                     if (exp === null) return;
                     return (
                       <div key={exp._id} className="text-muted fst-italic mb-1">

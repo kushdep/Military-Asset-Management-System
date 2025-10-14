@@ -15,7 +15,7 @@ function Dashboard() {
   useEffect(() => {
     if (role === "AD" && baseIds.length === 0) {
       dispatch(getBaseIds(token));
-    } else if (role !== "AD") {
+    } else if (role && role!=='' && role !== "AD") {
       const baseIdToUse = id ?? actvId.id;
 
       if (!baseIdToUse) {
@@ -29,7 +29,7 @@ function Dashboard() {
 
   }, [role, id, actvId, baseIds, token, navigate]);
 
-    if(baseError!==''){
+    if(baseError && baseError!==''){
       toast.error(baseError)
       dispatch(baseActions.setErrorState({errMsg:''}))
     }

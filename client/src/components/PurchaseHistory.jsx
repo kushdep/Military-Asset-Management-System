@@ -21,7 +21,7 @@ function PurchaseHistoryTable() {
 
   useEffect(() => {
     if (purchaseHistory === null) {
-      const baseIdToUse = id ?? actvId.id;
+      const baseIdToUse = id ?? actvId?.id;
       dispatch(getBaseData(token, baseIdToUse));
     }
   }, [purchaseHistory]);

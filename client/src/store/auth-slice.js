@@ -43,7 +43,7 @@ const authSlice = createSlice({
         state.role = "";
         state.isAuthenticated = false;
       } catch (error) {
-        console.error("Error in loginSuccess"+error)
+        console.error("Error in logout"+error)
       }
     },
   },
