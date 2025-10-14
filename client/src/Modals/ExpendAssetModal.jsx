@@ -43,7 +43,7 @@ function ExpendAssetModal({ reference }) {
     const body = { asgmtId: expndAst[0].asgmtId, items: expndAst[0].items };
     try {
       const response = await axios.patch(
-        `${import.meta.env.https://military-asset-management-system-68gp.onrender.com/}/dashboard/${baseId}/expend-asset`,
+        `https://military-asset-management-system-68gp.onrender.com/dashboard/${baseId}/expend-asset`,
         body,
         { headers: { authorization: `Bearer ${token}` } }
       );
