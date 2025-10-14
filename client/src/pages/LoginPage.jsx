@@ -25,8 +25,9 @@ function LoginPage() {
 
     try {
       console.log("URL:= "+import.meta.env.VITE_SERVER_URL)
-      const response = await axios.post(
-        `${import.meta.env.VITE_SERVER_URL}/login`,
+      const URL =`${import.meta.env.VITE_SERVER_URL}/login`
+      console.log(URL)
+      const response = await axios.post(URL,
         body
       );
       if (response?.status === 200) {
