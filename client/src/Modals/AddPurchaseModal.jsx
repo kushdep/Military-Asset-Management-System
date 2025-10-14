@@ -81,7 +81,7 @@ function AddPurchaseModal({ reference }) {
   return createPortal(
     <dialog
       ref={reference}
-      className="shadow rounded-4 p-3 p-sm-4 w-25 w-sm-50 w-md-25"
+      className="shadow rounded-4 p-3 p-sm-4 w-75 w-sm-50 w-md-25"
       style={{
         maxWidth: "90vw",
         border: "none",
