@@ -7,9 +7,11 @@ import userRoutes from './routes/userRoutes.js'
 import dashboardRoutes from './routes/dashboardRoutes.js'
 import { authentication } from './middlewares/authentication.js'
 import { requestLogger } from './middlewares/requestLogger.js'
+import path from "path"
 
 
 const app = express()
+const _dirname=path.resolve()
 
 dotenv.config()
 ConnectDB()
@@ -24,6 +26,11 @@ app.use(cors({
 
 app.use('/dashboard', authentication, dashboardRoutes)
 app.use('/', userRoutes)
+
+app.use(express.static(path.join(_dirname,'/client/dist')))
+app.get(/.*/,(_,res)=>{
+  res.sendFile(path.resolve(_dirname,"client","dist","index.html"))
+})
 
 app.listen(process.env.PORT, () => {
     console.log(`Connected on Port ${process.env.PORT}`)

@@ -107,7 +107,7 @@ function LoginPage() {
       >
         <div className="mb-4">
           <img
-            src="/public/icons/logo.png"
+            src="https://res.cloudinary.com/demncxfgx/image/upload/v1760402383/shield_12843636_uawqza.png"
             alt="Logo"
             style={{
               width: "80px",

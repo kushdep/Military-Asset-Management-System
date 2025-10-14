@@ -1,0 +1,12 @@
+2025-10-14T00:37:00.295Z [info]: GET / - Body: {}
+2025-10-14T00:37:00.703Z [info]: GET /assets/index-DBkAH2I1.js - Body: {}
+2025-10-14T00:37:00.735Z [info]: GET /assets/index-C11chwFa.css - Body: {}
+2025-10-14T00:37:01.817Z [info]: GET /public/icons/logo.png - Body: {}
+2025-10-14T00:37:02.047Z [info]: GET /icons/logo.png - Body: {}
+2025-10-14T00:41:07.116Z [info]: GET /login - Body: {}
+2025-10-14T00:41:07.572Z [info]: GET /assets/index-C11chwFa.css - Body: {}
+2025-10-14T00:41:07.577Z [info]: GET /assets/index-DBkAH2I1.js - Body: {}
+2025-10-14T00:41:08.118Z [info]: GET /public/icons/logo.png - Body: {}
+2025-10-14T00:41:08.461Z [info]: GET /icons/logo.png - Body: {}
+2025-10-14T00:41:13.032Z [info]: GET /assets/index-C11chwFa.css - Body: {}
+2025-10-14T00:41:13.087Z [info]: GET /.well-known/appspecific/com.chrome.devtools.json - Body: {}
