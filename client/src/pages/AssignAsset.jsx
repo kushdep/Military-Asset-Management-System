@@ -36,7 +36,7 @@ function AssignAsset() {
     const body = { sldrId: id, asgnAst: { Vehicle, Ammunition, Weapons } };
     try {
       const response = await axios.post(
-        `${import.meta.env.https://military-asset-management-system-68gp.onrender.com/}/dashboard/${baseId}/assign-asset`,
+        `https://military-asset-management-system-68gp.onrender.com/dashboard/${baseId}/assign-asset`,
         body,
         { headers: { authorization: `Bearer ${token}` } }
       );

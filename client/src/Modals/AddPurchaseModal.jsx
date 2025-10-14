@@ -49,9 +49,7 @@ function AddPurchaseModal({ reference }) {
       const baseIdToUse = id ?? actvId.id;
 
       const response = await axios.post(
-        `${
-          import.meta.env.https://military-asset-management-system-68gp.onrender.com/
-        }/dashboard/${baseIdToUse}/new-purchase`,
+        `https://military-asset-management-system-68gp.onrender.com/dashboard/${baseIdToUse}/new-purchase}`,
         body,
         { headers: { authorization: `Bearer ${token}` } }
       );

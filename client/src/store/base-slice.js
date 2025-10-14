@@ -146,7 +146,7 @@ export const getBaseData = (token, id) => {
   return async (dispatch, getState) => {
     const getData = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.https://military-asset-management-system-68gp.onrender.com/}/dashboard/${id}`, {
+        const response = await axios.get(`https://military-asset-management-system-68gp.onrender.com/dashboard/${id}`, {
           headers: {
             authorization: `Bearer ${token}`
           }
@@ -200,7 +200,7 @@ export const getBaseIds = (token) => {
   return async (dispatch, getState) => {
     const getIds = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.https://military-asset-management-system-68gp.onrender.com/}/dashboard`, {
+        const response = await axios.get(`https://military-asset-management-system-68gp.onrender.com/dashboard`, {
           headers: {
             authorization: `Bearer ${token}`
           }
