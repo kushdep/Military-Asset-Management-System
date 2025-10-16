@@ -2,6 +2,7 @@ import User from '../models/user.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import Base from '../models/base.js'
+import logTransaction from "../transactionLogger.js"
 
 export const login = async (req, res) => {
     try {
@@ -45,6 +46,7 @@ export const login = async (req, res) => {
     }
 
     const token = jwt.sign(tokenPayload, process.env.JWT_SECRET, { expiresIn: '7d' })
+    logTransaction('Login Successfull',`${user.username} role-${user.role}`,new Date().toISOString())
     return  res.header('auth-token', token).send({token,role:user.role,name:user.username,baseInfo})
 } catch (error) {
     console.error(error)

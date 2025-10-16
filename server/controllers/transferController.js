@@ -66,6 +66,14 @@ export const transferBaseAst = async (req, res) => {
     }
 
     const newTranferDoc = await Transfer.create(newTranfer)
+    logTransaction('Asset Transfer ', `${username} role-${role}`, { baseId: fromBaseId, To: toBaseId, AssetLen: trnsfrAst.length, status: 'Pending' })
+    if (!newTranferDoc) {
+      return res.status(500).send({
+        success: false,
+        message: 'Something went wrong'
+      });
+    }
+
     const updAstval = await Promise.all(
       items.map(ele =>
         Asset.findByIdAndUpdate(
@@ -88,6 +96,7 @@ export const transferBaseAst = async (req, res) => {
         message: 'Unable to update'
       });
     }
+    logTransaction('Transfering Base ', `${username} role-${role}`, { baseId: fromBaseId, transferId: newTranferDoc._id })
 
     const recBaseDoc = await Base.findOneAndUpdate({ baseId: toBaseId }, { $push: { 'tsfrAst.IN': newTranferDoc._id } })
     if (!recBaseDoc) {
@@ -96,13 +105,15 @@ export const transferBaseAst = async (req, res) => {
         message: 'Reciever Base Not Found'
       });
     }
+
+    logTransaction('Recieving Base ', `${username} role-${role}`, { baseId: toBaseId, transferId: newTranferDoc._id })
     return res.status(200).send({
       success: true,
       message: 'Transfer Details Updated'
     });
 
   } catch (error) {
-    console.error("Error in TransferBaseAst"+error);
+    console.error("Error in TransferBaseAst" + error);
     return res.status(500).send({
       success: false,
       message: error.message
@@ -113,8 +124,8 @@ export const transferBaseAst = async (req, res) => {
 export const recieveBaseAst = async (req, res) => {
   try {
     const { status } = req.query
-    const {role } = req.user
-     if(role!=='AD' && role!=='LGOF'){
+    const { role } = req.user
+    if (role !== 'AD' && role !== 'LGOF') {
       return res.status(403).send({
         success: false,
         message: 'UNAUTHORIZED'
@@ -147,7 +158,7 @@ export const recieveBaseAst = async (req, res) => {
       })
     }
   } catch (error) {
-    console.error("Error in RecieveAst"+error);
+    console.error("Error in RecieveAst" + error);
     return res.status(500).send({
       success: false,
       message: error.message
@@ -159,6 +170,7 @@ const setAssetRecieved = async (req, res) => {
   try {
     const { tfrId } = req.body
     const { id } = req.params
+    const { username, role } = req.user
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
     const transferDoc = await Transfer.findOne({ _id: tfrId })
@@ -212,6 +224,7 @@ const setAssetRecieved = async (req, res) => {
     transferDoc.TINdate = new Date('2025-09-20')
 
     const updTfr = await transferDoc.save()
+
     if (!updTfr) {
       return {
         success: false,
@@ -220,6 +233,7 @@ const setAssetRecieved = async (req, res) => {
       }
     }
 
+    logTransaction('RECEIVED Transfer ', `${username} role-${role}`, { transferID: tfrId, RecBase: id })
     return {
       success: true,
       status: 200,
@@ -227,7 +241,7 @@ const setAssetRecieved = async (req, res) => {
     }
 
   } catch (error) {
-    console.error("Error in SetAssetRecieved "+error);
+    console.error("Error in SetAssetRecieved " + error);
     return {
       success: false,
       status: 500,
@@ -238,7 +252,9 @@ const setAssetRecieved = async (req, res) => {
 
 const setAssetCancelled = async (req, res) => {
   try {
+    const { id } = req.params
     const { tfrId } = req.body
+    const { username, role } = req.user
     const transferDoc = await Transfer.findById({ _id: tfrId })
     if (!transferDoc) {
       return {
@@ -282,6 +298,7 @@ const setAssetCancelled = async (req, res) => {
     transferDoc.status = 'CANCELLED'
 
     const updTfr = await transferDoc.save()
+    logTransaction('CANCELLED Transfer ', `${username} role-${role}`, { transferID: tfrId, RecBase: id })
     if (!updTfr) {
       return {
         success: false,
@@ -297,7 +314,7 @@ const setAssetCancelled = async (req, res) => {
     }
 
   } catch (error) {
-    console.error("Error in SetAssetCancelled "+error);
+    console.error("Error in SetAssetCancelled " + error);
     return {
       success: false,
       status: 500,

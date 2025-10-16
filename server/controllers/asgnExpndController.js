@@ -1,12 +1,13 @@
 import Asset from "../models/asset.js";
 import Assign from "../models/assign.js";
 import Base from "../models/base.js";
+import { logTransaction } from "../transactionLogger.js";
 
 export const expendBaseAst = async (req, res) => {
   try {
     const { asgmtId, items } = req.body;
-    const {role } = req.user
-       if(role!=='AD' && role!=='LGOF'){
+    const { username, role } = req.user
+    if (role !== 'AD' && role !== 'LGOF') {
       return res.status(403).send({
         success: false,
         message: 'UNAUTHORIZED'
@@ -40,6 +41,7 @@ export const expendBaseAst = async (req, res) => {
       });
     }
 
+    logTransaction('Assigning Asset Done ', `${username} role-${role}`, {base:id, updAsgnId:asgmtId,expndAstLen:items.length})
     return res.status(200).send({
       success: true,
       message: 'Expend details Updated'
@@ -58,6 +60,7 @@ export const asgnBaseAst = async (req, res) => {
   try {
     const { id } = req.params;
     const { sldrId, asgnAst } = req.body;
+    const { username, role } = req.user
 
     const baseDoc = await Base.findOne({ baseId: id });
     if (!baseDoc) {
@@ -97,15 +100,15 @@ export const asgnBaseAst = async (req, res) => {
                 value: v.qty,
                 metric: v.metric
               },
-              asgnDate:new Date(),
-              expnd:[]
+              asgnDate: new Date(),
+              expnd: []
             })
           } else {
             throw Error('Assignment cant be done')
           }
         });
       }
-    }); 
+    });
 
     let newAssign = {
       sId: sldrId,
@@ -137,6 +140,7 @@ export const asgnBaseAst = async (req, res) => {
       });
     }
 
+    logTransaction('Assigning Asset Done ', `${username} role-${role}`, {base:id,assignedTo:sldrId,assignmentId:newAssignDoc._id})
     return res.status(200).send({
       success: true,
       data: baseDoc,
