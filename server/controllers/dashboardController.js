@@ -1,5 +1,5 @@
 import Base from "../models/base.js"
-import { logTransaction } from "../transactionLogger.js"
+import logTransaction from "../transactionLogger.js"
 
 export const getALLBaseIds = async (req, res) => {
   try {

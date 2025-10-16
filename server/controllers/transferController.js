@@ -1,10 +1,12 @@
 import Asset from "../models/asset.js";
 import Base from "../models/base.js";
 import Transfer from "../models/transfer.js";
+import logTransaction from "../transactionLogger.js"
 
 export const transferBaseAst = async (req, res) => {
   try {
     const { id: fromBaseId } = req.params;
+    const {username,role} = req.params
     const { toBaseId, trnsfrAst } = req.body;
     if (fromBaseId === toBaseId) {
       return res.status(500).send({
@@ -124,7 +126,7 @@ export const transferBaseAst = async (req, res) => {
 export const recieveBaseAst = async (req, res) => {
   try {
     const { status } = req.query
-    const { role } = req.user
+    const { useranme,role } = req.user
     if (role !== 'AD' && role !== 'LGOF') {
       return res.status(403).send({
         success: false,

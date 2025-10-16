@@ -1,10 +1,11 @@
 import Asset from "../models/asset.js";
 import Assign from "../models/assign.js";
 import Base from "../models/base.js";
-import { logTransaction } from "../transactionLogger.js";
+import logTransaction from "../transactionLogger.js"
 
 export const expendBaseAst = async (req, res) => {
   try {
+    const {id} = req.params
     const { asgmtId, items } = req.body;
     const { username, role } = req.user
     if (role !== 'AD' && role !== 'LGOF') {
@@ -41,7 +42,7 @@ export const expendBaseAst = async (req, res) => {
       });
     }
 
-    logTransaction('Assigning Asset Done ', `${username} role-${role}`, {base:id, updAsgnId:asgmtId,expndAstLen:items.length})
+    logTransaction('EXPENDING Asset ', `${username} role-${role}`, {base:id, updAsgnId:asgmtId,expndAstLen:items.length})
     return res.status(200).send({
       success: true,
       message: 'Expend details Updated'
@@ -140,7 +141,7 @@ export const asgnBaseAst = async (req, res) => {
       });
     }
 
-    logTransaction('Assigning Asset Done ', `${username} role-${role}`, {base:id,assignedTo:sldrId,assignmentId:newAssignDoc._id})
+    logTransaction('ASSIGNING Asset ', `${username} role-${role}`, {base:id,assignedTo:sldrId,assignmentId:newAssignDoc._id})
     return res.status(200).send({
       success: true,
       data: baseDoc,

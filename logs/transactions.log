@@ -1,0 +1,17 @@
+2025-10-16T22:39:16.540Z [INFO]: Login Successfull by admin role-AD | Details: "2025-10-16T22:39:16.540Z"
+2025-10-16T22:39:16.607Z [INFO]: Req for Base Ids  by admin role-AD | Details: {"idsLength":4}
+2025-10-16T22:39:16.675Z [INFO]: Req for Base Ids  by admin role-AD | Details: {"idsLength":4}
+2025-10-16T22:39:16.710Z [INFO]: Req for Base Ids  by admin role-AD | Details: {"idsLength":4}
+2025-10-16T22:39:19.354Z [INFO]: Req for Base Data  by admin role-AD | Details: {"baseId":"B1"}
+2025-10-16T22:39:20.423Z [INFO]: Req for Base Data  by admin role-AD | Details: {"baseId":"B1"}
+2025-10-16T22:39:20.623Z [INFO]: Req for Base Data  by admin role-AD | Details: {"baseId":"B1"}
+2025-10-16T22:39:26.211Z [INFO]: Purchase data inserted  by admin role-AD | Details: {"base":null,"purchaseID":"68f1741e5d1c607a35c76e78"}
+2025-10-16T22:39:26.359Z [INFO]: Req for Base Data  by admin role-AD | Details: {"baseId":"B1"}
+2025-10-16T22:40:03.035Z [INFO]: Purchase data inserted  by admin role-AD | Details: {"base":null,"purchaseID":"68f174425d1c607a35c76fda"}
+2025-10-16T22:40:03.201Z [INFO]: Req for Base Data  by admin role-AD | Details: {"baseId":"B1"}
+2025-10-16T22:42:57.222Z [INFO]: Purchase data inserted  by admin role-AD | Details: {"base":"B1","purchaseID":"68f174f150cdabcaf8cbf571"}
+2025-10-16T22:42:57.580Z [INFO]: Req for Base Data  by admin role-AD | Details: {"baseId":"B1"}
+2025-10-16T22:43:27.310Z [INFO]: Assigning Asset Done  by admin role-AD | Details: {"base":"B1","assignedTo":"S11","assignmentId":"68f1750f50cdabcaf8cbf6d3"}
+2025-10-16T22:43:27.474Z [INFO]: Req for Base Data  by admin role-AD | Details: {"baseId":"B1"}
+2025-10-16T22:44:46.194Z [INFO]: Assigning Asset Done  by admin role-AD | Details: {"base":"B1","updAsgnId":"68ea646441d3fa5125cbee4a","expndAstLen":1}
+2025-10-16T22:44:46.570Z [INFO]: Req for Base Data  by admin role-AD | Details: {"baseId":"B1"}

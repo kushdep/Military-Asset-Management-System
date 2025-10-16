@@ -1,7 +1,7 @@
 import Asset from "../models/asset.js";
 import Base from "../models/base.js";
 import Purchase from "../models/purchase.js";
-import { logTransaction } from "../transactionLogger.js";
+import logTransaction from "../transactionLogger.js"
 
 export const addNewPurchaseData = async (req, res) => {
   try {
@@ -195,7 +195,7 @@ export const addNewPurchaseData = async (req, res) => {
       baseDoc.inventory.Ammunition.push(...newPurIdsArr.Ammunition)
     }
     await baseDoc.save()
-    logTransaction('Purchase data inserted ',`${username} role-${role}`,{base:baseId,purchaseID:purchDoc._id})
+    logTransaction('Purchase data inserted ',`${username} role-${role}`,{base:id,purchaseID:purchDoc._id})
 
     return res.status(200).send({
       success: true,

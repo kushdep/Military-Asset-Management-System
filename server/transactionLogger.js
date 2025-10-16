@@ -28,7 +28,9 @@ const transactionLogger = winston.createLogger({
   ],
 });
 
-export const logTransaction = (action, user, details = {}) => {
+const logTransaction = (action, user, details = {}) => {
   const logMessage = `${action} by ${user} | Details: ${JSON.stringify(details)}`;
   transactionLogger.info(logMessage);
 };
+
+export default logTransaction
