@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import DashboardStats from "../components/DashboardStats";
 import toast from "react-hot-toast";
 
+
 function Dashboard() {
   const dispatch = useDispatch();
   const { token, role } = useSelector((state) => state.authData);
@@ -41,6 +42,7 @@ function Dashboard() {
   return (
     <>
       <div className="container-fluid">
+        <button onClick={()=>fbeuw()}>click</button>
         <div className="row">
           <div className="col-3">
             {role === "AD" && (

@@ -10,6 +10,7 @@ import * as Sentry from "@sentry/react";
 
 Sentry.init({
   dsn: "https://385861c826dee9d1275b0c585f4bb6db@o4510198777708544.ingest.de.sentry.io/4510198779740240",
+  autoSessionTracking:true,
   integrations: [
     Sentry.browserTracingIntegration(),
     Sentry.replayIntegration(),
