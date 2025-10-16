@@ -6,7 +6,7 @@ import logTransaction from "../transactionLogger.js"
 export const transferBaseAst = async (req, res) => {
   try {
     const { id: fromBaseId } = req.params;
-    const {username,role} = req.params
+    const { username, role } = req.params
     const { toBaseId, trnsfrAst } = req.body;
     if (fromBaseId === toBaseId) {
       return res.status(500).send({
@@ -24,6 +24,7 @@ export const transferBaseAst = async (req, res) => {
     if (trnsfrAst?.Vehicle.length > 0 && baseDoc?.inventory?.Vehicle.length == 0 ||
       trnsfrAst?.Ammunition.length > 0 && baseDoc?.inventory?.Ammunition.length == 0 ||
       trnsfrAst?.Weapons.length > 0 && baseDoc?.inventory?.Weapons.length == 0) {
+      logTransaction(true, 'Asset Transfer Asset Qty', `${username} role-${role}`, { baseId: fromBaseId, To: toBaseId, AssetLen: trnsfrAst.length })
       return res.status(400).send({
         success: false,
         message: 'Transfer Not possible'
@@ -68,13 +69,14 @@ export const transferBaseAst = async (req, res) => {
     }
 
     const newTranferDoc = await Transfer.create(newTranfer)
-    logTransaction('Asset Transfer ', `${username} role-${role}`, { baseId: fromBaseId, To: toBaseId, AssetLen: trnsfrAst.length, status: 'Pending' })
     if (!newTranferDoc) {
+      logTransaction(true, 'Asset Transfer Doc creation failed', `${username} role-${role}`, { baseId: fromBaseId, To: toBaseId, AssetLen: trnsfrAst.length, status: 'Pending' })
       return res.status(500).send({
         success: false,
         message: 'Something went wrong'
       });
     }
+    logTransaction(false, 'Asset Transfer ', `${username} role-${role}`, { baseId: fromBaseId, To: toBaseId, AssetLen: trnsfrAst.length, status: 'Pending' })
 
     const updAstval = await Promise.all(
       items.map(ele =>
@@ -85,6 +87,7 @@ export const transferBaseAst = async (req, res) => {
       )
     )
     if (!updAstval) {
+      logTransaction(true, 'in Transfering Asset updation failed ', `${username} role-${role}`, { baseId: fromBaseId, transferId: newTranferDoc._id })
       return res.status(400).send({
         success: false,
         message: 'Asset Not Found'
@@ -93,22 +96,24 @@ export const transferBaseAst = async (req, res) => {
     baseDoc.tsfrAst.OUT.push(newTranferDoc._id)
     const updBase = await baseDoc.save()
     if (!updBase) {
+      logTransaction(true, 'in Transfering Base updation failed ', `${username} role-${role}`, { baseId: fromBaseId, transferId: newTranferDoc._id })
       return res.status(400).send({
         success: false,
         message: 'Unable to update'
       });
     }
-    logTransaction('Transfering Base ', `${username} role-${role}`, { baseId: fromBaseId, transferId: newTranferDoc._id })
+    logTransaction(false, 'Transfering Base ', `${username} role-${role}`, { baseId: fromBaseId, transferId: newTranferDoc._id })
 
     const recBaseDoc = await Base.findOneAndUpdate({ baseId: toBaseId }, { $push: { 'tsfrAst.IN': newTranferDoc._id } })
     if (!recBaseDoc) {
+      logTransaction(true, 'Reciever Base Not Found ', `${username} role-${role}`, { baseId: toBaseId, transferId: newTranferDoc._id })
       return res.status(400).send({
         success: false,
         message: 'Reciever Base Not Found'
       });
     }
 
-    logTransaction('Recieving Base ', `${username} role-${role}`, { baseId: toBaseId, transferId: newTranferDoc._id })
+    logTransaction(false,'Recieving Base ', `${username} role-${role}`, { baseId: toBaseId, transferId: newTranferDoc._id })
     return res.status(200).send({
       success: true,
       message: 'Transfer Details Updated'
@@ -126,7 +131,7 @@ export const transferBaseAst = async (req, res) => {
 export const recieveBaseAst = async (req, res) => {
   try {
     const { status } = req.query
-    const { useranme,role } = req.user
+    const { useranme, role } = req.user
     if (role !== 'AD' && role !== 'LGOF') {
       return res.status(403).send({
         success: false,
@@ -177,6 +182,7 @@ const setAssetRecieved = async (req, res) => {
 
     const transferDoc = await Transfer.findOne({ _id: tfrId })
     if (!transferDoc) {
+      logTransaction(true,'Transfer data not found', `${username} role-${role}`, { transferID: tfrId, RecBase: id })
       return {
         success: false,
         status: 500,
@@ -185,8 +191,9 @@ const setAssetRecieved = async (req, res) => {
     }
 
     const { astDtl } = transferDoc
-
+    
     if (astDtl.length === 0) {
+      logTransaction(true,'Asset Not found', `${username} role-${role}`, { transferID: tfrId, RecBase: id })
       return {
         success: false,
         status: 400,
@@ -215,6 +222,7 @@ const setAssetRecieved = async (req, res) => {
 
     const updBase = await baseDoc.save()
     if (!updBase) {
+      logTransaction(true,'Base Update Failed', `${username} role-${role}`, { transferID: tfrId, RecBase: id })
       return {
         success: false,
         status: 500,
@@ -228,14 +236,15 @@ const setAssetRecieved = async (req, res) => {
     const updTfr = await transferDoc.save()
 
     if (!updTfr) {
+      logTransaction(true,'Transfer Deatails Updation Failed', `${username} role-${role}`, { transferID: tfrId, RecBase: id })
       return {
         success: false,
         status: 500,
-        message: 'Transfer Deatails Update Failed'
+        message: 'Transfer Deatails Updation Failed'
       }
     }
 
-    logTransaction('RECEIVED Transfer ', `${username} role-${role}`, { transferID: tfrId, RecBase: id })
+    logTransaction(false,'RECEIVED Transfer ', `${username} role-${role}`, { transferID: tfrId, RecBase: id })
     return {
       success: true,
       status: 200,
@@ -300,7 +309,7 @@ const setAssetCancelled = async (req, res) => {
     transferDoc.status = 'CANCELLED'
 
     const updTfr = await transferDoc.save()
-    logTransaction('CANCELLED Transfer ', `${username} role-${role}`, { transferID: tfrId, RecBase: id })
+    logTransaction(false,'CANCELLED Transfer ', `${username} role-${role}`, { transferID: tfrId, RecBase: id })
     if (!updTfr) {
       return {
         success: false,

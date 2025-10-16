@@ -15,3 +15,20 @@
 2025-10-16T22:43:27.474Z [INFO]: Req for Base Data  by admin role-AD | Details: {"baseId":"B1"}
 2025-10-16T22:44:46.194Z [INFO]: Assigning Asset Done  by admin role-AD | Details: {"base":"B1","updAsgnId":"68ea646441d3fa5125cbee4a","expndAstLen":1}
 2025-10-16T22:44:46.570Z [INFO]: Req for Base Data  by admin role-AD | Details: {"baseId":"B1"}
+2025-10-16T23:23:40.304Z [INFO]: Req for Base Ids  by admin role-AD | Details: {"idsLength":4}
+2025-10-16T23:23:42.483Z [INFO]: Req for Base Data  by admin role-AD | Details: {"baseId":"B2"}
+2025-10-16T23:23:43.306Z [INFO]: Req for Base Data  by admin role-AD | Details: {"baseId":"B2"}
+2025-10-16T23:23:43.502Z [INFO]: Req for Base Data  by admin role-AD | Details: {"baseId":"B2"}
+2025-10-16T23:23:52.961Z [INFO]: Purchase data inserted  by admin role-AD | Details: {"base":"B2","purchaseID":"68f17e88b5a8d5dd2d9a2b7b"}
+2025-10-16T23:23:53.078Z [INFO]: Req for Base Data  by admin role-AD | Details: {"baseId":"B2"}
+2025-10-16T23:24:07.315Z [INFO]: ASSIGNING Asset  by admin role-AD | Details: {"base":"B2","assignedTo":"S21","assignmentId":"68f17e97b5a8d5dd2d9a2c1b"}
+2025-10-16T23:24:07.428Z [INFO]: Req for Base Data  by admin role-AD | Details: {"baseId":"B2"}
+2025-10-16T23:24:17.851Z [INFO]: EXPENDING Asset  by admin role-AD | Details: {"base":"B2","updAsgnId":"68ed8e9f1ee72a280f7ae4c1","expndAstLen":1}
+2025-10-16T23:24:17.955Z [INFO]: Req for Base Data  by admin role-AD | Details: {"baseId":"B2"}
+2025-10-16T23:24:28.420Z [INFO]: Asset Transfer  by undefined role-undefined | Details: {"baseId":"B2","To":"B1","status":"Pending"}
+2025-10-16T23:24:28.482Z [INFO]: Transfering Base  by undefined role-undefined | Details: {"baseId":"B2","transferId":"68f17eacb5a8d5dd2d9a2d1e"}
+2025-10-16T23:24:28.516Z [INFO]: Recieving Base  by undefined role-undefined | Details: {"baseId":"B1","transferId":"68f17eacb5a8d5dd2d9a2d1e"}
+2025-10-16T23:24:28.612Z [INFO]: Req for Base Data  by admin role-AD | Details: {"baseId":"B2"}
+2025-10-16T23:24:33.298Z [INFO]: Req for Base Data  by admin role-AD | Details: {"baseId":"B1"}
+2025-10-16T23:24:38.077Z [INFO]: RECEIVED Transfer  by admin role-AD | Details: {"transferID":"68f17eacb5a8d5dd2d9a2d1e","RecBase":"B1"}
+2025-10-16T23:24:38.196Z [INFO]: Req for Base Data  by admin role-AD | Details: {"baseId":"B1"}

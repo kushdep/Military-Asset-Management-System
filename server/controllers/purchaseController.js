@@ -18,6 +18,8 @@ export const addNewPurchaseData = async (req, res) => {
     let purCnt = await Purchase.countDocuments() + 1
     const base = await Base.findOne({ baseId: id })
     if (!base) {
+      logTransaction(true, 'Base not found ', `${username} role-${role}`, { base: id })
+
       return res.status(400).send({
         success: false,
         message: 'Base Not Found'
@@ -89,9 +91,10 @@ export const addNewPurchaseData = async (req, res) => {
       );
 
       if (!updAstval) {
+        logTransaction(true, 'Asset Updation Failed ', `${username} role-${role}`, { base: id })
         return res.status(400).send({
           success: false,
-          message: 'Base Not Found'
+          message: 'Asset Updation Failed'
         });
       }
 
@@ -158,6 +161,7 @@ export const addNewPurchaseData = async (req, res) => {
 
     const purchDoc = await Purchase.create(newPurchase)
     if (!purchDoc) {
+      logTransaction(false,'unable to create Purchase ', `${username} role-${role}`, { base: id })
       return res.status(400).send({
         success: false,
         message: 'Purchase Not Done'
@@ -195,7 +199,7 @@ export const addNewPurchaseData = async (req, res) => {
       baseDoc.inventory.Ammunition.push(...newPurIdsArr.Ammunition)
     }
     await baseDoc.save()
-    logTransaction('Purchase data inserted ',`${username} role-${role}`,{base:id,purchaseID:purchDoc._id})
+    logTransaction(false,'Purchase data inserted ', `${username} role-${role}`, { base: id, purchaseID: purchDoc._id })
 
     return res.status(200).send({
       success: true,

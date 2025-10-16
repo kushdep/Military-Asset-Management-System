@@ -5,24 +5,26 @@ import logTransaction from "../transactionLogger.js"
 
 export const expendBaseAst = async (req, res) => {
   try {
-    const {id} = req.params
+    const { id } = req.params
     const { asgmtId, items } = req.body;
     const { username, role } = req.user
     if (role !== 'AD' && role !== 'LGOF') {
+      logTransaction(true, 'EXPENDING Asset UNauthorized ', `${username} role-${role}`, { base: id, updAsgnId: asgmtId, expndAstLen: items.length })
       return res.status(403).send({
         success: false,
         message: 'UNAUTHORIZED'
       })
     }
-
+    
     const assignDoc = await Assign.findById({ _id: asgmtId });
     if (!assignDoc) {
+      logTransaction(true, 'Expend assets Assignment Not Found ', `${username} role-${role}`, { base: id, updAsgnId: asgmtId, expndAstLen: items.length })
       return res.status(500).send({
         success: false,
         message: 'Assignment Not Found'
       });
     }
-
+    
     items.forEach((expndItem) => {
       assignDoc.items.forEach((docItems) => {
         if (expndItem.itemId === docItems._id.toString()) {
@@ -33,16 +35,17 @@ export const expendBaseAst = async (req, res) => {
         }
       })
     })
-
+    
     const updExpndAst = await assignDoc.save()
     if (!updExpndAst) {
+      logTransaction(true, ' Updation of Assign Doc cant be done ', `${username} role-${role}`, { base: id, updAsgnId: asgmtId, expndAstLen: items.length })
       return res.status(400).send({
         success: false,
         message: 'Updation of Doc cant be done'
       });
     }
 
-    logTransaction('EXPENDING Asset ', `${username} role-${role}`, {base:id, updAsgnId:asgmtId,expndAstLen:items.length})
+    logTransaction(false,'EXPENDING Asset ', `${username} role-${role}`, { base: id, updAsgnId: asgmtId, expndAstLen: items.length })
     return res.status(200).send({
       success: true,
       message: 'Expend details Updated'
@@ -65,22 +68,24 @@ export const asgnBaseAst = async (req, res) => {
 
     const baseDoc = await Base.findOne({ baseId: id });
     if (!baseDoc) {
-      return res.status(500).send({
-        success: false,
-        message: 'Base Not Found'
-      });
-    }
-
-    if (asgnAst?.Vehicle.length > 0 && baseDoc?.inventory?.Vehicle.length == 0 ||
-      asgnAst?.Ammunition.length > 0 && baseDoc?.inventory?.Ammunition.length == 0 ||
-      asgnAst?.Weapons.length > 0 && baseDoc?.inventory?.Weapons.length == 0) {
-      return res.status(400).send({
-        success: false,
-        message: 'Assignment Not possible'
-      });
-    }
-
-    let items = []
+          logTransaction(true,'ASSIGNING Asset Base Not Found ', `${username} role-${role}`, { base: id, assignedTo: sldrId })
+          return res.status(500).send({
+            success: false,
+            message: 'Base Not Found'
+          });
+        }
+        
+        if (asgnAst?.Vehicle.length > 0 && baseDoc?.inventory?.Vehicle.length == 0 ||
+          asgnAst?.Ammunition.length > 0 && baseDoc?.inventory?.Ammunition.length == 0 ||
+          asgnAst?.Weapons.length > 0 && baseDoc?.inventory?.Weapons.length == 0) {
+        logTransaction(true,'ASSIGNING Asset Asset Qty is less ', `${username} role-${role}`, { base: id, assignedTo: sldrId })
+        return res.status(400).send({
+          success: false,
+          message: 'Assignment Not possible'
+        });
+      }
+      
+      let items = []
 
     Object.entries(asgnAst).forEach(([key, arr]) => {
       if (arr.length > 0) {
@@ -116,7 +121,7 @@ export const asgnBaseAst = async (req, res) => {
       baseId: baseDoc._id,
       items
     }
-
+    
     const newAssignDoc = await Assign.create(newAssign)
     const updAstval = await Promise.all(
       items.map(ele =>
@@ -127,21 +132,23 @@ export const asgnBaseAst = async (req, res) => {
       )
     )
     if (!updAstval) {
+      logTransaction(true,'ASSIGNING Asset Updation Asset Failed ', `${username} role-${role}`, { base: id, assignedTo: sldrId })
       return res.status(400).send({
         success: false,
-        message: 'Base Not Found'
+        message: 'Updation Asset Failed'
       });
     }
     baseDoc.asgnAst.push(newAssignDoc._id)
     const updBase = await baseDoc.save()
     if (!updBase) {
+      logTransaction(true,'ASSIGNING Asset Updation BAse Failed ', `${username} role-${role}`, { base: id, assignedTo: sldrId })
       return res.status(400).send({
         success: false,
         message: 'Unable to update'
       });
     }
 
-    logTransaction('ASSIGNING Asset ', `${username} role-${role}`, {base:id,assignedTo:sldrId,assignmentId:newAssignDoc._id})
+    logTransaction(false,'ASSIGNING Asset ', `${username} role-${role}`, { base: id, assignedTo: sldrId, assignmentId: newAssignDoc._id })
     return res.status(200).send({
       success: true,
       data: baseDoc,
