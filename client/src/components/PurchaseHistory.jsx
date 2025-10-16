@@ -20,6 +20,10 @@ function PurchaseHistoryTable() {
   const { id } = useParams();
 
   useEffect(() => {
+    if(!token && !localStorage.getItem('token') && localStorage.getItem('token')!==''){
+      navigate("/login");
+      return;
+    }
     if (purchaseHistory === null) {
       const baseIdToUse = id ?? actvId?.id;
        if (!baseIdToUse) {
@@ -28,7 +32,7 @@ function PurchaseHistoryTable() {
       }
       dispatch(getBaseData(token, baseIdToUse));
     }
-  }, [purchaseHistory]);
+  }, [token]);
 
   return (
     <div className="container-fluid p-3">

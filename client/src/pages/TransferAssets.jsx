@@ -20,8 +20,11 @@ function TransferAsset() {
   const seeAllModalRef = useRef();
 
   useEffect(() => {
-    if(!token) return 
-    console.log("Did not retutn "+!!token)
+    if(!token && !localStorage.getItem('token') && localStorage.getItem('token')!==''){
+      navigate("/login");
+      return;
+    }
+
 
     if (baseIds.length === 0) dispatch(getBaseIds(token));
     if (TINdata === null || TOUTdata === null || Object.keys(invtry).length === 0){

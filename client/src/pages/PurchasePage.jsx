@@ -15,7 +15,10 @@ function PurchasePage() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if(!token) return 
+    if(!token && !localStorage.getItem('token') && localStorage.getItem('token')!==''){
+      navigate("/login");
+      return;
+    }
     if (data === null) {
       const baseIdToUse = id ?? actvId?.id;
       if (!baseIdToUse) {

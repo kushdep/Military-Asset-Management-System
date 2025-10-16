@@ -19,7 +19,10 @@ function AddNewPurchase() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if(!token)return
+    if(!token && !localStorage.getItem('token') && localStorage.getItem('token')!==''){
+      navigate("/login");
+      return;
+    }
 
     if (Object.keys(invtry).length === 0) {
       const baseIdToUse = id ?? actvId?.id;

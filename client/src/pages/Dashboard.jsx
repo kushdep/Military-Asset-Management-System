@@ -13,10 +13,12 @@ function Dashboard() {
   const { id } = useParams();
 
   useEffect(() => {
-    if(!token)return
-
+    if(!token && !localStorage.getItem('token') && localStorage.getItem('token')!==''){
+      navigate("/login");
+      return;
+    }
     if (role === "AD" && baseIds.length === 0) {
-      dispatch(getBaseIds(token));
+      dispatch(getBaseIds(token??localStorage.getItem("token")));
     } else if (role && role!=='' && role !== "AD") {
       const baseIdToUse = id ?? actvId?.id;
 

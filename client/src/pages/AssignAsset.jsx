@@ -24,7 +24,14 @@ function AssignAsset() {
   const seeAllModalRef = useRef();
 
   useEffect(() => {
-    if (!token) return;
+    if (
+      !token &&
+      !localStorage.getItem("token") &&
+      localStorage.getItem("token") !== ""
+    ) {
+      navigate("/login");
+      return;
+    }
     if (!sldrsData || !invtry) {
       const baseIdToUse = baseId ?? actvId?.id;
 
