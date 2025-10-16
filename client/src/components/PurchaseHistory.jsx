@@ -22,6 +22,10 @@ function PurchaseHistoryTable() {
   useEffect(() => {
     if (purchaseHistory === null) {
       const baseIdToUse = id ?? actvId?.id;
+       if (!baseIdToUse) {
+        navigate("/login");
+        return;
+      }
       dispatch(getBaseData(token, baseIdToUse));
     }
   }, [purchaseHistory]);

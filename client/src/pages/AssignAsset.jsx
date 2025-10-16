@@ -24,10 +24,17 @@ function AssignAsset() {
   const seeAllModalRef = useRef();
 
   useEffect(() => {
+    if (!token) return;
     if (!sldrsData || !invtry) {
-      dispatch(getBaseData(token, baseId));
+      const baseIdToUse = baseId ?? actvId?.id;
+
+      if (!baseIdToUse) {
+        navigate("/login");
+        return;
+      }
+      dispatch(getBaseData(token, baseIdToUse));
     }
-  }, [sldrsData]);
+  }, [sldrsData, token]);
 
   async function AddAsgnData(id) {
     const { Vehicle, Ammunition, Weapons } = asgnAst.find(

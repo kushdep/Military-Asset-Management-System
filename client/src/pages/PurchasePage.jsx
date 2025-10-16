@@ -15,8 +15,13 @@ function PurchasePage() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    if(!token) return 
     if (data === null) {
-      const baseIdToUse = id ?? actvId.id;
+      const baseIdToUse = id ?? actvId?.id;
+      if (!baseIdToUse) {
+        navigate("/login");
+        return;
+      }
       dispatch(getBaseData(token, baseIdToUse));
     }
 
@@ -25,7 +30,7 @@ function PurchasePage() {
     } else {
       dispatch(purchaseActions.setPageState("history"));
     }
-  }, []);
+  }, [token]);
 
   if (baseError !== "") {
     toast.error(baseError);

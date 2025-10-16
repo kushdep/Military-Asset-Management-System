@@ -3,6 +3,12 @@ import jwt from "jsonwebtoken"
 
 export const authentication = (req, res, next) => {
     const authHeader = req.headers['authorization']
+    if(!authHeader || !authHeader.startsWith("Bearer ")){
+        return res.status(400).send({
+            success:false,
+            message:'JWT malformed'
+        })
+    }
     const token = authHeader.split(' ')[1]
     if (!token) {
         return res.status(401).send({

@@ -46,7 +46,7 @@ function AddPurchaseModal({ reference }) {
     const body = { ...addNewPur };
 
     try {
-      const baseIdToUse = id ?? actvId.id;
+      const baseIdToUse = id ?? actvId?.id;
       const url = `${import.meta.env.VITE_SERVER_URL}/dashboard/${baseIdToUse}/new-purchase`
       console.log(url)
       const response = await axios.post(

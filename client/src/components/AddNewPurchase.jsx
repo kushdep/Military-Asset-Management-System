@@ -19,10 +19,17 @@ function AddNewPurchase() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    if(!token)return
+
     if (Object.keys(invtry).length === 0) {
-      getBaseData(token, id);
+      const baseIdToUse = id ?? actvId?.id;
+       if (!baseIdToUse) {
+        navigate("/login");
+        return;
+      }
+      getBaseData(token, baseIdToUse);
     }
-  }, []);
+  }, [token]);
 
   const metricInd = itemType.findIndex((e) => e.code === assetType.code);
 

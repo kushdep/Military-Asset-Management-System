@@ -28,9 +28,9 @@ function AsgnExpndhistory() {
                 data-bs-target={`#collapse-${asgnHis.sId}`}
                 aria-expanded="false"
               >
-                <div className="d-flex align-items-center justify-content-between border rounded-3 p-2 bg-light">
+                <div className="d-flex align-items-center gap-2 border rounded-3 p-2 bg-light">
                   <span>Soldier ID: </span>
-                  <span className="fw-bold">{asgnHis.sId}</span>
+                  <span className="fw-bold text-primary">{asgnHis.sId}</span>
                 </div>
               </button>
 

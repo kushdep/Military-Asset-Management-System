@@ -11,9 +11,7 @@ if (token) {
   try {
     const decoded = jwtDecode(token);
     baseId = decoded.baseId;
-    console.log(baseId)
     base_id = decoded.base_id;
-    console.log(base_id)
   } catch(error) {
     console.error("Error in hydration "+error)
   }
@@ -49,7 +47,6 @@ const baseSlice = createSlice({
     },
     setActId(state, action) {
       try {
-        console.log(action.payload)
         const { id, _id } = action.payload
         state.actvId.id = id
         state.actvId.base_id = _id

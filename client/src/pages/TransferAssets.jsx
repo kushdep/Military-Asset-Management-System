@@ -20,14 +20,22 @@ function TransferAsset() {
   const seeAllModalRef = useRef();
 
   useEffect(() => {
-    if (baseIds.length === 0) dispatch(getBaseIds(token));
-    if (TINdata === null || TOUTdata === null || Object.keys(invtry).length === 0)
-      dispatch(getBaseData(token, id));
+        if(!token) return 
 
-    if (pageState === "" && role !== "COM")
+    if (baseIds.length === 0) dispatch(getBaseIds(token));
+    if (TINdata === null || TOUTdata === null || Object.keys(invtry).length === 0){
+      const baseIdToUse = id ?? actvId?.id;
+      if (!baseIdToUse) {
+        navigate("/login");
+        return;
+      }
+      dispatch(getBaseData(token, baseIdToUse));
+    }
+
+    if (pageState === "" && role && role!=='' && role !== "COM")
       dispatch(transferActions.setPageState("transfer"));
     else dispatch(transferActions.setPageState("history"));
-  }, []);
+  }, [token]);
 
   function addAsndTfrAst(event, metric, id, name, type, isExstng) {
     event.preventDefault();
