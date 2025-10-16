@@ -20,7 +20,8 @@ function TransferAsset() {
   const seeAllModalRef = useRef();
 
   useEffect(() => {
-        if(!token) return 
+    if(!token) return 
+    console.log("Did not retutn "+!!token)
 
     if (baseIds.length === 0) dispatch(getBaseIds(token));
     if (TINdata === null || TOUTdata === null || Object.keys(invtry).length === 0){
@@ -111,6 +112,8 @@ function TransferAsset() {
 
   if(baseError!==''){
     toast.error(baseError)
+    console.log("baseError Catched ")
+    console.log(baseError)
     dispatch(baseActions.setErrorState({errMsg:''}))
   }
 
