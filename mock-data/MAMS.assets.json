@@ -1,0 +1,2133 @@
+[{
+  "_id": {
+    "$oid": "68ea47a8987bcd12cd3460e4"
+  },
+  "type": "VCL",
+  "name": "Vehicle 1 B1",
+  "ownedBy": "B1",
+  "purchaseId": [
+    {
+      "Sno": 1
+    },
+    {
+      "Sno": 2,
+      "_id": {
+        "$oid": "68ea54398d4986f9f86a2126"
+      }
+    },
+    {
+      "Sno": 6,
+      "_id": {
+        "$oid": "68ea5bc6258c6bdaac0201aa"
+      }
+    },
+    {
+      "Sno": 13,
+      "_id": {
+        "$oid": "68f0af9ec967a93d2ba403b3"
+      }
+    }
+  ],
+  "assignId": [
+    {
+      "$oid": "68ea632b6a7cf6a39a71ada7"
+    },
+    {
+      "$oid": "68ed8c541ee72a280f7adaa2"
+    },
+    {
+      "$oid": "68f0afebc967a93d2ba407e2"
+    }
+  ],
+  "tfrId": [
+    {
+      "$oid": "68f0b06dc967a93d2ba40a25"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-16T08:44:29.344Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea47a8987bcd12cd3460e5"
+  },
+  "type": "VCL",
+  "name": "Vehicle 2 B1",
+  "ownedBy": "B1",
+  "purchaseId": [
+    {
+      "Sno": 2
+    },
+    {
+      "Sno": 3,
+      "_id": {
+        "$oid": "68ea55208d4986f9f86a21a5"
+      }
+    }
+  ],
+  "assignId": [
+    {
+      "$oid": "68ea646441d3fa5125cbee4a"
+    }
+  ],
+  "tfrId": [],
+  "createdAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-11T14:06:28.318Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea47a8987bcd12cd3460e6"
+  },
+  "type": "VCL",
+  "name": "Vehicle 3 B1",
+  "ownedBy": "B1",
+  "purchaseId": [
+    {
+      "Sno": 3
+    }
+  ],
+  "assignId": [],
+  "tfrId": [],
+  "createdAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea47a8987bcd12cd3460e7"
+  },
+  "type": "VCL",
+  "name": "Vehicle 4 B1",
+  "ownedBy": "B1",
+  "purchaseId": [
+    {
+      "Sno": 4
+    }
+  ],
+  "assignId": [],
+  "tfrId": [
+    {
+      "$oid": "68ed8ccd1ee72a280f7adf7d"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-13T23:35:41.546Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea47a8987bcd12cd3460e8"
+  },
+  "type": "WEA",
+  "name": "Weapons 1 B1",
+  "ownedBy": "B1",
+  "purchaseId": [
+    {
+      "Sno": 1
+    },
+    {
+      "Sno": 2,
+      "_id": {
+        "$oid": "68ea54398d4986f9f86a2128"
+      }
+    },
+    {
+      "Sno": 6,
+      "_id": {
+        "$oid": "68ea5bc6258c6bdaac0201ac"
+      }
+    }
+  ],
+  "assignId": [
+    {
+      "$oid": "68ea632b6a7cf6a39a71ada7"
+    },
+    {
+      "$oid": "68ed8c521ee72a280f7ad9a7"
+    }
+  ],
+  "tfrId": [],
+  "createdAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-13T23:33:38.747Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea47a8987bcd12cd3460e9"
+  },
+  "type": "WEA",
+  "name": "Weapons 2 B1",
+  "ownedBy": "B1",
+  "purchaseId": [
+    {
+      "Sno": 2
+    },
+    {
+      "Sno": 3,
+      "_id": {
+        "$oid": "68ea55208d4986f9f86a21a7"
+      }
+    }
+  ],
+  "assignId": [
+    {
+      "$oid": "68ea646441d3fa5125cbee4a"
+    },
+    {
+      "$oid": "68ed8c541ee72a280f7adaa2"
+    },
+    {
+      "$oid": "68f0afebc967a93d2ba407e2"
+    }
+  ],
+  "tfrId": [],
+  "createdAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-16T08:42:19.187Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea47a8987bcd12cd3460ea"
+  },
+  "type": "WEA",
+  "name": "Weapons 3 B1",
+  "ownedBy": "B1",
+  "purchaseId": [
+    {
+      "Sno": 3
+    }
+  ],
+  "assignId": [
+    {
+      "$oid": "68ed8c521ee72a280f7ad9a7"
+    }
+  ],
+  "tfrId": [],
+  "createdAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-13T23:33:38.747Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea47a8987bcd12cd3460eb"
+  },
+  "type": "WEA",
+  "name": "Weapons 4 B1",
+  "ownedBy": "B1",
+  "purchaseId": [
+    {
+      "Sno": 4
+    }
+  ],
+  "assignId": [],
+  "tfrId": [],
+  "createdAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea47a8987bcd12cd3460ec"
+  },
+  "type": "AMU",
+  "name": "Ammunition 1 B1",
+  "ownedBy": "B1",
+  "purchaseId": [
+    {
+      "Sno": 1
+    },
+    {
+      "Sno": 2,
+      "_id": {
+        "$oid": "68ea54398d4986f9f86a212a"
+      }
+    },
+    {
+      "Sno": 6,
+      "_id": {
+        "$oid": "68ea5bc6258c6bdaac0201ae"
+      }
+    }
+  ],
+  "assignId": [
+    {
+      "$oid": "68ea632b6a7cf6a39a71ada7"
+    }
+  ],
+  "tfrId": [
+    {
+      "$oid": "68f0b06dc967a93d2ba40a25"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-16T08:44:29.344Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea47a8987bcd12cd3460ed"
+  },
+  "type": "AMU",
+  "name": "Ammunition 2 B1",
+  "ownedBy": "B1",
+  "purchaseId": [
+    {
+      "Sno": 2
+    },
+    {
+      "Sno": 3,
+      "_id": {
+        "$oid": "68ea55208d4986f9f86a21a9"
+      }
+    }
+  ],
+  "assignId": [
+    {
+      "$oid": "68ea646441d3fa5125cbee4a"
+    }
+  ],
+  "tfrId": [],
+  "createdAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-11T14:06:28.319Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea47a8987bcd12cd3460ee"
+  },
+  "type": "AMU",
+  "name": "Ammunition 3 B1",
+  "ownedBy": "B1",
+  "purchaseId": [
+    {
+      "Sno": 3
+    },
+    {
+      "Sno": 5,
+      "_id": {
+        "$oid": "68ea58e888ada4132378b038"
+      }
+    }
+  ],
+  "assignId": [
+    {
+      "$oid": "68f0afebc967a93d2ba407e2"
+    }
+  ],
+  "tfrId": [],
+  "createdAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-16T08:42:19.187Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea47a8987bcd12cd3460ef"
+  },
+  "type": "AMU",
+  "name": "Ammunition 4 B1",
+  "ownedBy": "B1",
+  "purchaseId": [
+    {
+      "Sno": 4
+    }
+  ],
+  "assignId": [],
+  "tfrId": [
+    {
+      "$oid": "68ed8ccd1ee72a280f7adf7d"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-13T23:35:41.546Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea47a8987bcd12cd3460f1"
+  },
+  "type": "VCL",
+  "name": "Vehicle 1 B2",
+  "ownedBy": "B2",
+  "purchaseId": [
+    {
+      "Sno": 1
+    },
+    {
+      "Sno": 8,
+      "_id": {
+        "$oid": "68ed8c1d1ee72a280f7ad5f1"
+      }
+    },
+    {
+      "Sno": 11,
+      "_id": {
+        "$oid": "68ee9e435a0015be1483a819"
+      }
+    }
+  ],
+  "assignId": [
+    {
+      "$oid": "68ed8ea11ee72a280f7ae52b"
+    }
+  ],
+  "tfrId": [
+    {
+      "$oid": "68ed8edc1ee72a280f7ae5fb"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-14T19:02:27.262Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea47a8987bcd12cd3460f2"
+  },
+  "type": "VCL",
+  "name": "Vehicle 2 B2",
+  "ownedBy": "B2",
+  "purchaseId": [
+    {
+      "Sno": 2
+    },
+    {
+      "Sno": 8,
+      "_id": {
+        "$oid": "68ed8c1d1ee72a280f7ad5f3"
+      }
+    },
+    {
+      "Sno": 9,
+      "_id": {
+        "$oid": "68ed8e691ee72a280f7ae3cf"
+      }
+    },
+    {
+      "Sno": 11,
+      "_id": {
+        "$oid": "68ee9e435a0015be1483a81b"
+      }
+    }
+  ],
+  "assignId": [],
+  "tfrId": [],
+  "createdAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-14T19:02:27.264Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea47a8987bcd12cd3460f3"
+  },
+  "type": "VCL",
+  "name": "Vehicle 3 B2",
+  "ownedBy": "B2",
+  "purchaseId": [
+    {
+      "Sno": 3
+    }
+  ],
+  "assignId": [
+    {
+      "$oid": "68ed8ea11ee72a280f7ae52b"
+    }
+  ],
+  "tfrId": [],
+  "createdAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-13T23:43:29.593Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea47a8987bcd12cd3460f4"
+  },
+  "type": "VCL",
+  "name": "Vehicle 4 B2",
+  "ownedBy": "B2",
+  "purchaseId": [
+    {
+      "Sno": 4
+    }
+  ],
+  "assignId": [],
+  "tfrId": [],
+  "createdAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea47a8987bcd12cd3460f5"
+  },
+  "type": "WEA",
+  "name": "Weapons 1 B2",
+  "ownedBy": "B2",
+  "purchaseId": [
+    {
+      "Sno": 1
+    },
+    {
+      "Sno": 8,
+      "_id": {
+        "$oid": "68ed8c1d1ee72a280f7ad5f5"
+      }
+    },
+    {
+      "Sno": 9,
+      "_id": {
+        "$oid": "68ed8e691ee72a280f7ae3d1"
+      }
+    }
+  ],
+  "assignId": [],
+  "tfrId": [
+    {
+      "$oid": "68ed8edc1ee72a280f7ae5fb"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-13T23:44:28.432Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea47a8987bcd12cd3460f6"
+  },
+  "type": "WEA",
+  "name": "Weapons 2 B2",
+  "ownedBy": "B2",
+  "purchaseId": [
+    {
+      "Sno": 2
+    }
+  ],
+  "assignId": [],
+  "tfrId": [],
+  "createdAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea47a8987bcd12cd3460f7"
+  },
+  "type": "WEA",
+  "name": "Weapons 3 B2",
+  "ownedBy": "B2",
+  "purchaseId": [
+    {
+      "Sno": 3
+    }
+  ],
+  "assignId": [],
+  "tfrId": [],
+  "createdAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea47a8987bcd12cd3460f8"
+  },
+  "type": "WEA",
+  "name": "Weapons 4 B2",
+  "ownedBy": "B2",
+  "purchaseId": [
+    {
+      "Sno": 4
+    }
+  ],
+  "assignId": [],
+  "tfrId": [],
+  "createdAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea47a8987bcd12cd3460f9"
+  },
+  "type": "AMU",
+  "name": "Ammunition 1 B2",
+  "ownedBy": "B2",
+  "purchaseId": [
+    {
+      "Sno": 1
+    },
+    {
+      "Sno": 9,
+      "_id": {
+        "$oid": "68ed8e691ee72a280f7ae3d3"
+      }
+    }
+  ],
+  "assignId": [
+    {
+      "$oid": "68ed8e9f1ee72a280f7ae4c1"
+    }
+  ],
+  "tfrId": [],
+  "createdAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-13T23:43:27.686Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea47a8987bcd12cd3460fa"
+  },
+  "type": "AMU",
+  "name": "Ammunition 2 B2",
+  "ownedBy": "B2",
+  "purchaseId": [
+    {
+      "Sno": 2
+    }
+  ],
+  "assignId": [
+    {
+      "$oid": "68ed8e9d1ee72a280f7ae45c"
+    },
+    {
+      "$oid": "68ed8e9f1ee72a280f7ae4c1"
+    },
+    {
+      "$oid": "68ed8ea11ee72a280f7ae52b"
+    }
+  ],
+  "tfrId": [],
+  "createdAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-13T23:43:29.593Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea47a8987bcd12cd3460fb"
+  },
+  "type": "AMU",
+  "name": "Ammunition 3 B2",
+  "ownedBy": "B2",
+  "purchaseId": [
+    {
+      "Sno": 3
+    }
+  ],
+  "assignId": [],
+  "tfrId": [],
+  "createdAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea47a8987bcd12cd3460fc"
+  },
+  "type": "AMU",
+  "name": "Ammunition 4 B2",
+  "ownedBy": "B2",
+  "purchaseId": [
+    {
+      "Sno": 4
+    }
+  ],
+  "assignId": [],
+  "tfrId": [],
+  "createdAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea47a9987bcd12cd3460fe"
+  },
+  "type": "VCL",
+  "name": "Vehicle 1 B3",
+  "ownedBy": "B3",
+  "purchaseId": [
+    {
+      "Sno": 1
+    },
+    {
+      "Sno": 7,
+      "_id": {
+        "$oid": "68ed8a761ee72a280f7acb39"
+      }
+    },
+    {
+      "Sno": 10,
+      "_id": {
+        "$oid": "68ed8ff01ee72a280f7af3c5"
+      }
+    }
+  ],
+  "assignId": [
+    {
+      "$oid": "68ed8ab51ee72a280f7acbbc"
+    },
+    {
+      "$oid": "68ed8ab71ee72a280f7acc15"
+    },
+    {
+      "$oid": "68ed90161ee72a280f7af465"
+    }
+  ],
+  "tfrId": [
+    {
+      "$oid": "68ed8af91ee72a280f7acd2c"
+    },
+    {
+      "$oid": "68ee9d2848c164c2030b65a4"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-14T18:57:44.867Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea47a9987bcd12cd3460ff"
+  },
+  "type": "VCL",
+  "name": "Vehicle 2 B3",
+  "ownedBy": "B3",
+  "purchaseId": [
+    {
+      "Sno": 2
+    },
+    {
+      "Sno": 7,
+      "_id": {
+        "$oid": "68ed8a761ee72a280f7acb3b"
+      }
+    },
+    {
+      "Sno": 10,
+      "_id": {
+        "$oid": "68ed8ff01ee72a280f7af3c7"
+      }
+    }
+  ],
+  "assignId": [
+    {
+      "$oid": "68ee9d3948c164c2030b6650"
+    }
+  ],
+  "tfrId": [
+    {
+      "$oid": "68ed90411ee72a280f7af5c6"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-14T18:58:01.321Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea47a9987bcd12cd346100"
+  },
+  "type": "VCL",
+  "name": "Vehicle 3 B3",
+  "ownedBy": "B3",
+  "purchaseId": [
+    {
+      "Sno": 3
+    }
+  ],
+  "assignId": [
+    {
+      "$oid": "68ed90161ee72a280f7af465"
+    }
+  ],
+  "tfrId": [
+    {
+      "$oid": "68ed90411ee72a280f7af5c6"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-13T23:50:25.882Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea47a9987bcd12cd346101"
+  },
+  "type": "VCL",
+  "name": "Vehicle 4 B3",
+  "ownedBy": "B3",
+  "purchaseId": [
+    {
+      "Sno": 4
+    }
+  ],
+  "assignId": [],
+  "tfrId": [],
+  "createdAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea47a9987bcd12cd346102"
+  },
+  "type": "WEA",
+  "name": "Weapons 1 B3",
+  "ownedBy": "B3",
+  "purchaseId": [
+    {
+      "Sno": 1
+    },
+    {
+      "Sno": 7,
+      "_id": {
+        "$oid": "68ed8a761ee72a280f7acb3d"
+      }
+    },
+    {
+      "Sno": 10,
+      "_id": {
+        "$oid": "68ed8ff01ee72a280f7af3cb"
+      }
+    }
+  ],
+  "assignId": [],
+  "tfrId": [
+    {
+      "$oid": "68ed8af91ee72a280f7acd2c"
+    },
+    {
+      "$oid": "68ed8b311ee72a280f7ad02a"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-13T23:49:04.730Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea47a9987bcd12cd346103"
+  },
+  "type": "WEA",
+  "name": "Weapons 2 B3",
+  "ownedBy": "B3",
+  "purchaseId": [
+    {
+      "Sno": 2
+    }
+  ],
+  "assignId": [
+    {
+      "$oid": "68ed8ab51ee72a280f7acbbc"
+    },
+    {
+      "$oid": "68ed8ab71ee72a280f7acc15"
+    },
+    {
+      "$oid": "68ed8ab81ee72a280f7acc74"
+    },
+    {
+      "$oid": "68ed901a1ee72a280f7af4df"
+    }
+  ],
+  "tfrId": [],
+  "createdAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-13T23:49:46.604Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea47a9987bcd12cd346104"
+  },
+  "type": "WEA",
+  "name": "Weapons 3 B3",
+  "ownedBy": "B3",
+  "purchaseId": [
+    {
+      "Sno": 3
+    }
+  ],
+  "assignId": [],
+  "tfrId": [],
+  "createdAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea47a9987bcd12cd346105"
+  },
+  "type": "WEA",
+  "name": "Weapons 4 B3",
+  "ownedBy": "B3",
+  "purchaseId": [
+    {
+      "Sno": 4
+    }
+  ],
+  "assignId": [],
+  "tfrId": [],
+  "createdAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea47a9987bcd12cd346106"
+  },
+  "type": "AMU",
+  "name": "Ammunition 1 B3",
+  "ownedBy": "B3",
+  "purchaseId": [
+    {
+      "Sno": 1
+    },
+    {
+      "Sno": 7,
+      "_id": {
+        "$oid": "68ed8a761ee72a280f7acb3f"
+      }
+    },
+    {
+      "Sno": 10,
+      "_id": {
+        "$oid": "68ed8ff01ee72a280f7af3c9"
+      }
+    }
+  ],
+  "assignId": [
+    {
+      "$oid": "68ed8ab81ee72a280f7acc74"
+    }
+  ],
+  "tfrId": [
+    {
+      "$oid": "68ed8af91ee72a280f7acd2c"
+    },
+    {
+      "$oid": "68ed8b311ee72a280f7ad02a"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-13T23:49:04.730Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea47a9987bcd12cd346107"
+  },
+  "type": "AMU",
+  "name": "Ammunition 2 B3",
+  "ownedBy": "B3",
+  "purchaseId": [
+    {
+      "Sno": 2
+    },
+    {
+      "Sno": 7,
+      "_id": {
+        "$oid": "68ed8a761ee72a280f7acb41"
+      }
+    }
+  ],
+  "assignId": [],
+  "tfrId": [],
+  "createdAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-13T23:25:42.809Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea47a9987bcd12cd346108"
+  },
+  "type": "AMU",
+  "name": "Ammunition 3 B3",
+  "ownedBy": "B3",
+  "purchaseId": [
+    {
+      "Sno": 3
+    }
+  ],
+  "assignId": [
+    {
+      "$oid": "68ed8ab71ee72a280f7acc15"
+    },
+    {
+      "$oid": "68ed8ab81ee72a280f7acc74"
+    },
+    {
+      "$oid": "68ed901a1ee72a280f7af4df"
+    }
+  ],
+  "tfrId": [],
+  "createdAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-13T23:49:46.603Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea47a9987bcd12cd346109"
+  },
+  "type": "AMU",
+  "name": "Ammunition 4 B3",
+  "ownedBy": "B3",
+  "purchaseId": [
+    {
+      "Sno": 4
+    }
+  ],
+  "assignId": [],
+  "tfrId": [],
+  "createdAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea47a9987bcd12cd34610b"
+  },
+  "type": "VCL",
+  "name": "Vehicle 1 B4",
+  "ownedBy": "B4",
+  "purchaseId": [
+    {
+      "Sno": 1
+    },
+    {
+      "Sno": 12,
+      "_id": {
+        "$oid": "68eea0d71d443f58f2e0aac4"
+      }
+    }
+  ],
+  "assignId": [
+    {
+      "$oid": "68eea1031d443f58f2e0ab6d"
+    }
+  ],
+  "tfrId": [
+    {
+      "$oid": "68ed8f011ee72a280f7ae889"
+    },
+    {
+      "$oid": "68eea1281d443f58f2e0ac48"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-14T19:14:48.955Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea47a9987bcd12cd34610c"
+  },
+  "type": "VCL",
+  "name": "Vehicle 2 B4",
+  "ownedBy": "B4",
+  "purchaseId": [
+    {
+      "Sno": 2
+    }
+  ],
+  "assignId": [],
+  "tfrId": [],
+  "createdAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea47a9987bcd12cd34610d"
+  },
+  "type": "VCL",
+  "name": "Vehicle 3 B4",
+  "ownedBy": "B4",
+  "purchaseId": [
+    {
+      "Sno": 3
+    }
+  ],
+  "assignId": [],
+  "tfrId": [],
+  "createdAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea47a9987bcd12cd34610e"
+  },
+  "type": "VCL",
+  "name": "Vehicle 4 B4",
+  "ownedBy": "B4",
+  "purchaseId": [
+    {
+      "Sno": 4
+    }
+  ],
+  "assignId": [],
+  "tfrId": [],
+  "createdAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea47a9987bcd12cd34610f"
+  },
+  "type": "WEA",
+  "name": "Weapons 1 B4",
+  "ownedBy": "B4",
+  "purchaseId": [
+    {
+      "Sno": 1
+    }
+  ],
+  "assignId": [],
+  "tfrId": [],
+  "createdAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea47a9987bcd12cd346110"
+  },
+  "type": "WEA",
+  "name": "Weapons 2 B4",
+  "ownedBy": "B4",
+  "purchaseId": [
+    {
+      "Sno": 2
+    }
+  ],
+  "assignId": [],
+  "tfrId": [
+    {
+      "$oid": "68ed90651ee72a280f7af881"
+    },
+    {
+      "$oid": "68eea1281d443f58f2e0ac48"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-14T19:14:48.956Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea47a9987bcd12cd346111"
+  },
+  "type": "WEA",
+  "name": "Weapons 3 B4",
+  "ownedBy": "B4",
+  "purchaseId": [
+    {
+      "Sno": 3
+    }
+  ],
+  "assignId": [
+    {
+      "$oid": "68eea1031d443f58f2e0ab6d"
+    }
+  ],
+  "tfrId": [],
+  "createdAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-14T19:14:11.216Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea47a9987bcd12cd346112"
+  },
+  "type": "WEA",
+  "name": "Weapons 4 B4",
+  "ownedBy": "B4",
+  "purchaseId": [
+    {
+      "Sno": 4
+    }
+  ],
+  "assignId": [],
+  "tfrId": [],
+  "createdAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea47a9987bcd12cd346113"
+  },
+  "type": "AMU",
+  "name": "Ammunition 1 B4",
+  "ownedBy": "B4",
+  "purchaseId": [
+    {
+      "Sno": 1
+    }
+  ],
+  "assignId": [
+    {
+      "$oid": "68eea1051d443f58f2e0abba"
+    }
+  ],
+  "tfrId": [
+    {
+      "$oid": "68eea1281d443f58f2e0ac48"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-14T19:14:48.956Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea47a9987bcd12cd346114"
+  },
+  "type": "AMU",
+  "name": "Ammunition 2 B4",
+  "ownedBy": "B4",
+  "purchaseId": [
+    {
+      "Sno": 2
+    }
+  ],
+  "assignId": [],
+  "tfrId": [],
+  "createdAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea47a9987bcd12cd346115"
+  },
+  "type": "AMU",
+  "name": "Ammunition 3 B4",
+  "ownedBy": "B4",
+  "purchaseId": [
+    {
+      "Sno": 3
+    }
+  ],
+  "assignId": [
+    {
+      "$oid": "68eea1001d443f58f2e0ab25"
+    }
+  ],
+  "tfrId": [],
+  "createdAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-14T19:14:08.496Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea47a9987bcd12cd346116"
+  },
+  "type": "AMU",
+  "name": "Ammunition 4 B4",
+  "ownedBy": "B4",
+  "purchaseId": [
+    {
+      "Sno": 4
+    }
+  ],
+  "assignId": [
+    {
+      "$oid": "68eea1051d443f58f2e0abba"
+    }
+  ],
+  "tfrId": [],
+  "createdAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-14T19:14:13.547Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea4e19006b82b61f25f563"
+  },
+  "type": "VCL",
+  "name": "Vehicle 0 B1",
+  "ownedBy": {
+    "$oid": "68ea47a8987bcd12cd3460f0"
+  },
+  "purchaseId": [
+    {
+      "Sno": 1,
+      "_id": {
+        "$oid": "68ea4e19006b82b61f25f564"
+      }
+    }
+  ],
+  "assignId": [],
+  "tfrId": [],
+  "createdAt": {
+    "$date": "2025-09-14T18:30:00.000Z"
+  },
+  "__v": 0,
+  "updatedAt": {
+    "$date": "2025-10-11T12:31:21.043Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea4e19006b82b61f25f565"
+  },
+  "type": "VCL",
+  "name": "Vehicle 0.1 B1",
+  "ownedBy": {
+    "$oid": "68ea47a8987bcd12cd3460f0"
+  },
+  "purchaseId": [
+    {
+      "Sno": 1,
+      "_id": {
+        "$oid": "68ea4e19006b82b61f25f566"
+      }
+    }
+  ],
+  "assignId": [
+    {
+      "$oid": "68ea6654c75e9bbe009303a1"
+    }
+  ],
+  "tfrId": [],
+  "createdAt": {
+    "$date": "2025-09-14T18:30:00.000Z"
+  },
+  "__v": 0,
+  "updatedAt": {
+    "$date": "2025-10-11T14:14:44.139Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea4e19006b82b61f25f567"
+  },
+  "type": "VCL",
+  "name": "Vehicle 0.2 B1",
+  "ownedBy": {
+    "$oid": "68ea47a8987bcd12cd3460f0"
+  },
+  "purchaseId": [
+    {
+      "Sno": 1,
+      "_id": {
+        "$oid": "68ea4e19006b82b61f25f568"
+      }
+    }
+  ],
+  "assignId": [
+    {
+      "$oid": "68ea6654c75e9bbe009303a1"
+    }
+  ],
+  "tfrId": [],
+  "createdAt": {
+    "$date": "2025-09-14T18:30:00.000Z"
+  },
+  "__v": 0,
+  "updatedAt": {
+    "$date": "2025-10-11T14:14:44.140Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea4e19006b82b61f25f569"
+  },
+  "type": "VCL",
+  "name": "Vehicle 0.3 B1",
+  "ownedBy": {
+    "$oid": "68ea47a8987bcd12cd3460f0"
+  },
+  "purchaseId": [
+    {
+      "Sno": 1,
+      "_id": {
+        "$oid": "68ea4e19006b82b61f25f56a"
+      }
+    }
+  ],
+  "assignId": [],
+  "tfrId": [],
+  "createdAt": {
+    "$date": "2025-09-14T18:30:00.000Z"
+  },
+  "__v": 0,
+  "updatedAt": {
+    "$date": "2025-10-11T12:31:21.044Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea551f8d4986f9f86a219e"
+  },
+  "type": "VCL",
+  "name": "Vehicle 9 B1",
+  "ownedBy": {
+    "$oid": "68ea47a8987bcd12cd3460f0"
+  },
+  "purchaseId": [
+    {
+      "Sno": 3,
+      "_id": {
+        "$oid": "68ea551f8d4986f9f86a219f"
+      }
+    }
+  ],
+  "assignId": [
+    {
+      "$oid": "68ea65ab129fcef28d302ef5"
+    }
+  ],
+  "tfrId": [],
+  "createdAt": {
+    "$date": "2025-09-09T18:30:00.000Z"
+  },
+  "__v": 0,
+  "updatedAt": {
+    "$date": "2025-10-11T14:11:55.223Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea551f8d4986f9f86a21a0"
+  },
+  "type": "WEA",
+  "name": "Weapons 7 B1",
+  "ownedBy": {
+    "$oid": "68ea47a8987bcd12cd3460f0"
+  },
+  "purchaseId": [
+    {
+      "Sno": 3,
+      "_id": {
+        "$oid": "68ea551f8d4986f9f86a21a1"
+      }
+    }
+  ],
+  "assignId": [
+    {
+      "$oid": "68ea65ab129fcef28d302ef5"
+    }
+  ],
+  "tfrId": [],
+  "createdAt": {
+    "$date": "2025-09-09T18:30:00.000Z"
+  },
+  "__v": 0,
+  "updatedAt": {
+    "$date": "2025-10-11T14:11:55.225Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea551f8d4986f9f86a21a2"
+  },
+  "type": "AMU",
+  "name": "Ammunition 5 B1",
+  "ownedBy": {
+    "$oid": "68ea47a8987bcd12cd3460f0"
+  },
+  "purchaseId": [
+    {
+      "Sno": 3,
+      "_id": {
+        "$oid": "68ea551f8d4986f9f86a21a3"
+      }
+    }
+  ],
+  "assignId": [
+    {
+      "$oid": "68ea65ab129fcef28d302ef5"
+    }
+  ],
+  "tfrId": [],
+  "createdAt": {
+    "$date": "2025-09-09T18:30:00.000Z"
+  },
+  "__v": 0,
+  "updatedAt": {
+    "$date": "2025-10-11T14:11:55.225Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea577addde11d7930220db"
+  },
+  "type": "VCL",
+  "name": "Vehicle 10 B1",
+  "ownedBy": {
+    "$oid": "68ea47a8987bcd12cd3460f0"
+  },
+  "purchaseId": [
+    {
+      "Sno": 4,
+      "_id": {
+        "$oid": "68ea577addde11d7930220dc"
+      }
+    },
+    {
+      "Sno": 5,
+      "_id": {
+        "$oid": "68ea58e888ada4132378b034"
+      }
+    }
+  ],
+  "assignId": [],
+  "tfrId": [],
+  "createdAt": {
+    "$date": "2025-09-15T18:30:00.000Z"
+  },
+  "__v": 0,
+  "updatedAt": {
+    "$date": "2025-10-11T13:17:28.144Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea577addde11d7930220dd"
+  },
+  "type": "VCL",
+  "name": "Vehicle 11 B1",
+  "ownedBy": {
+    "$oid": "68ea47a8987bcd12cd3460f0"
+  },
+  "purchaseId": [
+    {
+      "Sno": 4,
+      "_id": {
+        "$oid": "68ea577addde11d7930220de"
+      }
+    }
+  ],
+  "assignId": [],
+  "tfrId": [],
+  "createdAt": {
+    "$date": "2025-09-15T18:30:00.000Z"
+  },
+  "__v": 0,
+  "updatedAt": {
+    "$date": "2025-10-11T13:11:22.354Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea577addde11d7930220df"
+  },
+  "type": "WEA",
+  "name": "Weapons5 B1",
+  "ownedBy": {
+    "$oid": "68ea47a8987bcd12cd3460f0"
+  },
+  "purchaseId": [
+    {
+      "Sno": 4,
+      "_id": {
+        "$oid": "68ea577addde11d7930220e0"
+      }
+    }
+  ],
+  "assignId": [],
+  "tfrId": [],
+  "createdAt": {
+    "$date": "2025-09-15T18:30:00.000Z"
+  },
+  "__v": 0,
+  "updatedAt": {
+    "$date": "2025-10-11T13:11:22.354Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea577addde11d7930220e1"
+  },
+  "type": "WEA",
+  "name": "Weapons 6 B1",
+  "ownedBy": {
+    "$oid": "68ea47a8987bcd12cd3460f0"
+  },
+  "purchaseId": [
+    {
+      "Sno": 4,
+      "_id": {
+        "$oid": "68ea577addde11d7930220e2"
+      }
+    },
+    {
+      "Sno": 5,
+      "_id": {
+        "$oid": "68ea58e888ada4132378b036"
+      }
+    }
+  ],
+  "assignId": [
+    {
+      "$oid": "68ed8c501ee72a280f7ad8b7"
+    }
+  ],
+  "tfrId": [],
+  "createdAt": {
+    "$date": "2025-09-15T18:30:00.000Z"
+  },
+  "__v": 0,
+  "updatedAt": {
+    "$date": "2025-10-13T23:33:37.010Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea577addde11d7930220e3"
+  },
+  "type": "AMU",
+  "name": "Ammunition 6 B1",
+  "ownedBy": {
+    "$oid": "68ea47a8987bcd12cd3460f0"
+  },
+  "purchaseId": [
+    {
+      "Sno": 4,
+      "_id": {
+        "$oid": "68ea577addde11d7930220e4"
+      }
+    }
+  ],
+  "assignId": [
+    {
+      "$oid": "68ea6654c75e9bbe009303a1"
+    }
+  ],
+  "tfrId": [],
+  "createdAt": {
+    "$date": "2025-09-15T18:30:00.000Z"
+  },
+  "__v": 0,
+  "updatedAt": {
+    "$date": "2025-10-11T14:14:44.140Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea577addde11d7930220e5"
+  },
+  "type": "AMU",
+  "name": "Ammunition 7 B1",
+  "ownedBy": {
+    "$oid": "68ea47a8987bcd12cd3460f0"
+  },
+  "purchaseId": [
+    {
+      "Sno": 4,
+      "_id": {
+        "$oid": "68ea577addde11d7930220e6"
+      }
+    }
+  ],
+  "assignId": [],
+  "tfrId": [],
+  "createdAt": {
+    "$date": "2025-09-15T18:30:00.000Z"
+  },
+  "__v": 0,
+  "updatedAt": {
+    "$date": "2025-10-11T13:11:22.355Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea577addde11d7930220e7"
+  },
+  "type": "AMU",
+  "name": "Ammunition 8 B1",
+  "ownedBy": {
+    "$oid": "68ea47a8987bcd12cd3460f0"
+  },
+  "purchaseId": [
+    {
+      "Sno": 4,
+      "_id": {
+        "$oid": "68ea577addde11d7930220e8"
+      }
+    }
+  ],
+  "assignId": [],
+  "tfrId": [],
+  "createdAt": {
+    "$date": "2025-09-15T18:30:00.000Z"
+  },
+  "__v": 0,
+  "updatedAt": {
+    "$date": "2025-10-11T13:11:22.355Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea58e888ada4132378b02d"
+  },
+  "type": "VCL",
+  "name": "Vehicle 12 B1",
+  "ownedBy": {
+    "$oid": "68ea47a8987bcd12cd3460f0"
+  },
+  "purchaseId": [
+    {
+      "Sno": 5,
+      "_id": {
+        "$oid": "68ea58e888ada4132378b02e"
+      }
+    }
+  ],
+  "assignId": [],
+  "tfrId": [],
+  "createdAt": {
+    "$date": "2025-09-17T18:30:00.000Z"
+  },
+  "__v": 0,
+  "updatedAt": {
+    "$date": "2025-10-11T13:17:28.107Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea58e888ada4132378b02f"
+  },
+  "type": "WEA",
+  "name": "Weapons 8 B1",
+  "ownedBy": {
+    "$oid": "68ea47a8987bcd12cd3460f0"
+  },
+  "purchaseId": [
+    {
+      "Sno": 5,
+      "_id": {
+        "$oid": "68ea58e888ada4132378b030"
+      }
+    }
+  ],
+  "assignId": [
+    {
+      "$oid": "68ed8c521ee72a280f7ad9a7"
+    }
+  ],
+  "tfrId": [],
+  "createdAt": {
+    "$date": "2025-09-17T18:30:00.000Z"
+  },
+  "__v": 0,
+  "updatedAt": {
+    "$date": "2025-10-13T23:33:38.747Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea58e888ada4132378b031"
+  },
+  "type": "AMU",
+  "name": "Ammunition 9 B1",
+  "ownedBy": {
+    "$oid": "68ea47a8987bcd12cd3460f0"
+  },
+  "purchaseId": [
+    {
+      "Sno": 5,
+      "_id": {
+        "$oid": "68ea58e888ada4132378b032"
+      }
+    }
+  ],
+  "assignId": [],
+  "tfrId": [],
+  "createdAt": {
+    "$date": "2025-09-17T18:30:00.000Z"
+  },
+  "__v": 0,
+  "updatedAt": {
+    "$date": "2025-10-11T13:17:28.108Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea5bc6258c6bdaac0201a3"
+  },
+  "type": "VCL",
+  "name": "Vehicle Oct B1",
+  "ownedBy": {
+    "$oid": "68ea47a8987bcd12cd3460f0"
+  },
+  "purchaseId": [
+    {
+      "Sno": 6,
+      "_id": {
+        "$oid": "68ea5bc6258c6bdaac0201a4"
+      }
+    }
+  ],
+  "assignId": [],
+  "tfrId": [],
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-10-11T13:29:42.378Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-11T13:29:42.378Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea5bc6258c6bdaac0201a5"
+  },
+  "type": "WEA",
+  "name": "Weapons Oct B1",
+  "ownedBy": {
+    "$oid": "68ea47a8987bcd12cd3460f0"
+  },
+  "purchaseId": [
+    {
+      "Sno": 6,
+      "_id": {
+        "$oid": "68ea5bc6258c6bdaac0201a6"
+      }
+    }
+  ],
+  "assignId": [],
+  "tfrId": [],
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-10-11T13:29:42.380Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-11T13:29:42.380Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ea5bc6258c6bdaac0201a7"
+  },
+  "type": "AMU",
+  "name": "Ammunition Oct B1",
+  "ownedBy": {
+    "$oid": "68ea47a8987bcd12cd3460f0"
+  },
+  "purchaseId": [
+    {
+      "Sno": 6,
+      "_id": {
+        "$oid": "68ea5bc6258c6bdaac0201a8"
+      }
+    }
+  ],
+  "assignId": [],
+  "tfrId": [],
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-10-11T13:29:42.380Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-11T13:29:42.380Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ed8a761ee72a280f7acb36"
+  },
+  "type": "VCL",
+  "name": "Vehicle Oct 3",
+  "ownedBy": {
+    "$oid": "68ea47a9987bcd12cd34610a"
+  },
+  "purchaseId": [
+    {
+      "Sno": 7,
+      "_id": {
+        "$oid": "68ed8a761ee72a280f7acb37"
+      }
+    }
+  ],
+  "assignId": [],
+  "tfrId": [],
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-10-13T23:25:42.765Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-13T23:25:42.765Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ed8c1d1ee72a280f7ad5ee"
+  },
+  "type": "VCL",
+  "name": "Vehicle Oct 3",
+  "ownedBy": {
+    "$oid": "68ea47a9987bcd12cd3460fd"
+  },
+  "purchaseId": [
+    {
+      "Sno": 8,
+      "_id": {
+        "$oid": "68ed8c1d1ee72a280f7ad5ef"
+      }
+    }
+  ],
+  "assignId": [],
+  "tfrId": [],
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-10-13T23:32:45.771Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-13T23:32:45.771Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ed8e691ee72a280f7ae3cc"
+  },
+  "type": "VCL",
+  "name": "Vehicle Oct 3",
+  "ownedBy": {
+    "$oid": "68ea47a9987bcd12cd3460fd"
+  },
+  "purchaseId": [
+    {
+      "Sno": 9,
+      "_id": {
+        "$oid": "68ed8e691ee72a280f7ae3cd"
+      }
+    }
+  ],
+  "assignId": [],
+  "tfrId": [],
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-10-13T23:42:33.360Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-13T23:42:33.360Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ed8ff01ee72a280f7af3c2"
+  },
+  "type": "VCL",
+  "name": "Vehicle 5 B1",
+  "ownedBy": {
+    "$oid": "68ea47a9987bcd12cd34610a"
+  },
+  "purchaseId": [
+    {
+      "Sno": 10,
+      "_id": {
+        "$oid": "68ed8ff01ee72a280f7af3c3"
+      }
+    }
+  ],
+  "assignId": [],
+  "tfrId": [],
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-10-13T23:49:04.698Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-13T23:49:04.698Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68eea0d71d443f58f2e0aac1"
+  },
+  "type": "VCL",
+  "name": "Vehicle 5 B1",
+  "ownedBy": {
+    "$oid": "68ea47a9987bcd12cd346117"
+  },
+  "purchaseId": [
+    {
+      "Sno": 12,
+      "_id": {
+        "$oid": "68eea0d71d443f58f2e0aac2"
+      }
+    }
+  ],
+  "assignId": [],
+  "tfrId": [],
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-10-14T19:13:27.219Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-14T19:13:27.219Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68f0af9ec967a93d2ba403b0"
+  },
+  "type": "VCL",
+  "name": "Vehicle Oct 3",
+  "ownedBy": {
+    "$oid": "68ea47a8987bcd12cd3460f0"
+  },
+  "purchaseId": [
+    {
+      "Sno": 13,
+      "_id": {
+        "$oid": "68f0af9ec967a93d2ba403b1"
+      }
+    }
+  ],
+  "assignId": [],
+  "tfrId": [],
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-10-16T08:41:02.134Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-16T08:41:02.134Z"
+  }
+}]

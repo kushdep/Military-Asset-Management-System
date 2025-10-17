@@ -1,0 +1,1618 @@
+[{
+  "_id": {
+    "$oid": "68ea47a8987bcd12cd3460f0"
+  },
+  "baseId": "B1",
+  "baseName": "Alpha Base 1",
+  "baseComm": "commB1@gmail.com",
+  "lgstcOff": "officerB1@gmail.com",
+  "inventory": {
+    "Vehicle": [
+      {
+        "qty": {
+          "value": 8,
+          "metric": "val"
+        },
+        "_id": {
+          "$oid": "68ea55208d4986f9f86a21b7"
+        },
+        "asset": {
+          "$oid": "68ea47a8987bcd12cd3460e4"
+        },
+        "OpeningBalQty": {
+          "September": 10
+        }
+      },
+      {
+        "qty": {
+          "value": 12,
+          "metric": "val"
+        },
+        "_id": {
+          "$oid": "68ea55208d4986f9f86a21b8"
+        },
+        "asset": {
+          "$oid": "68ea47a8987bcd12cd3460e5"
+        },
+        "OpeningBalQty": {
+          "September": 10
+        }
+      },
+      {
+        "qty": {
+          "value": 10,
+          "metric": "val"
+        },
+        "_id": {
+          "$oid": "68ea55208d4986f9f86a21b9"
+        },
+        "asset": {
+          "$oid": "68ea47a8987bcd12cd3460e6"
+        },
+        "OpeningBalQty": {
+          "September": 10
+        }
+      },
+      {
+        "qty": {
+          "value": 8,
+          "metric": "val"
+        },
+        "_id": {
+          "$oid": "68ea55208d4986f9f86a21ba"
+        },
+        "asset": {
+          "$oid": "68ea47a8987bcd12cd3460e7"
+        },
+        "OpeningBalQty": {
+          "September": 10
+        }
+      },
+      {
+        "qty": {
+          "value": 12,
+          "metric": "val"
+        },
+        "asset": {
+          "$oid": "68ea4e19006b82b61f25f563"
+        },
+        "OpeningBalQty": {
+          "September": 12
+        },
+        "_id": {
+          "$oid": "68ea4e19006b82b61f25f583"
+        }
+      },
+      {
+        "qty": {
+          "value": 6,
+          "metric": "val"
+        },
+        "asset": {
+          "$oid": "68ea4e19006b82b61f25f565"
+        },
+        "OpeningBalQty": {
+          "September": 10
+        },
+        "_id": {
+          "$oid": "68ea4e19006b82b61f25f584"
+        }
+      },
+      {
+        "qty": {
+          "value": 5,
+          "metric": "val"
+        },
+        "asset": {
+          "$oid": "68ea4e19006b82b61f25f567"
+        },
+        "OpeningBalQty": {
+          "September": 10
+        },
+        "_id": {
+          "$oid": "68ea4e19006b82b61f25f585"
+        }
+      },
+      {
+        "qty": {
+          "value": 10,
+          "metric": "val"
+        },
+        "asset": {
+          "$oid": "68ea4e19006b82b61f25f569"
+        },
+        "OpeningBalQty": {
+          "September": 10
+        },
+        "_id": {
+          "$oid": "68ea4e19006b82b61f25f586"
+        }
+      },
+      {
+        "qty": {
+          "value": 1,
+          "metric": "val"
+        },
+        "asset": {
+          "$oid": "68ea551f8d4986f9f86a219e"
+        },
+        "OpeningBalQty": {
+          "September": 2
+        },
+        "_id": {
+          "$oid": "68ea55208d4986f9f86a21cb"
+        }
+      },
+      {
+        "qty": {
+          "value": 6,
+          "metric": "val"
+        },
+        "asset": {
+          "$oid": "68ea577addde11d7930220db"
+        },
+        "OpeningBalQty": {
+          "September": 2
+        },
+        "_id": {
+          "$oid": "68ea577addde11d79302210b"
+        }
+      },
+      {
+        "qty": {
+          "value": 3,
+          "metric": "val"
+        },
+        "asset": {
+          "$oid": "68ea577addde11d7930220dd"
+        },
+        "OpeningBalQty": {
+          "September": 3
+        },
+        "_id": {
+          "$oid": "68ea577addde11d79302210c"
+        }
+      },
+      {
+        "qty": {
+          "value": 9,
+          "metric": "val"
+        },
+        "asset": {
+          "$oid": "68ea58e888ada4132378b02d"
+        },
+        "OpeningBalQty": {
+          "September": 9
+        },
+        "_id": {
+          "$oid": "68ea58e888ada4132378b064"
+        }
+      },
+      {
+        "qty": {
+          "value": 1,
+          "metric": "val"
+        },
+        "asset": {
+          "$oid": "68ea5bc6258c6bdaac0201a3"
+        },
+        "OpeningBalQty": {
+          "October": 1
+        },
+        "_id": {
+          "$oid": "68ea5bc6258c6bdaac0201e0"
+        }
+      },
+      {
+        "qty": {
+          "value": 5,
+          "metric": "val"
+        },
+        "asset": {
+          "$oid": "68ea47a9987bcd12cd3460fe"
+        },
+        "OpeningBalQty": {
+          "October": 3
+        },
+        "_id": {
+          "$oid": "68ed8b081ee72a280f7ace8c"
+        }
+      },
+      {
+        "qty": {
+          "value": 2,
+          "metric": "val"
+        },
+        "asset": {
+          "$oid": "68ea47a8987bcd12cd3460f1"
+        },
+        "OpeningBalQty": {
+          "October": 2
+        },
+        "_id": {
+          "$oid": "68ed8eee1ee72a280f7ae77c"
+        }
+      },
+      {
+        "qty": {
+          "value": 2,
+          "metric": "val"
+        },
+        "asset": {
+          "$oid": "68ea47a9987bcd12cd346100"
+        },
+        "OpeningBalQty": {
+          "October": 2
+        },
+        "_id": {
+          "$oid": "68ed90531ee72a280f7af767"
+        }
+      },
+      {
+        "qty": {
+          "value": 4,
+          "metric": "val"
+        },
+        "asset": {
+          "$oid": "68ea47a9987bcd12cd3460ff"
+        },
+        "OpeningBalQty": {
+          "October": 4
+        },
+        "_id": {
+          "$oid": "68ed90531ee72a280f7af768"
+        }
+      },
+      {
+        "asset": {
+          "$oid": "68f0af9ec967a93d2ba403b0"
+        },
+        "qty": {
+          "value": 2,
+          "metric": "val"
+        },
+        "OpeningBalQty": {
+          "October": 2
+        },
+        "_id": {
+          "$oid": "68f0af9ec967a93d2ba403e8"
+        }
+      }
+    ],
+    "Weapons": [
+      {
+        "qty": {
+          "value": 8,
+          "metric": "psc"
+        },
+        "_id": {
+          "$oid": "68ea55208d4986f9f86a21bf"
+        },
+        "asset": {
+          "$oid": "68ea47a8987bcd12cd3460e8"
+        },
+        "OpeningBalQty": {
+          "September": 10
+        }
+      },
+      {
+        "qty": {
+          "value": 7,
+          "metric": "psc"
+        },
+        "_id": {
+          "$oid": "68ea55208d4986f9f86a21c0"
+        },
+        "asset": {
+          "$oid": "68ea47a8987bcd12cd3460e9"
+        },
+        "OpeningBalQty": {
+          "September": 10
+        }
+      },
+      {
+        "qty": {
+          "value": 7,
+          "metric": "psc"
+        },
+        "_id": {
+          "$oid": "68ea55208d4986f9f86a21c1"
+        },
+        "asset": {
+          "$oid": "68ea47a8987bcd12cd3460ea"
+        },
+        "OpeningBalQty": {
+          "September": 10
+        }
+      },
+      {
+        "qty": {
+          "value": 10,
+          "metric": "psc"
+        },
+        "_id": {
+          "$oid": "68ea55208d4986f9f86a21c2"
+        },
+        "asset": {
+          "$oid": "68ea47a8987bcd12cd3460eb"
+        },
+        "OpeningBalQty": {
+          "September": 10
+        }
+      },
+      {
+        "qty": {
+          "value": 4,
+          "metric": "psc"
+        },
+        "asset": {
+          "$oid": "68ea551f8d4986f9f86a21a0"
+        },
+        "OpeningBalQty": {
+          "September": 7
+        },
+        "_id": {
+          "$oid": "68ea55208d4986f9f86a21cc"
+        }
+      },
+      {
+        "qty": {
+          "value": 7,
+          "metric": "psc"
+        },
+        "asset": {
+          "$oid": "68ea577addde11d7930220df"
+        },
+        "OpeningBalQty": {
+          "September": 7
+        },
+        "_id": {
+          "$oid": "68ea577addde11d79302210d"
+        }
+      },
+      {
+        "qty": {
+          "value": 23,
+          "metric": "psc"
+        },
+        "asset": {
+          "$oid": "68ea577addde11d7930220e1"
+        },
+        "OpeningBalQty": {
+          "September": 6
+        },
+        "_id": {
+          "$oid": "68ea577addde11d79302210e"
+        }
+      },
+      {
+        "qty": {
+          "value": 6,
+          "metric": "psc"
+        },
+        "asset": {
+          "$oid": "68ea58e888ada4132378b02f"
+        },
+        "OpeningBalQty": {
+          "September": 8
+        },
+        "_id": {
+          "$oid": "68ea58e888ada4132378b065"
+        }
+      },
+      {
+        "asset": {
+          "$oid": "68ea5bc6258c6bdaac0201a5"
+        },
+        "qty": {
+          "value": 1,
+          "metric": "psc"
+        },
+        "OpeningBalQty": {
+          "October": 1
+        },
+        "_id": {
+          "$oid": "68ea5bc6258c6bdaac0201e1"
+        }
+      },
+      {
+        "asset": {
+          "$oid": "68ea47a9987bcd12cd346102"
+        },
+        "qty": {
+          "value": 2,
+          "metric": "psc"
+        },
+        "OpeningBalQty": {
+          "October": 2
+        },
+        "_id": {
+          "$oid": "68ed8b081ee72a280f7ace8e"
+        }
+      },
+      {
+        "asset": {
+          "$oid": "68ea47a8987bcd12cd3460f5"
+        },
+        "qty": {
+          "value": 2,
+          "metric": "psc"
+        },
+        "OpeningBalQty": {
+          "October": 2
+        },
+        "_id": {
+          "$oid": "68ed8eee1ee72a280f7ae77d"
+        }
+      }
+    ],
+    "Ammunition": [
+      {
+        "qty": {
+          "value": 10,
+          "metric": "boxes"
+        },
+        "_id": {
+          "$oid": "68ea55208d4986f9f86a21c3"
+        },
+        "asset": {
+          "$oid": "68ea47a8987bcd12cd3460ec"
+        },
+        "OpeningBalQty": {
+          "September": 10
+        }
+      },
+      {
+        "qty": {
+          "value": 7,
+          "metric": "boxes"
+        },
+        "_id": {
+          "$oid": "68ea55208d4986f9f86a21c4"
+        },
+        "asset": {
+          "$oid": "68ea47a8987bcd12cd3460ed"
+        },
+        "OpeningBalQty": {
+          "September": 10
+        }
+      },
+      {
+        "qty": {
+          "value": 38,
+          "metric": "boxes"
+        },
+        "_id": {
+          "$oid": "68ea55208d4986f9f86a21c5"
+        },
+        "asset": {
+          "$oid": "68ea47a8987bcd12cd3460ee"
+        },
+        "OpeningBalQty": {
+          "September": 10
+        }
+      },
+      {
+        "qty": {
+          "value": 6,
+          "metric": "boxes"
+        },
+        "_id": {
+          "$oid": "68ea55208d4986f9f86a21c6"
+        },
+        "asset": {
+          "$oid": "68ea47a8987bcd12cd3460ef"
+        },
+        "OpeningBalQty": {
+          "September": 10
+        }
+      },
+      {
+        "qty": {
+          "value": 14,
+          "metric": "boxes"
+        },
+        "asset": {
+          "$oid": "68ea551f8d4986f9f86a21a2"
+        },
+        "OpeningBalQty": {
+          "September": 21
+        },
+        "_id": {
+          "$oid": "68ea55208d4986f9f86a21cd"
+        }
+      },
+      {
+        "qty": {
+          "value": 12,
+          "metric": "boxes"
+        },
+        "asset": {
+          "$oid": "68ea577addde11d7930220e3"
+        },
+        "OpeningBalQty": {
+          "September": 22
+        },
+        "_id": {
+          "$oid": "68ea577addde11d79302210f"
+        }
+      },
+      {
+        "qty": {
+          "value": 1,
+          "metric": "boxes"
+        },
+        "asset": {
+          "$oid": "68ea577addde11d7930220e5"
+        },
+        "OpeningBalQty": {
+          "September": 1
+        },
+        "_id": {
+          "$oid": "68ea577addde11d793022110"
+        }
+      },
+      {
+        "qty": {
+          "value": 2,
+          "metric": "boxes"
+        },
+        "asset": {
+          "$oid": "68ea577addde11d7930220e7"
+        },
+        "OpeningBalQty": {
+          "September": 2
+        },
+        "_id": {
+          "$oid": "68ea577addde11d793022111"
+        }
+      },
+      {
+        "qty": {
+          "value": 14,
+          "metric": "boxes"
+        },
+        "asset": {
+          "$oid": "68ea58e888ada4132378b031"
+        },
+        "OpeningBalQty": {
+          "September": 14
+        },
+        "_id": {
+          "$oid": "68ea58e888ada4132378b066"
+        }
+      },
+      {
+        "asset": {
+          "$oid": "68ea5bc6258c6bdaac0201a7"
+        },
+        "qty": {
+          "value": 1,
+          "metric": "boxes"
+        },
+        "OpeningBalQty": {
+          "October": 1
+        },
+        "_id": {
+          "$oid": "68ea5bc6258c6bdaac0201e2"
+        }
+      },
+      {
+        "asset": {
+          "$oid": "68ea47a9987bcd12cd346106"
+        },
+        "qty": {
+          "value": 3,
+          "metric": "boxes"
+        },
+        "OpeningBalQty": {
+          "October": 3
+        },
+        "_id": {
+          "$oid": "68ed8b081ee72a280f7ace8d"
+        }
+      }
+    ]
+  },
+  "sldrs": [
+    {
+      "sId": "S11",
+      "name": "Soldier 1 Base 1",
+      "age": 21,
+      "gender": "F"
+    },
+    {
+      "sId": "S12",
+      "name": "Soldier 2 Base 1",
+      "age": 22,
+      "gender": "M"
+    },
+    {
+      "sId": "S13",
+      "name": "Soldier 3 Base 1",
+      "age": 23,
+      "gender": "F"
+    },
+    {
+      "sId": "S14",
+      "name": "Soldier 4 Base 1",
+      "age": 24,
+      "gender": "M"
+    }
+  ],
+  "tsfrAst": {
+    "IN": [
+      {
+        "$oid": "68ed8af91ee72a280f7acd2c"
+      },
+      {
+        "$oid": "68ed8b311ee72a280f7ad02a"
+      },
+      {
+        "$oid": "68ed8edc1ee72a280f7ae5fb"
+      },
+      {
+        "$oid": "68ed8f011ee72a280f7ae889"
+      },
+      {
+        "$oid": "68ed90411ee72a280f7af5c6"
+      },
+      {
+        "$oid": "68ed90651ee72a280f7af881"
+      },
+      {
+        "$oid": "68ee9d2848c164c2030b65a4"
+      },
+      {
+        "$oid": "68eea1281d443f58f2e0ac48"
+      }
+    ],
+    "OUT": [
+      {
+        "$oid": "68ed8ccd1ee72a280f7adf7d"
+      },
+      {
+        "$oid": "68f0b06dc967a93d2ba40a25"
+      }
+    ]
+  },
+  "purchase": [
+    {
+      "$oid": "68ea4e19006b82b61f25f56c"
+    },
+    {
+      "$oid": "68ea54398d4986f9f86a212f"
+    },
+    {
+      "$oid": "68ea55208d4986f9f86a21ae"
+    },
+    {
+      "$oid": "68ea577addde11d7930220ea"
+    },
+    {
+      "$oid": "68ea58e888ada4132378b03d"
+    },
+    {
+      "$oid": "68ea5bc6258c6bdaac0201b6"
+    },
+    {
+      "$oid": "68f0af9ec967a93d2ba403b8"
+    }
+  ],
+  "asgnAst": [
+    {
+      "$oid": "68ea632b6a7cf6a39a71ada7"
+    },
+    {
+      "$oid": "68ea646441d3fa5125cbee4a"
+    },
+    {
+      "$oid": "68ea65ab129fcef28d302ef5"
+    },
+    {
+      "$oid": "68ea6654c75e9bbe009303a1"
+    },
+    {
+      "$oid": "68ed8c501ee72a280f7ad8b7"
+    },
+    {
+      "$oid": "68ed8c521ee72a280f7ad9a7"
+    },
+    {
+      "$oid": "68ed8c541ee72a280f7adaa2"
+    },
+    {
+      "$oid": "68f0afebc967a93d2ba407e2"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-16T08:44:29.384Z"
+  },
+  "__v": 19
+},
+{
+  "_id": {
+    "$oid": "68ea47a9987bcd12cd3460fd"
+  },
+  "baseId": "B2",
+  "baseName": "Alpha Base 2",
+  "baseComm": "commB2@gmail.com",
+  "lgstcOff": "officerB2@gmail.com",
+  "inventory": {
+    "Vehicle": [
+      {
+        "qty": {
+          "value": 9,
+          "metric": "val"
+        },
+        "_id": {
+          "$oid": "68ed8c1d1ee72a280f7ad601"
+        },
+        "asset": {
+          "$oid": "68ea47a8987bcd12cd3460f1"
+        },
+        "OpeningBalQty": {
+          "September": 10
+        }
+      },
+      {
+        "qty": {
+          "value": 19,
+          "metric": "val"
+        },
+        "_id": {
+          "$oid": "68ed8c1d1ee72a280f7ad602"
+        },
+        "asset": {
+          "$oid": "68ea47a8987bcd12cd3460f2"
+        },
+        "OpeningBalQty": {
+          "September": 10
+        }
+      },
+      {
+        "qty": {
+          "value": 8,
+          "metric": "val"
+        },
+        "_id": {
+          "$oid": "68ed8c1d1ee72a280f7ad603"
+        },
+        "asset": {
+          "$oid": "68ea47a8987bcd12cd3460f3"
+        },
+        "OpeningBalQty": {
+          "September": 10
+        }
+      },
+      {
+        "qty": {
+          "value": 10,
+          "metric": "val"
+        },
+        "_id": {
+          "$oid": "68ed8c1d1ee72a280f7ad604"
+        },
+        "asset": {
+          "$oid": "68ea47a8987bcd12cd3460f4"
+        },
+        "OpeningBalQty": {
+          "September": 10
+        }
+      },
+      {
+        "qty": {
+          "value": 2,
+          "metric": "val"
+        },
+        "asset": {
+          "$oid": "68ed8c1d1ee72a280f7ad5ee"
+        },
+        "OpeningBalQty": {
+          "October": 2
+        },
+        "_id": {
+          "$oid": "68ed8c1d1ee72a280f7ad611"
+        }
+      },
+      {
+        "qty": {
+          "value": 2,
+          "metric": "val"
+        },
+        "asset": {
+          "$oid": "68ea47a8987bcd12cd3460e7"
+        },
+        "OpeningBalQty": {
+          "October": 2
+        },
+        "_id": {
+          "$oid": "68ed8d231ee72a280f7ae28b"
+        }
+      },
+      {
+        "asset": {
+          "$oid": "68ed8e691ee72a280f7ae3cc"
+        },
+        "qty": {
+          "value": 2,
+          "metric": "val"
+        },
+        "OpeningBalQty": {
+          "October": 2
+        },
+        "_id": {
+          "$oid": "68ed8e691ee72a280f7ae3f4"
+        }
+      }
+    ],
+    "Weapons": [
+      {
+        "qty": {
+          "value": 13,
+          "metric": "psc"
+        },
+        "_id": {
+          "$oid": "68ed8c1d1ee72a280f7ad605"
+        },
+        "asset": {
+          "$oid": "68ea47a8987bcd12cd3460f5"
+        },
+        "OpeningBalQty": {
+          "September": 10
+        }
+      },
+      {
+        "qty": {
+          "value": 10,
+          "metric": "psc"
+        },
+        "_id": {
+          "$oid": "68ed8c1d1ee72a280f7ad606"
+        },
+        "asset": {
+          "$oid": "68ea47a8987bcd12cd3460f6"
+        },
+        "OpeningBalQty": {
+          "September": 10
+        }
+      },
+      {
+        "qty": {
+          "value": 10,
+          "metric": "psc"
+        },
+        "_id": {
+          "$oid": "68ed8c1d1ee72a280f7ad607"
+        },
+        "asset": {
+          "$oid": "68ea47a8987bcd12cd3460f7"
+        },
+        "OpeningBalQty": {
+          "September": 10
+        }
+      },
+      {
+        "qty": {
+          "value": 10,
+          "metric": "psc"
+        },
+        "_id": {
+          "$oid": "68ed8c1d1ee72a280f7ad608"
+        },
+        "asset": {
+          "$oid": "68ea47a8987bcd12cd3460f8"
+        },
+        "OpeningBalQty": {
+          "September": 10
+        }
+      }
+    ],
+    "Ammunition": [
+      {
+        "qty": {
+          "value": 8,
+          "metric": "boxes"
+        },
+        "_id": {
+          "$oid": "68ed8e691ee72a280f7ae3eb"
+        },
+        "asset": {
+          "$oid": "68ea47a8987bcd12cd3460f9"
+        },
+        "OpeningBalQty": {
+          "September": 10
+        }
+      },
+      {
+        "qty": {
+          "value": 4,
+          "metric": "boxes"
+        },
+        "_id": {
+          "$oid": "68ed8e691ee72a280f7ae3ec"
+        },
+        "asset": {
+          "$oid": "68ea47a8987bcd12cd3460fa"
+        },
+        "OpeningBalQty": {
+          "September": 10
+        }
+      },
+      {
+        "qty": {
+          "value": 10,
+          "metric": "boxes"
+        },
+        "_id": {
+          "$oid": "68ed8e691ee72a280f7ae3ed"
+        },
+        "asset": {
+          "$oid": "68ea47a8987bcd12cd3460fb"
+        },
+        "OpeningBalQty": {
+          "September": 10
+        }
+      },
+      {
+        "qty": {
+          "value": 10,
+          "metric": "boxes"
+        },
+        "_id": {
+          "$oid": "68ed8e691ee72a280f7ae3ee"
+        },
+        "asset": {
+          "$oid": "68ea47a8987bcd12cd3460fc"
+        },
+        "OpeningBalQty": {
+          "September": 10
+        }
+      },
+      {
+        "qty": {
+          "value": 4,
+          "metric": "boxes"
+        },
+        "asset": {
+          "$oid": "68ea47a8987bcd12cd3460ef"
+        },
+        "OpeningBalQty": {
+          "October": 4
+        },
+        "_id": {
+          "$oid": "68ed8d231ee72a280f7ae28c"
+        }
+      }
+    ]
+  },
+  "sldrs": [
+    {
+      "sId": "S21",
+      "name": "Soldier 1 Base 2",
+      "age": 21,
+      "gender": "F"
+    },
+    {
+      "sId": "S22",
+      "name": "Soldier 2 Base 2",
+      "age": 22,
+      "gender": "M"
+    },
+    {
+      "sId": "S23",
+      "name": "Soldier 3 Base 2",
+      "age": 23,
+      "gender": "F"
+    },
+    {
+      "sId": "S24",
+      "name": "Soldier 4 Base 2",
+      "age": 24,
+      "gender": "M"
+    }
+  ],
+  "tsfrAst": {
+    "IN": [
+      {
+        "$oid": "68ed8ccd1ee72a280f7adf7d"
+      },
+      {
+        "$oid": "68f0b06dc967a93d2ba40a25"
+      }
+    ],
+    "OUT": [
+      {
+        "$oid": "68ed8edc1ee72a280f7ae5fb"
+      }
+    ]
+  },
+  "purchase": [
+    {
+      "$oid": "68ed8c1d1ee72a280f7ad5fa"
+    },
+    {
+      "$oid": "68ed8e691ee72a280f7ae3da"
+    },
+    {
+      "$oid": "68ee9e435a0015be1483a822"
+    }
+  ],
+  "asgnAst": [
+    {
+      "$oid": "68ed8e9d1ee72a280f7ae45c"
+    },
+    {
+      "$oid": "68ed8e9f1ee72a280f7ae4c1"
+    },
+    {
+      "$oid": "68ed8ea11ee72a280f7ae52b"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-16T08:44:29.418Z"
+  },
+  "__v": 7
+},
+{
+  "_id": {
+    "$oid": "68ea47a9987bcd12cd34610a"
+  },
+  "baseId": "B3",
+  "baseName": "Alpha Base 3",
+  "baseComm": "commB3@gmail.com",
+  "lgstcOff": "officerB3@gmail.com",
+  "inventory": {
+    "Vehicle": [
+      {
+        "qty": {
+          "value": 6,
+          "metric": "val"
+        },
+        "_id": {
+          "$oid": "68ed8a761ee72a280f7acb51"
+        },
+        "asset": {
+          "$oid": "68ea47a9987bcd12cd3460fe"
+        },
+        "OpeningBalQty": {
+          "September": 10
+        }
+      },
+      {
+        "qty": {
+          "value": 10,
+          "metric": "val"
+        },
+        "_id": {
+          "$oid": "68ed8a761ee72a280f7acb52"
+        },
+        "asset": {
+          "$oid": "68ea47a9987bcd12cd3460ff"
+        },
+        "OpeningBalQty": {
+          "September": 10
+        }
+      },
+      {
+        "qty": {
+          "value": 5,
+          "metric": "val"
+        },
+        "_id": {
+          "$oid": "68ed8a761ee72a280f7acb53"
+        },
+        "asset": {
+          "$oid": "68ea47a9987bcd12cd346100"
+        },
+        "OpeningBalQty": {
+          "September": 10
+        }
+      },
+      {
+        "qty": {
+          "value": 10,
+          "metric": "val"
+        },
+        "_id": {
+          "$oid": "68ed8a761ee72a280f7acb54"
+        },
+        "asset": {
+          "$oid": "68ea47a9987bcd12cd346101"
+        },
+        "OpeningBalQty": {
+          "September": 10
+        }
+      },
+      {
+        "qty": {
+          "value": 2,
+          "metric": "val"
+        },
+        "asset": {
+          "$oid": "68ed8a761ee72a280f7acb36"
+        },
+        "OpeningBalQty": {
+          "October": 2
+        },
+        "_id": {
+          "$oid": "68ed8a761ee72a280f7acb61"
+        }
+      },
+      {
+        "asset": {
+          "$oid": "68ed8ff01ee72a280f7af3c2"
+        },
+        "qty": {
+          "value": 3,
+          "metric": "val"
+        },
+        "OpeningBalQty": {
+          "October": 3
+        },
+        "_id": {
+          "$oid": "68ed8ff01ee72a280f7af3ee"
+        }
+      }
+    ],
+    "Weapons": [
+      {
+        "qty": {
+          "value": 12,
+          "metric": "psc"
+        },
+        "_id": {
+          "$oid": "68ed8a761ee72a280f7acb55"
+        },
+        "asset": {
+          "$oid": "68ea47a9987bcd12cd346102"
+        },
+        "OpeningBalQty": {
+          "September": 10
+        }
+      },
+      {
+        "qty": {
+          "value": 1,
+          "metric": "psc"
+        },
+        "_id": {
+          "$oid": "68ed8a761ee72a280f7acb56"
+        },
+        "asset": {
+          "$oid": "68ea47a9987bcd12cd346103"
+        },
+        "OpeningBalQty": {
+          "September": 10
+        }
+      },
+      {
+        "qty": {
+          "value": 10,
+          "metric": "psc"
+        },
+        "_id": {
+          "$oid": "68ed8a761ee72a280f7acb57"
+        },
+        "asset": {
+          "$oid": "68ea47a9987bcd12cd346104"
+        },
+        "OpeningBalQty": {
+          "September": 10
+        }
+      },
+      {
+        "qty": {
+          "value": 10,
+          "metric": "psc"
+        },
+        "_id": {
+          "$oid": "68ed8a761ee72a280f7acb58"
+        },
+        "asset": {
+          "$oid": "68ea47a9987bcd12cd346105"
+        },
+        "OpeningBalQty": {
+          "September": 10
+        }
+      }
+    ],
+    "Ammunition": [
+      {
+        "qty": {
+          "value": 9,
+          "metric": "boxes"
+        },
+        "_id": {
+          "$oid": "68ed8a761ee72a280f7acb59"
+        },
+        "asset": {
+          "$oid": "68ea47a9987bcd12cd346106"
+        },
+        "OpeningBalQty": {
+          "September": 10
+        }
+      },
+      {
+        "qty": {
+          "value": 11,
+          "metric": "boxes"
+        },
+        "_id": {
+          "$oid": "68ed8a761ee72a280f7acb5a"
+        },
+        "asset": {
+          "$oid": "68ea47a9987bcd12cd346107"
+        },
+        "OpeningBalQty": {
+          "September": 10
+        }
+      },
+      {
+        "qty": {
+          "value": 2,
+          "metric": "boxes"
+        },
+        "_id": {
+          "$oid": "68ed8a761ee72a280f7acb5b"
+        },
+        "asset": {
+          "$oid": "68ea47a9987bcd12cd346108"
+        },
+        "OpeningBalQty": {
+          "September": 10
+        }
+      },
+      {
+        "qty": {
+          "value": 10,
+          "metric": "boxes"
+        },
+        "_id": {
+          "$oid": "68ed8a761ee72a280f7acb5c"
+        },
+        "asset": {
+          "$oid": "68ea47a9987bcd12cd346109"
+        },
+        "OpeningBalQty": {
+          "September": 10
+        }
+      }
+    ]
+  },
+  "sldrs": [
+    {
+      "sId": "S31",
+      "name": "Soldier 1 Base 3",
+      "age": 21,
+      "gender": "F"
+    },
+    {
+      "sId": "S32",
+      "name": "Soldier 2 Base 3",
+      "age": 22,
+      "gender": "M"
+    },
+    {
+      "sId": "S33",
+      "name": "Soldier 3 Base 3",
+      "age": 23,
+      "gender": "F"
+    },
+    {
+      "sId": "S34",
+      "name": "Soldier 4 Base 3",
+      "age": 24,
+      "gender": "M"
+    }
+  ],
+  "tsfrAst": {
+    "IN": [],
+    "OUT": [
+      {
+        "$oid": "68ed8af91ee72a280f7acd2c"
+      },
+      {
+        "$oid": "68ed8b311ee72a280f7ad02a"
+      },
+      {
+        "$oid": "68ed90411ee72a280f7af5c6"
+      },
+      {
+        "$oid": "68ee9d2848c164c2030b65a4"
+      }
+    ]
+  },
+  "purchase": [
+    {
+      "$oid": "68ed8a761ee72a280f7acb48"
+    },
+    {
+      "$oid": "68ed8ff01ee72a280f7af3d5"
+    }
+  ],
+  "asgnAst": [
+    {
+      "$oid": "68ed8ab51ee72a280f7acbbc"
+    },
+    {
+      "$oid": "68ed8ab71ee72a280f7acc15"
+    },
+    {
+      "$oid": "68ed8ab81ee72a280f7acc74"
+    },
+    {
+      "$oid": "68ed90161ee72a280f7af465"
+    },
+    {
+      "$oid": "68ed901a1ee72a280f7af4df"
+    },
+    {
+      "$oid": "68ee9d3948c164c2030b6650"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-14T18:58:01.544Z"
+  },
+  "__v": 12
+},
+{
+  "_id": {
+    "$oid": "68ea47a9987bcd12cd346117"
+  },
+  "baseId": "B4",
+  "baseName": "Alpha Base 4",
+  "baseComm": "commB4@gmail.com",
+  "lgstcOff": "officerB4@gmail.com",
+  "inventory": {
+    "Vehicle": [
+      {
+        "qty": {
+          "value": 10,
+          "metric": "val"
+        },
+        "_id": {
+          "$oid": "68eea0d71d443f58f2e0aacc"
+        },
+        "asset": {
+          "$oid": "68ea47a9987bcd12cd34610b"
+        },
+        "OpeningBalQty": {
+          "September": 10
+        }
+      },
+      {
+        "qty": {
+          "value": 10,
+          "metric": "val"
+        },
+        "_id": {
+          "$oid": "68eea0d71d443f58f2e0aacd"
+        },
+        "asset": {
+          "$oid": "68ea47a9987bcd12cd34610c"
+        },
+        "OpeningBalQty": {
+          "September": 10
+        }
+      },
+      {
+        "qty": {
+          "value": 10,
+          "metric": "val"
+        },
+        "_id": {
+          "$oid": "68eea0d71d443f58f2e0aace"
+        },
+        "asset": {
+          "$oid": "68ea47a9987bcd12cd34610d"
+        },
+        "OpeningBalQty": {
+          "September": 10
+        }
+      },
+      {
+        "qty": {
+          "value": 10,
+          "metric": "val"
+        },
+        "_id": {
+          "$oid": "68eea0d71d443f58f2e0aacf"
+        },
+        "asset": {
+          "$oid": "68ea47a9987bcd12cd34610e"
+        },
+        "OpeningBalQty": {
+          "September": 10
+        }
+      },
+      {
+        "asset": {
+          "$oid": "68eea0d71d443f58f2e0aac1"
+        },
+        "qty": {
+          "value": 3,
+          "metric": "val"
+        },
+        "OpeningBalQty": {
+          "October": 3
+        },
+        "_id": {
+          "$oid": "68eea0d71d443f58f2e0aadc"
+        }
+      }
+    ],
+    "Weapons": [
+      {
+        "asset": {
+          "$oid": "68ea47a9987bcd12cd34610f"
+        },
+        "qty": {
+          "value": 10,
+          "metric": "psc"
+        },
+        "OpeningBalQty": {
+          "September": 10
+        }
+      },
+      {
+        "asset": {
+          "$oid": "68ea47a9987bcd12cd346110"
+        },
+        "qty": {
+          "value": 10,
+          "metric": "psc"
+        },
+        "OpeningBalQty": {
+          "September": 10
+        }
+      },
+      {
+        "asset": {
+          "$oid": "68ea47a9987bcd12cd346111"
+        },
+        "qty": {
+          "value": 7,
+          "metric": "psc"
+        },
+        "OpeningBalQty": {
+          "September": 10
+        }
+      },
+      {
+        "asset": {
+          "$oid": "68ea47a9987bcd12cd346112"
+        },
+        "qty": {
+          "value": 10,
+          "metric": "psc"
+        },
+        "OpeningBalQty": {
+          "September": 10
+        }
+      }
+    ],
+    "Ammunition": [
+      {
+        "asset": {
+          "$oid": "68ea47a9987bcd12cd346113"
+        },
+        "qty": {
+          "value": 8,
+          "metric": "boxes"
+        },
+        "OpeningBalQty": {
+          "September": 10
+        }
+      },
+      {
+        "asset": {
+          "$oid": "68ea47a9987bcd12cd346114"
+        },
+        "qty": {
+          "value": 10,
+          "metric": "boxes"
+        },
+        "OpeningBalQty": {
+          "September": 10
+        }
+      },
+      {
+        "asset": {
+          "$oid": "68ea47a9987bcd12cd346115"
+        },
+        "qty": {
+          "value": 7,
+          "metric": "boxes"
+        },
+        "OpeningBalQty": {
+          "September": 10
+        }
+      },
+      {
+        "asset": {
+          "$oid": "68ea47a9987bcd12cd346116"
+        },
+        "qty": {
+          "value": 8,
+          "metric": "boxes"
+        },
+        "OpeningBalQty": {
+          "September": 10
+        }
+      }
+    ]
+  },
+  "sldrs": [
+    {
+      "sId": "S41",
+      "name": "Soldier 1 Base 4",
+      "age": 21,
+      "gender": "F"
+    },
+    {
+      "sId": "S42",
+      "name": "Soldier 2 Base 4",
+      "age": 22,
+      "gender": "M"
+    },
+    {
+      "sId": "S43",
+      "name": "Soldier 3 Base 4",
+      "age": 23,
+      "gender": "F"
+    },
+    {
+      "sId": "S44",
+      "name": "Soldier 4 Base 4",
+      "age": 24,
+      "gender": "M"
+    }
+  ],
+  "tsfrAst": {
+    "IN": [],
+    "OUT": [
+      {
+        "$oid": "68ed8f011ee72a280f7ae889"
+      },
+      {
+        "$oid": "68ed90651ee72a280f7af881"
+      },
+      {
+        "$oid": "68eea1281d443f58f2e0ac48"
+      }
+    ]
+  },
+  "purchase": [
+    {
+      "$oid": "68eea0d71d443f58f2e0aac7"
+    }
+  ],
+  "asgnAst": [
+    {
+      "$oid": "68eea1001d443f58f2e0ab25"
+    },
+    {
+      "$oid": "68eea1031d443f58f2e0ab6d"
+    },
+    {
+      "$oid": "68eea1051d443f58f2e0abba"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-09-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-14T19:15:03.357Z"
+  },
+  "__v": 7
+}]

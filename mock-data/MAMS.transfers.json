@@ -1,0 +1,481 @@
+[{
+  "_id": {
+    "$oid": "68ed8af91ee72a280f7acd2c"
+  },
+  "to": "B1",
+  "by": "B3",
+  "status": "RECEIVED",
+  "astDtl": [
+    {
+      "assetId": {
+        "$oid": "68ea47a9987bcd12cd3460fe"
+      },
+      "category": "Vehicle",
+      "name": "Vehicle 1 B3",
+      "totalQty": {
+        "value": 3,
+        "metric": "val"
+      },
+      "_id": {
+        "$oid": "68ed8af91ee72a280f7acd2d"
+      }
+    },
+    {
+      "assetId": {
+        "$oid": "68ea47a9987bcd12cd346106"
+      },
+      "category": "Ammunition",
+      "name": "Ammunition 1 B3",
+      "totalQty": {
+        "value": 3,
+        "metric": "boxes"
+      },
+      "_id": {
+        "$oid": "68ed8af91ee72a280f7acd2e"
+      }
+    },
+    {
+      "assetId": {
+        "$oid": "68ea47a9987bcd12cd346102"
+      },
+      "category": "Weapons",
+      "name": "Weapons 1 B3",
+      "totalQty": {
+        "value": 2,
+        "metric": "psc"
+      },
+      "_id": {
+        "$oid": "68ed8af91ee72a280f7acd2f"
+      }
+    }
+  ],
+  "TOUTdate": {
+    "$date": "2025-09-17T23:27:53.747Z"
+  },
+  "createdAt": {
+    "$date": "2025-10-13T23:27:53.753Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-13T23:28:08.802Z"
+  },
+  "__v": 0,
+  "TINdate": {
+    "$date": "2025-09-20T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ed8b311ee72a280f7ad02a"
+  },
+  "to": "B1",
+  "by": "B3",
+  "status": "CANCELLED",
+  "astDtl": [
+    {
+      "assetId": {
+        "$oid": "68ea47a9987bcd12cd346106"
+      },
+      "category": "Ammunition",
+      "name": "Ammunition 1 B3",
+      "totalQty": {
+        "value": 3,
+        "metric": "boxes"
+      },
+      "_id": {
+        "$oid": "68ed8b311ee72a280f7ad02b"
+      }
+    },
+    {
+      "assetId": {
+        "$oid": "68ea47a9987bcd12cd346102"
+      },
+      "category": "Weapons",
+      "name": "Weapons 1 B3",
+      "totalQty": {
+        "value": 2,
+        "metric": "psc"
+      },
+      "_id": {
+        "$oid": "68ed8b311ee72a280f7ad02c"
+      }
+    }
+  ],
+  "TOUTdate": {
+    "$date": "2025-10-13T23:28:49.387Z"
+  },
+  "createdAt": {
+    "$date": "2025-10-13T23:28:49.397Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-13T23:29:00.076Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68ed8ccd1ee72a280f7adf7d"
+  },
+  "to": "B2",
+  "by": "B1",
+  "status": "RECEIVED",
+  "astDtl": [
+    {
+      "assetId": {
+        "$oid": "68ea47a8987bcd12cd3460e7"
+      },
+      "category": "Vehicle",
+      "name": "Vehicle 4 B1",
+      "totalQty": {
+        "value": 2,
+        "metric": "val"
+      },
+      "_id": {
+        "$oid": "68ed8ccd1ee72a280f7adf7e"
+      }
+    },
+    {
+      "assetId": {
+        "$oid": "68ea47a8987bcd12cd3460ef"
+      },
+      "category": "Ammunition",
+      "name": "Ammunition 4 B1",
+      "totalQty": {
+        "value": 4,
+        "metric": "boxes"
+      },
+      "_id": {
+        "$oid": "68ed8ccd1ee72a280f7adf7f"
+      }
+    }
+  ],
+  "TOUTdate": {
+    "$date": "2025-09-13T23:35:41.508Z"
+  },
+  "createdAt": {
+    "$date": "2025-10-13T23:35:41.514Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-13T23:37:07.469Z"
+  },
+  "__v": 0,
+  "TINdate": {
+    "$date": "2025-09-20T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ed8edc1ee72a280f7ae5fb"
+  },
+  "to": "B1",
+  "by": "B2",
+  "status": "RECEIVED",
+  "astDtl": [
+    {
+      "assetId": {
+        "$oid": "68ea47a8987bcd12cd3460f1"
+      },
+      "category": "Vehicle",
+      "name": "Vehicle 1 B2",
+      "totalQty": {
+        "value": 2,
+        "metric": "val"
+      },
+      "_id": {
+        "$oid": "68ed8edc1ee72a280f7ae5fc"
+      }
+    },
+    {
+      "assetId": {
+        "$oid": "68ea47a8987bcd12cd3460f5"
+      },
+      "category": "Weapons",
+      "name": "Weapons 1 B2",
+      "totalQty": {
+        "value": 2,
+        "metric": "psc"
+      },
+      "_id": {
+        "$oid": "68ed8edc1ee72a280f7ae5fd"
+      }
+    }
+  ],
+  "TOUTdate": {
+    "$date": "2025-09-13T23:44:28.394Z"
+  },
+  "createdAt": {
+    "$date": "2025-10-13T23:44:28.398Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-13T23:44:46.355Z"
+  },
+  "__v": 0,
+  "TINdate": {
+    "$date": "2025-09-26T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ed8f011ee72a280f7ae889"
+  },
+  "to": "B1",
+  "by": "B4",
+  "status": "CANCELLED",
+  "astDtl": [
+    {
+      "assetId": {
+        "$oid": "68ea47a9987bcd12cd34610b"
+      },
+      "category": "Vehicle",
+      "name": "Vehicle 1 B4",
+      "totalQty": {
+        "value": 3,
+        "metric": "val"
+      },
+      "_id": {
+        "$oid": "68ed8f011ee72a280f7ae88a"
+      }
+    }
+  ],
+  "TOUTdate": {
+    "$date": "2025-10-13T23:45:05.657Z"
+  },
+  "createdAt": {
+    "$date": "2025-10-13T23:45:05.661Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-13T23:45:18.822Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68ed90411ee72a280f7af5c6"
+  },
+  "to": "B1",
+  "by": "B3",
+  "status": "RECEIVED",
+  "astDtl": [
+    {
+      "assetId": {
+        "$oid": "68ea47a9987bcd12cd346100"
+      },
+      "category": "Vehicle",
+      "name": "Vehicle 3 B3",
+      "totalQty": {
+        "value": 2,
+        "metric": "val"
+      },
+      "_id": {
+        "$oid": "68ed90411ee72a280f7af5c7"
+      }
+    },
+    {
+      "assetId": {
+        "$oid": "68ea47a9987bcd12cd3460ff"
+      },
+      "category": "Vehicle",
+      "name": "Vehicle 2 B3",
+      "totalQty": {
+        "value": 4,
+        "metric": "val"
+      },
+      "_id": {
+        "$oid": "68ed90411ee72a280f7af5c8"
+      }
+    }
+  ],
+  "TOUTdate": {
+    "$date": "2025-09-10T23:50:25.850Z"
+  },
+  "createdAt": {
+    "$date": "2025-10-13T23:50:25.851Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-13T23:50:43.401Z"
+  },
+  "__v": 0,
+  "TINdate": {
+    "$date": "2025-09-12T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68ed90651ee72a280f7af881"
+  },
+  "to": "B1",
+  "by": "B4",
+  "status": "CANCELLED",
+  "astDtl": [
+    {
+      "assetId": {
+        "$oid": "68ea47a9987bcd12cd346110"
+      },
+      "category": "Weapons",
+      "name": "Weapons 2 B4",
+      "totalQty": {
+        "value": 2,
+        "metric": "psc"
+      },
+      "_id": {
+        "$oid": "68ed90651ee72a280f7af882"
+      }
+    }
+  ],
+  "TOUTdate": {
+    "$date": "2025-10-13T23:51:01.071Z"
+  },
+  "createdAt": {
+    "$date": "2025-10-13T23:51:01.074Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-13T23:51:17.693Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68ee9d2848c164c2030b65a4"
+  },
+  "to": "B1",
+  "by": "B3",
+  "status": "RECEIVED",
+  "astDtl": [
+    {
+      "assetId": {
+        "$oid": "68ea47a9987bcd12cd3460fe"
+      },
+      "category": "Vehicle",
+      "name": "Vehicle 1 B3",
+      "totalQty": {
+        "value": 2,
+        "metric": "val"
+      },
+      "_id": {
+        "$oid": "68ee9d2848c164c2030b65a5"
+      }
+    }
+  ],
+  "TOUTdate": {
+    "$date": "2025-10-14T18:57:44.637Z"
+  },
+  "createdAt": {
+    "$date": "2025-10-14T18:57:44.643Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-14T19:15:01.784Z"
+  },
+  "__v": 0,
+  "TINdate": {
+    "$date": "2025-09-20T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68eea1281d443f58f2e0ac48"
+  },
+  "to": "B1",
+  "by": "B4",
+  "status": "CANCELLED",
+  "astDtl": [
+    {
+      "assetId": {
+        "$oid": "68ea47a9987bcd12cd34610b"
+      },
+      "category": "Vehicle",
+      "name": "Vehicle 1 B4",
+      "totalQty": {
+        "value": 2,
+        "metric": "val"
+      },
+      "_id": {
+        "$oid": "68eea1281d443f58f2e0ac49"
+      }
+    },
+    {
+      "assetId": {
+        "$oid": "68ea47a9987bcd12cd346113"
+      },
+      "category": "Ammunition",
+      "name": "Ammunition 1 B4",
+      "totalQty": {
+        "value": 3,
+        "metric": "boxes"
+      },
+      "_id": {
+        "$oid": "68eea1281d443f58f2e0ac4a"
+      }
+    },
+    {
+      "assetId": {
+        "$oid": "68ea47a9987bcd12cd346110"
+      },
+      "category": "Weapons",
+      "name": "Weapons 2 B4",
+      "totalQty": {
+        "value": 1,
+        "metric": "psc"
+      },
+      "_id": {
+        "$oid": "68eea1281d443f58f2e0ac4b"
+      }
+    }
+  ],
+  "TOUTdate": {
+    "$date": "2025-10-14T19:14:48.905Z"
+  },
+  "createdAt": {
+    "$date": "2025-10-14T19:14:48.919Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-14T19:15:03.387Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68f0b06dc967a93d2ba40a25"
+  },
+  "to": "B2",
+  "by": "B1",
+  "status": "PENDING",
+  "astDtl": [
+    {
+      "assetId": {
+        "$oid": "68ea47a8987bcd12cd3460e4"
+      },
+      "category": "Vehicle",
+      "name": "Vehicle 1 B1",
+      "totalQty": {
+        "value": 2,
+        "metric": "val"
+      },
+      "_id": {
+        "$oid": "68f0b06dc967a93d2ba40a26"
+      }
+    },
+    {
+      "assetId": {
+        "$oid": "68ea47a8987bcd12cd3460ec"
+      },
+      "category": "Ammunition",
+      "name": "Ammunition 1 B1",
+      "totalQty": {
+        "value": 2,
+        "metric": "boxes"
+      },
+      "_id": {
+        "$oid": "68f0b06dc967a93d2ba40a27"
+      }
+    }
+  ],
+  "TOUTdate": {
+    "$date": "2025-10-16T08:44:29.312Z"
+  },
+  "createdAt": {
+    "$date": "2025-10-16T08:44:29.315Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-16T08:44:29.315Z"
+  },
+  "__v": 0
+}]

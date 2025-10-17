@@ -24,10 +24,8 @@ function LoginPage() {
     };
 
     try {
-      const URL =`${import.meta.env.VITE_SERVER_URL}/login`
-      const response = await axios.post(URL,
-        body
-      );
+      const URL = `${import.meta.env.VITE_SERVER_URL}/login`;
+      const response = await axios.post(URL, body);
       if (response?.status === 200) {
         const { token, role, name, baseInfo } = response.data;
         if (!token || !role) {
@@ -47,8 +45,10 @@ function LoginPage() {
           notify("Something went wrong");
           return;
         }
-        dispatch(baseActions.setActId({id:baseInfo.id,_id:baseInfo._id}))
-        dispatch(authActions.loginSuccess({ token: token, role: role, name: name }));
+        dispatch(baseActions.setActId({ id: baseInfo.id, _id: baseInfo._id }));
+        dispatch(
+          authActions.loginSuccess({ token: token, role: role, name: name })
+        );
         navigate(`/dashboard/${baseInfo.baseId}`);
       }
     } catch (error) {
@@ -162,7 +162,28 @@ function LoginPage() {
             {isPending ? "Logging In..." : "Log In"}
           </button>
         </form>
+        <div>
+          <p class="d-inline-flex mt-3">
+            <button
+              className="btn btn-outline-dark"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseExample"
+              aria-expanded="false"
+              aria-controls="collapseExample"
+            >
+              Get Credentials
+            </button>
+          </p>
+          <div class="collapse" id="collapseExample">
+            <div class="card card-body">
+              admin123@gmail.com commB1@gmail.com officerB1@gmail.com
+              <p className="fw-semibold">All have same password- aabbcc12dd</p>
+            </div>
+          </div>
+        </div>
       </div>
+      <div></div>
     </div>
   );
 }

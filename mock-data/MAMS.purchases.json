@@ -1,0 +1,812 @@
+[{
+  "_id": {
+    "$oid": "68ea4e19006b82b61f25f56c"
+  },
+  "Sno": 1,
+  "base": {
+    "$oid": "68ea47a8987bcd12cd3460f0"
+  },
+  "items": [
+    {
+      "asset": {
+        "$oid": "68ea4e19006b82b61f25f563"
+      },
+      "qty": 12,
+      "_id": {
+        "$oid": "68ea4e19006b82b61f25f56d"
+      }
+    },
+    {
+      "asset": {
+        "$oid": "68ea4e19006b82b61f25f565"
+      },
+      "qty": 10,
+      "_id": {
+        "$oid": "68ea4e19006b82b61f25f56e"
+      }
+    },
+    {
+      "asset": {
+        "$oid": "68ea4e19006b82b61f25f567"
+      },
+      "qty": 10,
+      "_id": {
+        "$oid": "68ea4e19006b82b61f25f56f"
+      }
+    },
+    {
+      "asset": {
+        "$oid": "68ea4e19006b82b61f25f569"
+      },
+      "qty": 10,
+      "_id": {
+        "$oid": "68ea4e19006b82b61f25f570"
+      }
+    }
+  ],
+  "addedBy": "admin",
+  "role": "AD",
+  "purchaseDate": {
+    "$date": "2025-09-14T18:30:00.000Z"
+  },
+  "createdAt": {
+    "$date": "2025-09-14T18:30:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-14T18:30:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68ea54398d4986f9f86a212f"
+  },
+  "Sno": 2,
+  "base": {
+    "$oid": "68ea47a8987bcd12cd3460f0"
+  },
+  "items": [
+    {
+      "asset": {
+        "$oid": "68ea47a8987bcd12cd3460e4"
+      },
+      "qty": 12,
+      "_id": {
+        "$oid": "68ea54398d4986f9f86a2130"
+      }
+    },
+    {
+      "asset": {
+        "$oid": "68ea47a8987bcd12cd3460e8"
+      },
+      "qty": 2,
+      "_id": {
+        "$oid": "68ea54398d4986f9f86a2131"
+      }
+    },
+    {
+      "asset": {
+        "$oid": "68ea47a8987bcd12cd3460ec"
+      },
+      "qty": 3,
+      "_id": {
+        "$oid": "68ea54398d4986f9f86a2132"
+      }
+    }
+  ],
+  "addedBy": "admin",
+  "role": "AD",
+  "purchaseDate": {
+    "$date": "2025-09-06T18:30:00.000Z"
+  },
+  "createdAt": {
+    "$date": "2025-09-06T18:30:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-06T18:30:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68ea55208d4986f9f86a21ae"
+  },
+  "Sno": 3,
+  "base": {
+    "$oid": "68ea47a8987bcd12cd3460f0"
+  },
+  "items": [
+    {
+      "asset": {
+        "$oid": "68ea551f8d4986f9f86a219e"
+      },
+      "qty": 2,
+      "_id": {
+        "$oid": "68ea55208d4986f9f86a21af"
+      }
+    },
+    {
+      "asset": {
+        "$oid": "68ea551f8d4986f9f86a21a2"
+      },
+      "qty": 21,
+      "_id": {
+        "$oid": "68ea55208d4986f9f86a21b0"
+      }
+    },
+    {
+      "asset": {
+        "$oid": "68ea551f8d4986f9f86a21a0"
+      },
+      "qty": 7,
+      "_id": {
+        "$oid": "68ea55208d4986f9f86a21b1"
+      }
+    },
+    {
+      "asset": {
+        "$oid": "68ea47a8987bcd12cd3460e5"
+      },
+      "qty": 7,
+      "_id": {
+        "$oid": "68ea55208d4986f9f86a21b2"
+      }
+    },
+    {
+      "asset": {
+        "$oid": "68ea47a8987bcd12cd3460e9"
+      },
+      "qty": 4,
+      "_id": {
+        "$oid": "68ea55208d4986f9f86a21b3"
+      }
+    },
+    {
+      "asset": {
+        "$oid": "68ea47a8987bcd12cd3460ed"
+      },
+      "qty": 3,
+      "_id": {
+        "$oid": "68ea55208d4986f9f86a21b4"
+      }
+    }
+  ],
+  "addedBy": "admin",
+  "role": "AD",
+  "purchaseDate": {
+    "$date": "2025-09-09T18:30:00.000Z"
+  },
+  "createdAt": {
+    "$date": "2025-09-09T18:30:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-09T18:30:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68ea577addde11d7930220ea"
+  },
+  "Sno": 4,
+  "base": {
+    "$oid": "68ea47a8987bcd12cd3460f0"
+  },
+  "items": [
+    {
+      "asset": {
+        "$oid": "68ea577addde11d7930220db"
+      },
+      "qty": 2,
+      "_id": {
+        "$oid": "68ea577addde11d7930220eb"
+      }
+    },
+    {
+      "asset": {
+        "$oid": "68ea577addde11d7930220dd"
+      },
+      "qty": 3,
+      "_id": {
+        "$oid": "68ea577addde11d7930220ec"
+      }
+    },
+    {
+      "asset": {
+        "$oid": "68ea577addde11d7930220e3"
+      },
+      "qty": 22,
+      "_id": {
+        "$oid": "68ea577addde11d7930220ed"
+      }
+    },
+    {
+      "asset": {
+        "$oid": "68ea577addde11d7930220e5"
+      },
+      "qty": 1,
+      "_id": {
+        "$oid": "68ea577addde11d7930220ee"
+      }
+    },
+    {
+      "asset": {
+        "$oid": "68ea577addde11d7930220e7"
+      },
+      "qty": 2,
+      "_id": {
+        "$oid": "68ea577addde11d7930220ef"
+      }
+    },
+    {
+      "asset": {
+        "$oid": "68ea577addde11d7930220df"
+      },
+      "qty": 7,
+      "_id": {
+        "$oid": "68ea577addde11d7930220f0"
+      }
+    },
+    {
+      "asset": {
+        "$oid": "68ea577addde11d7930220e1"
+      },
+      "qty": 6,
+      "_id": {
+        "$oid": "68ea577addde11d7930220f1"
+      }
+    }
+  ],
+  "addedBy": "admin",
+  "role": "AD",
+  "purchaseDate": {
+    "$date": "2025-09-15T18:30:00.000Z"
+  },
+  "createdAt": {
+    "$date": "2025-09-15T18:30:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-15T18:30:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68ea58e888ada4132378b03d"
+  },
+  "Sno": 5,
+  "base": {
+    "$oid": "68ea47a8987bcd12cd3460f0"
+  },
+  "items": [
+    {
+      "asset": {
+        "$oid": "68ea58e888ada4132378b02d"
+      },
+      "qty": 9,
+      "_id": {
+        "$oid": "68ea58e888ada4132378b03e"
+      }
+    },
+    {
+      "asset": {
+        "$oid": "68ea58e888ada4132378b031"
+      },
+      "qty": 14,
+      "_id": {
+        "$oid": "68ea58e888ada4132378b03f"
+      }
+    },
+    {
+      "asset": {
+        "$oid": "68ea58e888ada4132378b02f"
+      },
+      "qty": 8,
+      "_id": {
+        "$oid": "68ea58e888ada4132378b040"
+      }
+    },
+    {
+      "asset": {
+        "$oid": "68ea577addde11d7930220db"
+      },
+      "qty": 4,
+      "_id": {
+        "$oid": "68ea58e888ada4132378b041"
+      }
+    },
+    {
+      "asset": {
+        "$oid": "68ea577addde11d7930220e1"
+      },
+      "qty": 23,
+      "_id": {
+        "$oid": "68ea58e888ada4132378b042"
+      }
+    },
+    {
+      "asset": {
+        "$oid": "68ea47a8987bcd12cd3460ee"
+      },
+      "qty": 33,
+      "_id": {
+        "$oid": "68ea58e888ada4132378b043"
+      }
+    }
+  ],
+  "addedBy": "admin",
+  "role": "AD",
+  "purchaseDate": {
+    "$date": "2025-09-17T18:30:00.000Z"
+  },
+  "createdAt": {
+    "$date": "2025-09-17T18:30:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-17T18:30:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68ea5bc6258c6bdaac0201b6"
+  },
+  "Sno": 6,
+  "base": {
+    "$oid": "68ea47a8987bcd12cd3460f0"
+  },
+  "items": [
+    {
+      "asset": {
+        "$oid": "68ea5bc6258c6bdaac0201a3"
+      },
+      "qty": 1,
+      "_id": {
+        "$oid": "68ea5bc6258c6bdaac0201b7"
+      }
+    },
+    {
+      "asset": {
+        "$oid": "68ea5bc6258c6bdaac0201a7"
+      },
+      "qty": 1,
+      "_id": {
+        "$oid": "68ea5bc6258c6bdaac0201b8"
+      }
+    },
+    {
+      "asset": {
+        "$oid": "68ea5bc6258c6bdaac0201a5"
+      },
+      "qty": 1,
+      "_id": {
+        "$oid": "68ea5bc6258c6bdaac0201b9"
+      }
+    },
+    {
+      "asset": {
+        "$oid": "68ea47a8987bcd12cd3460e4"
+      },
+      "qty": 2,
+      "_id": {
+        "$oid": "68ea5bc6258c6bdaac0201ba"
+      }
+    },
+    {
+      "asset": {
+        "$oid": "68ea47a8987bcd12cd3460e8"
+      },
+      "qty": 2,
+      "_id": {
+        "$oid": "68ea5bc6258c6bdaac0201bb"
+      }
+    },
+    {
+      "asset": {
+        "$oid": "68ea47a8987bcd12cd3460ec"
+      },
+      "qty": 2,
+      "_id": {
+        "$oid": "68ea5bc6258c6bdaac0201bc"
+      }
+    }
+  ],
+  "addedBy": "admin",
+  "role": "AD",
+  "purchaseDate": {
+    "$date": "2025-10-11T13:29:42.492Z"
+  },
+  "createdAt": {
+    "$date": "2025-10-11T13:29:42.495Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-11T13:29:42.495Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68ed8a761ee72a280f7acb48"
+  },
+  "Sno": 7,
+  "base": {
+    "$oid": "68ea47a9987bcd12cd34610a"
+  },
+  "items": [
+    {
+      "asset": {
+        "$oid": "68ed8a761ee72a280f7acb36"
+      },
+      "qty": 2,
+      "_id": {
+        "$oid": "68ed8a761ee72a280f7acb49"
+      }
+    },
+    {
+      "asset": {
+        "$oid": "68ea47a9987bcd12cd3460fe"
+      },
+      "qty": 5,
+      "_id": {
+        "$oid": "68ed8a761ee72a280f7acb4a"
+      }
+    },
+    {
+      "asset": {
+        "$oid": "68ea47a9987bcd12cd3460ff"
+      },
+      "qty": 3,
+      "_id": {
+        "$oid": "68ed8a761ee72a280f7acb4b"
+      }
+    },
+    {
+      "asset": {
+        "$oid": "68ea47a9987bcd12cd346102"
+      },
+      "qty": 2,
+      "_id": {
+        "$oid": "68ed8a761ee72a280f7acb4c"
+      }
+    },
+    {
+      "asset": {
+        "$oid": "68ea47a9987bcd12cd346106"
+      },
+      "qty": 3,
+      "_id": {
+        "$oid": "68ed8a761ee72a280f7acb4d"
+      }
+    },
+    {
+      "asset": {
+        "$oid": "68ea47a9987bcd12cd346107"
+      },
+      "qty": 1,
+      "_id": {
+        "$oid": "68ed8a761ee72a280f7acb4e"
+      }
+    }
+  ],
+  "addedBy": "admin",
+  "role": "AD",
+  "purchaseDate": {
+    "$date": "2025-10-13T23:25:42.865Z"
+  },
+  "createdAt": {
+    "$date": "2025-10-13T23:25:42.870Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-13T23:25:42.870Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68ed8c1d1ee72a280f7ad5fa"
+  },
+  "Sno": 8,
+  "base": {
+    "$oid": "68ea47a9987bcd12cd3460fd"
+  },
+  "items": [
+    {
+      "asset": {
+        "$oid": "68ed8c1d1ee72a280f7ad5ee"
+      },
+      "qty": 2,
+      "_id": {
+        "$oid": "68ed8c1d1ee72a280f7ad5fb"
+      }
+    },
+    {
+      "asset": {
+        "$oid": "68ea47a8987bcd12cd3460f1"
+      },
+      "qty": 2,
+      "_id": {
+        "$oid": "68ed8c1d1ee72a280f7ad5fc"
+      }
+    },
+    {
+      "asset": {
+        "$oid": "68ea47a8987bcd12cd3460f2"
+      },
+      "qty": 3,
+      "_id": {
+        "$oid": "68ed8c1d1ee72a280f7ad5fd"
+      }
+    },
+    {
+      "asset": {
+        "$oid": "68ea47a8987bcd12cd3460f5"
+      },
+      "qty": 2,
+      "_id": {
+        "$oid": "68ed8c1d1ee72a280f7ad5fe"
+      }
+    }
+  ],
+  "addedBy": "admin",
+  "role": "AD",
+  "purchaseDate": {
+    "$date": "2025-10-13T23:32:45.845Z"
+  },
+  "createdAt": {
+    "$date": "2025-10-13T23:32:45.847Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-13T23:32:45.847Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68ed8e691ee72a280f7ae3da"
+  },
+  "Sno": 9,
+  "base": {
+    "$oid": "68ea47a9987bcd12cd3460fd"
+  },
+  "items": [
+    {
+      "asset": {
+        "$oid": "68ed8e691ee72a280f7ae3cc"
+      },
+      "qty": 2,
+      "_id": {
+        "$oid": "68ed8e691ee72a280f7ae3db"
+      }
+    },
+    {
+      "asset": {
+        "$oid": "68ea47a8987bcd12cd3460f2"
+      },
+      "qty": 4,
+      "_id": {
+        "$oid": "68ed8e691ee72a280f7ae3dc"
+      }
+    },
+    {
+      "asset": {
+        "$oid": "68ea47a8987bcd12cd3460f5"
+      },
+      "qty": 3,
+      "_id": {
+        "$oid": "68ed8e691ee72a280f7ae3dd"
+      }
+    },
+    {
+      "asset": {
+        "$oid": "68ea47a8987bcd12cd3460f9"
+      },
+      "qty": 3,
+      "_id": {
+        "$oid": "68ed8e691ee72a280f7ae3de"
+      }
+    }
+  ],
+  "addedBy": "admin",
+  "role": "AD",
+  "purchaseDate": {
+    "$date": "2025-10-13T23:42:33.431Z"
+  },
+  "createdAt": {
+    "$date": "2025-10-13T23:42:33.434Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-13T23:42:33.434Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68ed8ff01ee72a280f7af3d5"
+  },
+  "Sno": 10,
+  "base": {
+    "$oid": "68ea47a9987bcd12cd34610a"
+  },
+  "items": [
+    {
+      "asset": {
+        "$oid": "68ed8ff01ee72a280f7af3c2"
+      },
+      "qty": 3,
+      "_id": {
+        "$oid": "68ed8ff01ee72a280f7af3d6"
+      }
+    },
+    {
+      "asset": {
+        "$oid": "68ea47a9987bcd12cd3460fe"
+      },
+      "qty": 2,
+      "_id": {
+        "$oid": "68ed8ff01ee72a280f7af3d7"
+      }
+    },
+    {
+      "asset": {
+        "$oid": "68ea47a9987bcd12cd3460ff"
+      },
+      "qty": 2,
+      "_id": {
+        "$oid": "68ed8ff01ee72a280f7af3d8"
+      }
+    },
+    {
+      "asset": {
+        "$oid": "68ea47a9987bcd12cd346102"
+      },
+      "qty": 2,
+      "_id": {
+        "$oid": "68ed8ff01ee72a280f7af3d9"
+      }
+    },
+    {
+      "asset": {
+        "$oid": "68ea47a9987bcd12cd346106"
+      },
+      "qty": 2,
+      "_id": {
+        "$oid": "68ed8ff01ee72a280f7af3da"
+      }
+    }
+  ],
+  "addedBy": "admin",
+  "role": "AD",
+  "purchaseDate": {
+    "$date": "2025-10-13T23:49:04.777Z"
+  },
+  "createdAt": {
+    "$date": "2025-10-13T23:49:04.778Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-13T23:49:04.778Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68ee9e435a0015be1483a822"
+  },
+  "Sno": 11,
+  "base": {
+    "$oid": "68ea47a9987bcd12cd3460fd"
+  },
+  "items": [
+    {
+      "asset": {
+        "$oid": "68ea47a8987bcd12cd3460f1"
+      },
+      "qty": 2,
+      "_id": {
+        "$oid": "68ee9e435a0015be1483a823"
+      }
+    },
+    {
+      "asset": {
+        "$oid": "68ea47a8987bcd12cd3460f2"
+      },
+      "qty": 2,
+      "_id": {
+        "$oid": "68ee9e435a0015be1483a824"
+      }
+    }
+  ],
+  "addedBy": "admin",
+  "role": "AD",
+  "purchaseDate": {
+    "$date": "2025-10-14T19:02:27.325Z"
+  },
+  "createdAt": {
+    "$date": "2025-10-14T19:02:27.335Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-14T19:02:27.335Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68eea0d71d443f58f2e0aac7"
+  },
+  "Sno": 12,
+  "base": {
+    "$oid": "68ea47a9987bcd12cd346117"
+  },
+  "items": [
+    {
+      "asset": {
+        "$oid": "68eea0d71d443f58f2e0aac1"
+      },
+      "qty": 3,
+      "_id": {
+        "$oid": "68eea0d71d443f58f2e0aac8"
+      }
+    },
+    {
+      "asset": {
+        "$oid": "68ea47a9987bcd12cd34610b"
+      },
+      "qty": 3,
+      "_id": {
+        "$oid": "68eea0d71d443f58f2e0aac9"
+      }
+    }
+  ],
+  "addedBy": "admin",
+  "role": "AD",
+  "purchaseDate": {
+    "$date": "2025-10-14T19:13:27.328Z"
+  },
+  "createdAt": {
+    "$date": "2025-10-14T19:13:27.334Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-14T19:13:27.334Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68f0af9ec967a93d2ba403b8"
+  },
+  "Sno": 13,
+  "base": {
+    "$oid": "68ea47a8987bcd12cd3460f0"
+  },
+  "items": [
+    {
+      "asset": {
+        "$oid": "68f0af9ec967a93d2ba403b0"
+      },
+      "qty": 2,
+      "_id": {
+        "$oid": "68f0af9ec967a93d2ba403b9"
+      }
+    },
+    {
+      "asset": {
+        "$oid": "68ea47a8987bcd12cd3460e4"
+      },
+      "qty": 3,
+      "_id": {
+        "$oid": "68f0af9ec967a93d2ba403ba"
+      }
+    }
+  ],
+  "addedBy": "offiB1",
+  "role": "LGOF",
+  "purchaseDate": {
+    "$date": "2025-10-16T08:41:02.228Z"
+  },
+  "createdAt": {
+    "$date": "2025-10-16T08:41:02.232Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-16T08:41:02.232Z"
+  },
+  "__v": 0
+}]
