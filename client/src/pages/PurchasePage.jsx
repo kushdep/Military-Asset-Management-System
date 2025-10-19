@@ -15,16 +15,21 @@ function PurchasePage() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if(!token && !localStorage.getItem('token') && localStorage.getItem('token')!==''){
+    if(!token && !localStorage.getItem('token')){
       navigate("/login");
+      console.log("Return bcs of token")
       return;
     }
+    console.log("token"+token)
+    
     if (data === null) {
       const baseIdToUse = id ?? actvId?.id;
       if (!baseIdToUse) {
         navigate("/login");
         return;
       }
+      console.log("sending Req")
+      console.log("sending Req token"+ token)
       dispatch(getBaseData(token, baseIdToUse));
     }
 

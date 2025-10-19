@@ -147,6 +147,10 @@ export const getBaseData = (token, id) => {
   return async (dispatch, getState) => {
     const getData = async () => {
       try {
+        console.log(token)
+        if(!token || token===''){
+          dispatch(baseActions.setErrorState({errMsg:'Unauthorized'}))
+        }
         const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/dashboard/${id}`, {
           headers: {
             authorization: `Bearer ${token}`
