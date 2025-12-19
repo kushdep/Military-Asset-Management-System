@@ -44,3 +44,16 @@
 2025-12-19T09:30:04.996Z [INFO]: Req for Base Data  by commB1 role-COM | Details: {"baseId":"B1"}
 2025-12-19T09:31:01.279Z [INFO]: Req for Base Data  by commB1 role-COM | Details: {"baseId":"B1"}
 2025-12-19T09:31:01.607Z [INFO]: Req for Base Data  by commB1 role-COM | Details: {"baseId":"B1"}
+2025-12-19T09:36:54.481Z [INFO]: Login Successfull by admin role-AD | Details: "2025-12-19T09:36:54.481Z"
+2025-12-19T09:36:54.580Z [INFO]: Req for Base Ids  by admin role-AD | Details: {"idsLength":4}
+2025-12-19T09:36:54.769Z [INFO]: Req for Base Ids  by admin role-AD | Details: {"idsLength":4}
+2025-12-19T09:36:54.870Z [INFO]: Req for Base Ids  by admin role-AD | Details: {"idsLength":4}
+2025-12-19T09:37:00.796Z [INFO]: Req for Base Data  by admin role-AD | Details: {"baseId":"B1"}
+2025-12-19T09:37:14.333Z [INFO]: Login Successfull by admin role-AD | Details: "2025-12-19T09:37:14.333Z"
+2025-12-19T09:37:14.471Z [INFO]: Req for Base Ids  by admin role-AD | Details: {"idsLength":4}
+2025-12-19T09:37:17.290Z [INFO]: Req for Base Data  by admin role-AD | Details: {"baseId":"B1"}
+2025-12-19T09:37:21.240Z [INFO]: Req for Base Data  by commB1 role-COM | Details: {"baseId":"B1"}
+2025-12-19T09:37:26.940Z [INFO]: Req for Base Data  by commB1 role-COM | Details: {"baseId":"B1"}
+2025-12-19T09:37:27.347Z [INFO]: Req for Base Data  by commB1 role-COM | Details: {"baseId":"B1"}
+2025-12-19T09:37:35.452Z [INFO]: Req for Base Data  by admin role-AD | Details: {"baseId":"B1"}
+2025-12-19T09:37:35.912Z [INFO]: Req for Base Data  by admin role-AD | Details: {"baseId":"B1"}
