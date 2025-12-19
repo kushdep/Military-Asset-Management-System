@@ -147,6 +147,8 @@ export const getBaseData = (token, id) => {
   return async (dispatch, getState) => {
     const getData = async () => {
       try {
+        console.log("token in get Bse Data")
+        console.log(token)
         const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/dashboard/${id}`, {
           headers: {
             authorization: `Bearer ${token}`

@@ -3,6 +3,8 @@ import "winston-mongodb";
 import dotenv from "dotenv";
 
 dotenv.config();
+console.log("dotenv")
+console.log(dotenv.config())
 
 const { combine, timestamp, printf, colorize } = winston.format;
 
@@ -10,6 +12,7 @@ const logFormat = printf(({ level, message, timestamp }) => {
   return `${timestamp} [${level}]: ${message}`;
 });
 
+console.log(process.env.MONGO_URI)
 const logger = winston.createLogger({
   level: "info",
   format: combine(timestamp(), logFormat),
