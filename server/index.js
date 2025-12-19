@@ -27,9 +27,9 @@ app.use(cors({
 app.use('/dashboard', authentication, dashboardRoutes)
 app.use('/', userRoutes)
 
-app.use(express.static(path.join(_dirname,'/client/dist')))
+app.use(express.static(path.join(_dirname,'..','client','dist')))
 app.get(/.*/,(_,res)=>{
-  res.sendFile(path.resolve(_dirname,"client","dist","index.html"))
+  res.sendFile(path.resolve(_dirname,"..","client","dist","index.html"))
 })
 
 app.listen(process.env.PORT, () => {
